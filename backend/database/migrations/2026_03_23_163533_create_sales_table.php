@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid');
+            $table->uuid('uuid')->nullable()->unique();
             $table->integer('ticket_number');
             $table->string('status');
+            $table->foreign('table_id')->references('id')->on('table');
+            $table->foreign('opened_by_user_id')->references('id')->on('users');
+            $table->foreign('closed_by_user_id')->references('id')->on('users')->nullable();
             $table->integer('diners');
             $table->timestamp('opened_at');
-            $table->timestamp('closed_at');
+            $table->timestamp('closed_at')->nullable();
             $table->integer('total');
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 

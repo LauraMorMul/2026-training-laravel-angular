@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('zones', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->string('uuid');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 

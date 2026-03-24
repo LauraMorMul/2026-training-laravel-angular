@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->varchar('uuid');
+            $table->uuid('uuid')->nullable()->unique();
             $table->string('image_src');
+            $table->foreign('family_id')->references('id')->on('families');
+            $table->foreign('tax_id')->references('id')->on('taxes');
             $table->string('nombre');
             $table->integer('price');
             $table->integer('stock');
             $table->boolean('active');
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 

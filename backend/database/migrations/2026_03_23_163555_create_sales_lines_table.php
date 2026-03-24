@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('sales_lines', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->nullable()->unique();
             $table->integer('quantity');
+            $table->foreign('sale_id')->references('id')->on('sales');
+            $table->foreign('product_id')->references('id')->on('product');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('price');
             $table->integer('tax_percentage');
             $table->timestamps();
+            $table->softDeletes('deleted_at')
         });
     }
 
