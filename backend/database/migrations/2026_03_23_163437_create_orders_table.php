@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid')->unique();
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
+            $table->string('uuid')->nullable()->unique();
+            $table->foreignId('restaurant_id')->constrained('restaurants');
             $table->string('status');
-            $table->foreign('table_id')->references('id')->on('tables');
-            $table->foreign('opened_by_user')->references('id')->on('user');
-            $table->foreign('closed_by_user')->references('id')->on('user');
+            $table->foreignId('table_id')->constrained('tables');
+            $table->foreignId('opened_by_user')->constrained('users');
+            $table->foreignId('closed_by_user')->nullable()->constrained('users');
             $table->integer('diners');
             $table->timestamp('opened_at');
             $table->timestamp('closed_at');

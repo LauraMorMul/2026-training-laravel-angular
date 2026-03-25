@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('families', function (Blueprint $table) {
+        Schema::create('zones', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->nullable()->unique();
             $table->foreignId('restaurant_id')->constrained('restaurants');
             $table->string('name');
-            $table->boolean('active');
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('families');
+        Schema::dropIfExists('zones');
     }
 };

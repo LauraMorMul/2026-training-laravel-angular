@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tables', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->nullable()->unique();
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
-            $table->foreign('zone_id')->references('id')->on('zones');
-            $table->string('name');
+            $table->foreignId('restaurant_id')->constrained('restaurants');
+            $table->string('image_src');
+            $table->foreignId('family_id')->constrained('families');
+            $table->foreignId('tax_id')->constrained('taxes');
+            $table->string('nombre');
+            $table->integer('price');
+            $table->integer('stock');
+            $table->boolean('active');
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tables');
+        Schema::dropIfExists('products');
     }
 };

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('zones', function (Blueprint $table) {
+        Schema::create('tables', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->nullable()->unique();
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
-            $table->string('uuid');
+            $table->foreignId('restaurant_id')->constrained('restaurants');
+            $table->foreignId('zone_id')->constrained('zones');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes('deleted_at');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('zones');
+        Schema::dropIfExists('tables');
     }
 };

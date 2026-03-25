@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('order_lines', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid');
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
-            $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('uuid')->nullable()->unique();
+            $table->foreignId('restaurant_id')->constrained('restaurants');
+            $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('user_id')->constrained('users');
             $table->integer('quantity');
             $table->integer('price');
             $table->integer('tax_percentage');
