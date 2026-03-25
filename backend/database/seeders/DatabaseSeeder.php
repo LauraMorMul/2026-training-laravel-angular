@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Restaurants\Infrastructure\Persistence\Models\EloquentRestaurant;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,9 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        EloquentUser::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $restaurants = EloquentRestaurant::factory()->count(3)->create();
+        $users = EloquentUser::factory()->recycle($restaurants)->count(5)->create();
     }
 }

@@ -20,9 +20,13 @@ class EloquentUser extends Authenticatable
 
     protected $fillable = [
         'uuid',
+        'restaurant_id',
+        'role',
+        'image_src',
         'name',
         'email',
         'password',
+        'pin',
     ];
 
     protected $hidden = [
