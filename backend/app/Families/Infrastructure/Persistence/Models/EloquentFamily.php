@@ -2,7 +2,7 @@
 
 namespace App\Families\Infrastructure\Persistence\Models;
 
-use Database\Factories\RestaurantFactory;
+use Database\Factories\FamilyFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +16,7 @@ class EloquentFamily extends Model
 
     protected static function newFactory(): Factory
     {
-        return RestaurantFactory::new();
+        return FamilyFactory::new();
     }
 
     protected $fillable = [
