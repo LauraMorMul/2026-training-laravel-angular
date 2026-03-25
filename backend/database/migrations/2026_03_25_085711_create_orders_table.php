@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sales_lines', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
-            $table->foreign('sale_id')->references('id')->on('sales');
-            $table->foreign('order_line_id')->references('id')->on('order_lines');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('quantity');
-            $table->integer('price');
-            $table->integer('tax_percentage');
+            $table->string('status');
+            $table->foreign('table_id')->references('id')->on('tables');
+            $table->foreign('opened_by_user')->references('id')->on('user');
+            $table->foreign('closed_by_user')->references('id')->on('user');
+            $table->integer('diners');
+            $table->timestamp('opened_at');
+            $table->timestamp('closed_at');
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sales_lines');
+        Schema::dropIfExists('orders');
     }
 };

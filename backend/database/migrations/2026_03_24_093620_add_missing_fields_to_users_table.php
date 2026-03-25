@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->after('uuid');
+            $table->string('uuid')->unique()->after('id');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->after('uuid');
+            $table->string('role')->after('restaurant_id');
             $table->string('image_src')->after('role');
+            $table->string('pin')->after('password');
             $table->softDeletes('deleted_at')->after('updated_at');
         });
     }
