@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('image_src');
             $table->foreignId('family_id')->constrained('families');
             $table->foreignId('tax_id')->constrained('taxes');
-            $table->string('nombre');
+            $table->string('name');
             $table->integer('price');
             $table->integer('stock');
             $table->boolean('active');
