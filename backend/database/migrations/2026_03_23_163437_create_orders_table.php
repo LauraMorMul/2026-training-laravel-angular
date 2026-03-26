@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('closed_by_user_id')->nullable()->constrained('users');
             $table->integer('diners');
             $table->timestamp('opened_at');
-            $table->timestamp('closed_at');
+            $table->timestamp('closed_at')->nullable();
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });

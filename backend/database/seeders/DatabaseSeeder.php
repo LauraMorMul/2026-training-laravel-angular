@@ -7,6 +7,8 @@ use App\Order_lines\Infrastructure\Persistence\Models\EloquentOrderLine;
 use App\Orders\Infrastructure\Persistence\Models\EloquentOrder;
 use App\Products\Infrastructure\Persistence\Models\EloquentProduct;
 use App\Restaurants\Infrastructure\Persistence\Models\EloquentRestaurant;
+use App\Sales\Infrastructure\Persistence\Models\EloquentSale;
+use App\Sales_lines\Infrastructure\Persistence\Models\EloquentSaleLine;
 use App\Tables\Infrastructure\Persistence\Models\EloquentTable;
 use App\Taxes\Infrastructure\Persistence\Models\EloquentTax;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
@@ -32,7 +34,9 @@ class DatabaseSeeder extends Seeder
         $products = EloquentProduct::factory()->recycle($restaurants)->recycle($families)->recycle($taxes)->count(50)->create();
         $zones = EloquentZone::factory()->recycle($restaurants)->count(8)->create();
         $tables = EloquentTable::factory()->recycle($restaurants)->recycle($zones)->count(20)->create();
-        $orders = EloquentOrder::factory()->recycle($restaurants)->recycle($tables)->recycle($users)->recycle($users)->count(50)->create();
-        $order_lines = EloquentOrderLine::factory()->recycle($restaurants)->recycle($orders)->recycle($products)->recycle($users)->count(random_int(5, 50))->create();
+        $orders = EloquentOrder::factory()->recycle($restaurants)->recycle($tables)->recycle($users)->count(50)->create();
+        $orderLines = EloquentOrderLine::factory()->recycle($restaurants)->recycle($orders)->recycle($products)->recycle($users)->count(random_int(5, 50))->create();
+        $sales = EloquentSale::factory()->recycle($restaurants)->recycle($orders)->recycle($users)->count(100)->create();
+        $salesLines = EloquentSaleLine::factory()->recycle($restaurants)->recycle($sales)->recycle($orderLines)->recycle($users)->count(150)->create();
     }
 }
