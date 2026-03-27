@@ -17,11 +17,11 @@ return new class extends Migration
             $table->foreignId('restaurant_id')->constrained('restaurants');
             $table->string('status');
             $table->foreignId('table_id')->constrained('tables');
-            $table->foreignId('opened_by_user')->constrained('users');
-            $table->foreignId('closed_by_user')->nullable()->constrained('users');
+            $table->foreignId('opened_by_user_id')->constrained('users');
+            $table->foreignId('closed_by_user_id')->nullable()->constrained('users');
             $table->integer('diners');
             $table->timestamp('opened_at');
-            $table->timestamp('closed_at');
+            $table->timestamp('closed_at')->nullable();
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });

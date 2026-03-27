@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->nullable()->unique();
             $table->foreignId('restaurant_id')->constrained('restaurants');
-            $table->string('image_src');
             $table->foreignId('family_id')->constrained('families');
             $table->foreignId('tax_id')->constrained('taxes');
-            $table->string('nombre');
+            $table->string('image_src');
+            $table->string('name');
             $table->integer('price');
             $table->integer('stock');
             $table->boolean('active');

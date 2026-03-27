@@ -1,6 +1,6 @@
 <?php
 
-namespace App\User\Domain\ValueObject;
+namespace App\Shared\Domain\ValueObject;
 
 class PasswordHash
 {

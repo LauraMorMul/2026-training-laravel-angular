@@ -5,7 +5,7 @@ namespace App\User\Domain\Entity;
 use App\Shared\Domain\ValueObject\DomainDateTime;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\Uuid;
-use App\User\Domain\ValueObject\PasswordHash;
+use App\Shared\Domain\ValueObject\PasswordHash;
 use App\User\Domain\ValueObject\UserName;
 
 class User
