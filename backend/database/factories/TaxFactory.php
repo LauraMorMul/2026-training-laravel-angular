@@ -23,7 +23,7 @@ class TaxFactory extends Factory
             'uuid' => (string) Str::uuid(),
             'restaurant_id' => RestaurantFactory::new(),
             'name' => fake()->word(),
-            'percentage' => fake()->randomDigitNotNull(),
+            'percentage' => random_int(0, 100),
         ];
     }
 }
