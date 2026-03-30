@@ -66,6 +66,28 @@ class User
         );
     }
 
+    public function updateData(
+        Role $role,
+        ImageSrc $imageSrc,
+        UserName $name,
+        Email $email,
+        PasswordHash $passwordHash,
+        Pin $pin
+    ): self
+    {
+        return new self(
+            $this->id,
+            $role,
+            $imageSrc,
+            $name,
+            $email,
+            $passwordHash,
+            $pin,
+            $this->createdAt,
+            DomainDateTime::now(),
+        );
+    }
+
     public function id(): Uuid
     {
         return $this->id;

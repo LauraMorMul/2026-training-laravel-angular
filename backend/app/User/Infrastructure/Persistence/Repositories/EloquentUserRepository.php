@@ -36,9 +36,12 @@ class EloquentUserRepository implements UserRepositoryInterface
 
         return User::fromPersistence(
             $model->uuid,
+            $model->role,
+            $model->imageSrc,
             $model->name,
             $model->email,
             $model->password,
+            $model->pin,
             $model->created_at->toDateTimeImmutable(),
             $model->updated_at->toDateTimeImmutable(),
         );
