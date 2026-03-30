@@ -8,8 +8,11 @@ final readonly class CreateUserResponse
 {
     public function __construct(
         public string $id,
+        public string $role,
+        public string $imageSrc,
         public string $name,
         public string $email,
+        public string $pin,
         public string $createdAt,
         public string $updatedAt,
     ) {}
@@ -18,8 +21,11 @@ final readonly class CreateUserResponse
     {
         return new self(
             id: $user->id()->value(),
+            role: $user->role(),
+            imageSrc: $user->imageSrc(),
             name: $user->name(),
             email: $user->email()->value(),
+            pin: $user->pin(),
             createdAt: $user->createdAt()->format(\DateTimeInterface::ATOM),
             updatedAt: $user->updatedAt()->format(\DateTimeInterface::ATOM),
         );
@@ -32,8 +38,11 @@ final readonly class CreateUserResponse
     {
         return [
             'id' => $this->id,
+            'role' => $this->role,
+            'imageSrc' => $this->imageSrc,
             'name' => $this->name,
             'email' => $this->email,
+            'pin' => $this->pin,
             'created_at' => $this->createdAt,
             'updated_at' => $this->updatedAt,
         ];
