@@ -17,9 +17,13 @@ class EloquentUserRepository implements UserRepositoryInterface
         $this->model->newQuery()->updateOrCreate(
             ['uuid' => $user->id()->value()],
             [
+                'restaurant_id' => $user->restaurantID(),
+                'role' => $user->role(),
+                'image_src' => $user->imageSrc(),
                 'name' => $user->name(),
                 'email' => $user->email()->value(),
                 'password' => $user->passwordHash(),
+                'pin' => $user->pin(),
                 'created_at' => $user->createdAt()->value(),
                 'updated_at' => $user->updatedAt()->value(),
             ]
@@ -36,9 +40,13 @@ class EloquentUserRepository implements UserRepositoryInterface
 
         return User::fromPersistence(
             $model->uuid,
+            $model->restaurantID,
+            $model->role,
+            $model->image_src,
             $model->name,
             $model->email,
             $model->password,
+            $model->pin,
             $model->created_at->toDateTimeImmutable(),
             $model->updated_at->toDateTimeImmutable(),
         );

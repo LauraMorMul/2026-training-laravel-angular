@@ -8,6 +8,7 @@ final readonly class CreateUserResponse
 {
     public function __construct(
         public string $id,
+        public string $restaurantID,
         public string $role,
         public string $imageSrc,
         public string $name,
@@ -21,6 +22,7 @@ final readonly class CreateUserResponse
     {
         return new self(
             id: $user->id()->value(),
+            restaurantID: $user->restaurantID(),
             role: $user->role(),
             imageSrc: $user->imageSrc(),
             name: $user->name(),
@@ -38,6 +40,7 @@ final readonly class CreateUserResponse
     {
         return [
             'id' => $this->id,
+            'restaurant_id' => $this->restaurantID,
             'role' => $this->role,
             'imageSrc' => $this->imageSrc,
             'name' => $this->name,
