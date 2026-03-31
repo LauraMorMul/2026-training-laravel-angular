@@ -19,7 +19,7 @@ class RestaurantID
         $this->value = $trimmed;
     }
 
-    public static function crete(string $value)
+    public static function create(string $value)
     {
         return new self($value);
     }

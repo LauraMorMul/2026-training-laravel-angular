@@ -7,6 +7,7 @@ use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\ImageSrc;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\PasswordHash;
+use App\Shared\Domain\ValueObject\RestaurantID;
 use App\User\Domain\ValueObject\Pin;
 use App\User\Domain\ValueObject\Role;
 use App\User\Domain\ValueObject\UserName;
@@ -15,6 +16,7 @@ class User
 {
     private function __construct(
         private Uuid $id,
+        private RestaurantID $restaurantID,
         private Role $role,
         private ImageSrc $imageSrc,
         private UserName $name,
@@ -25,12 +27,13 @@ class User
         private DomainDateTime $updatedAt,
     ) {}
 
-    public static function  dddCreate(Email $email, UserName $name, PasswordHash $passwordHash, Role $role, ImageSrc $imageSrc, Pin $pin): self
+    public static function  dddCreate(Email $email, UserName $name, PasswordHash $passwordHash, RestaurantID $restaurantID, Role $role, ImageSrc $imageSrc, Pin $pin): self
     {
         $now = DomainDateTime::now();
 
         return new self(
             Uuid::generate(),
+            $restaurantID,
             $role,
             $imageSrc,
             $name,
@@ -44,6 +47,7 @@ class User
 
     public static function fromPersistence(
         string $id,
+        string $restaurantID,
         string $role,
         string $imageSrc,
         string $name,
@@ -55,6 +59,7 @@ class User
     ): self {
         return new self(
             Uuid::create($id),
+            RestaurantID::create($restaurantID),
             Role::create($role),
             ImageSrc::create($imageSrc),
             UserName::create($name),
@@ -91,6 +96,11 @@ class User
     public function id(): Uuid
     {
         return $this->id;
+    }
+
+    public function restaurantID(): string
+    {
+        return $this->restaurantID->value();
     }
 
     public function role(): string
