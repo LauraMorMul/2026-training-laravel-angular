@@ -82,6 +82,7 @@ class User
     {
         return new self(
             $this->id,
+            $this->restaurantID,
             $role,
             $imageSrc,
             $name,

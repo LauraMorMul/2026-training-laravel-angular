@@ -13,12 +13,14 @@ class ImageSrc
         $trimmed = trim($value);
         if($trimmed === '') {
             throw new \InvalidArgumentException('If an image isn\'t provided, there will be a placeholder.');
-        }else {
+        }/* else {
             $extension = pathinfo($value, PATHINFO_EXTENSION);
-            if( !in_array($$extension, self::ACCEPTED_FILETYPE) || $value === NULL || $value === '') {
-                throw new \InvalidArgumentException(('File extension not accepted.'));
+            if( !in_array($extension, self::ACCEPTED_FILETYPE) || $value === NULL || $value === '') {
+                throw new \InvalidArgumentException(
+                    sprintf('File extension not accepted. %s', $trimmed)
+                );
             }
-        }
+        } */
         $this->value = $trimmed;
     }
 

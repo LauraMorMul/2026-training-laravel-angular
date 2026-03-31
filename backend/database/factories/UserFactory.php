@@ -30,7 +30,7 @@ class UserFactory extends Factory
         return [
             'uuid' => (string) Str::uuid(),
             'restaurant_id' => RestaurantFactory::new(),
-            'role' => fake()->randomElement(['admin', 'jefe de sala', 'personal']),
+            'role' => fake()->randomElement(['admin', 'camarero', 'barra', 'jefe_sala']),
             'image_src' => fake()->imageUrl(),
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),

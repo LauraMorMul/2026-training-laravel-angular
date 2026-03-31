@@ -1,16 +1,12 @@
 <?php
 
-namespace App\User\Application\GetUser;
+namespace App\User\Application\GetUserByID;
 
-use App\User\Application\CreateUser\GetUserByIDResponse;
-use App\User\Domain\Interfaces\PasswordHasherInterface;
+use App\User\Application\GetUserByID\GetUserByIDResponse;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 
 class GetUserByID
 {
-    /**
-     * Create a new class instance.
-     */
     public function __construct(
         private UserRepositoryInterface $userRepository
     ) {}

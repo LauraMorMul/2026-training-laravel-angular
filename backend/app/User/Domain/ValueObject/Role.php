@@ -4,7 +4,8 @@ namespace App\User\Domain\ValueObject;
 
 class Role
 {
-    private const AVAILABLE_ROLES = ['admin', 'camarero', 'barra', 'jefe_sala'];
+    // private const AVAILABLE_ROLES = ['admin', 'camarero', 'barra', 'jefe_sala'];
+    private const AVAILABLE_ROLES = ['admin', 'camarero', 'barra', 'jefe de sala'];
 
     private string $value;
 
@@ -17,7 +18,7 @@ class Role
 
         if(!in_array($value, self::AVAILABLE_ROLES)) {
             throw new \InvalidArgumentException(
-                sprintf('Role %d isn\'t available as an option.', $value)
+                sprintf('Role %s isn\'t available as an option.', $value)
             );
         }
         $this->value = $trimmed;

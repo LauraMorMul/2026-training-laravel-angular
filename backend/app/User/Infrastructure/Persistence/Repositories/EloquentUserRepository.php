@@ -5,6 +5,8 @@ namespace App\User\Infrastructure\Persistence\Repositories;
 use App\User\Domain\Entity\User;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Arr;
 
 class EloquentUserRepository implements UserRepositoryInterface
 {
@@ -40,7 +42,7 @@ class EloquentUserRepository implements UserRepositoryInterface
 
         return User::fromPersistence(
             $model->uuid,
-            $model->restaurantID,
+            $model->restaurant_id,
             $model->role,
             $model->image_src,
             $model->name,
@@ -50,5 +52,33 @@ class EloquentUserRepository implements UserRepositoryInterface
             $model->created_at->toDateTimeImmutable(),
             $model->updated_at->toDateTimeImmutable(),
         );
+    }
+
+    public function getAll(): ?array
+    {
+        $models = $this->model->newQuery()->getModels();
+        $users = array();
+
+        if ($models === null) {
+            return null;
+        }
+
+        foreach($models as $model) {
+            $user = User::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->role,
+            $model->image_src,
+            $model->name,
+            $model->email,
+            $model->password,
+            $model->pin,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+            array_push($users, $user);
+        }
+
+        return $users;
     }
 }

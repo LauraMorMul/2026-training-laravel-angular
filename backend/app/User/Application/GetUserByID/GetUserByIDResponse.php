@@ -1,6 +1,6 @@
 <?php
 
-namespace App\User\Application\CreateUser;
+namespace App\User\Application\GetUserByID;
 
 use App\User\Domain\Entity\User;
 
