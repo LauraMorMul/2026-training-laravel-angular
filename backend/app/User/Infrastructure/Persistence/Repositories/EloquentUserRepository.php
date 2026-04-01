@@ -81,4 +81,32 @@ class EloquentUserRepository implements UserRepositoryInterface
 
         return $users;
     }
+
+    public function getByRestaurant(string $restaurantID): ?array
+    {
+        $models = $this->model->newQuery()->where('restaurant_id', $restaurantID)->getModels();
+        $users = array();
+
+        if ($models === null) {
+            return null;
+        }
+
+        foreach($models as $model) {
+            $user = User::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->role,
+            $model->image_src,
+            $model->name,
+            $model->email,
+            $model->password,
+            $model->pin,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+            array_push($users, $user);
+        }
+
+        return $users;
+    }
 }

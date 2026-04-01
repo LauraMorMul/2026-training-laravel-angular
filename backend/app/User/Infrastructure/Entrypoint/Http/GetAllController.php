@@ -15,7 +15,7 @@ class GetAllController
     public function __invoke(): JsonResponse
     {
         $response = ($this->getAllUsers)();
-
-        return new JsonResponse($response->toArray(), 201);
+        
+        return new JsonResponse($response->toArray(), 200);
     }
 }
