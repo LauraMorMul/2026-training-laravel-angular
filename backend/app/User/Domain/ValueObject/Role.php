@@ -4,8 +4,7 @@ namespace App\User\Domain\ValueObject;
 
 class Role
 {
-    // private const AVAILABLE_ROLES = ['admin', 'camarero', 'barra', 'jefe_sala'];
-    private const AVAILABLE_ROLES = ['admin', 'camarero', 'barra', 'jefe de sala'];
+    private const AVAILABLE_ROLES = ['admin', 'camarero', 'barra', 'jefe_sala'];
 
     private string $value;
 
