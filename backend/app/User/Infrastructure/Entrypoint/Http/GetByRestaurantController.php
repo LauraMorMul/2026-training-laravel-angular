@@ -15,6 +15,10 @@ class GetByRestaurantController
     {
         $response = ($this->getUsersByRestaurant)($restaurantID);
 
-        return new JsonResponse($response->toArray(), 200);
+        if($response == null) {
+            return new JsonResponse('Users not found', 404);
+        } else {
+            return new JsonResponse($response->toArray(), 200);
+        }        
     }
 }

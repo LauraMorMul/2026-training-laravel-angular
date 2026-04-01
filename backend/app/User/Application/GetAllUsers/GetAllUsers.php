@@ -11,10 +11,15 @@ class GetAllUsers
         private UserRepositoryInterface $userRepository
     ) {}
 
-    public function __invoke(): GetAllUsersResponse
+    public function __invoke(): ?GetAllUsersResponse
     {
         $users = $this->userRepository->getAll();
 
-        return GetAllUsersResponse::create($users);
+
+        if( $users == null) {
+            return null;
+        } else {
+            return GetAllUsersResponse::create($users);
+        }
     }
 }

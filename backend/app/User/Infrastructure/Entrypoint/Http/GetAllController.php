@@ -15,7 +15,11 @@ class GetAllController
     public function __invoke(): JsonResponse
     {
         $response = ($this->getAllUsers)();
-        
-        return new JsonResponse($response->toArray(), 200);
+
+        if($response == null) {
+            return new JsonResponse('Users not found', 404);
+        } else {
+            return new JsonResponse($response->toArray(), 200);
+        }
     }
 }

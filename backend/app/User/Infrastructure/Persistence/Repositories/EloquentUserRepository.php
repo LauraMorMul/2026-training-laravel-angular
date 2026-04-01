@@ -109,4 +109,13 @@ class EloquentUserRepository implements UserRepositoryInterface
 
         return $users;
     }
+
+    public function deleteByID(string $id): ?string
+    {
+        $this->model->newQuery()->where('uuid', $id)->delete();
+
+        $response = $this->model->newQuery()->where('uuid', $id)->get('deleted_at');
+
+        return $response;
+    }
 }

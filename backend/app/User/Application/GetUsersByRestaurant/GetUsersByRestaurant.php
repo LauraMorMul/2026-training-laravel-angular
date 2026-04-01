@@ -11,10 +11,14 @@ class GetUsersByRestaurant
         private UserRepositoryInterface $userRepository
     ){}
 
-    public function __invoke(string $restaurantID): GetUsersByRestaurantResponse
+    public function __invoke(string $restaurantID): ?GetUsersByRestaurantResponse
     {
         $users = $this->userRepository->getByRestaurant($restaurantID);
 
-        return GetUsersByRestaurantResponse::create($users);
+        if($users == null) {
+            return null;
+        } else {
+            return GetUsersByRestaurantResponse::create($users);
+        }        
     }
 }

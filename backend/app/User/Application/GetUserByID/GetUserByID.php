@@ -11,10 +11,14 @@ class GetUserByID
         private UserRepositoryInterface $userRepository
     ) {}
 
-    public function __invoke(string $id): GetUserByIDResponse
+    public function __invoke(string $id): ?GetUserByIDResponse
     {
         $user = $this->userRepository->findByID($id);
 
-        return GetUserByIDResponse::create($user);
+        if($user == null) {
+            return null;
+        } else {
+            return GetUserByIDResponse::create($user);
+        }
     }
 }
