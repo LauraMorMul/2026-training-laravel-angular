@@ -8,6 +8,7 @@ use App\Shared\Domain\ValueObject\ImageSrc;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\PasswordHash;
 use App\Shared\Domain\ValueObject\RestaurantID;
+use App\User\Domain\ValueObject\Name;
 use App\User\Domain\ValueObject\Pin;
 use App\User\Domain\ValueObject\Role;
 use App\User\Domain\ValueObject\UserName;
@@ -72,12 +73,12 @@ class User
     }
 
     public function updateData(
+        Email $email,
+        UserName $name,
+        PasswordHash $password,
         Role $role,
         ImageSrc $imageSrc,
-        UserName $name,
-        Email $email,
-        PasswordHash $passwordHash,
-        Pin $pin
+        Pin $pin,
     ): self
     {
         return new self(
@@ -87,7 +88,7 @@ class User
             $imageSrc,
             $name,
             $email,
-            $passwordHash,
+            $password,
             $pin,
             $this->createdAt,
             DomainDateTime::now(),

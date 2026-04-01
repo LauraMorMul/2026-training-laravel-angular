@@ -8,6 +8,7 @@ use App\User\Domain\Entity\User;
 use App\User\Domain\Interfaces\PasswordHasherInterface;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\Shared\Domain\ValueObject\PasswordHash;
+use App\Shared\Domain\ValueObject\RestaurantID;
 use App\User\Domain\ValueObject\Pin;
 use App\User\Domain\ValueObject\Role;
 use App\User\Domain\ValueObject\UserName;
@@ -29,10 +30,11 @@ class UpdateUser
         $emailVO = Email::create($email);
         $nameVO = UserName::create($name);
         $passwordHashVO = PasswordHash::create($this->passwordHasher->hash($plainPassword));
+        $restaurantIDVO = RestaurantID::create($user->restaurantID());
         $roleVO = Role::create($role);
         $imageSrcVO = ImageSrc::create($imageSrc);
         $pinVO = Pin::create($pin);
-        $updatedUser = $user->updateData($roleVO, $imageSrcVO, $nameVO, $emailVO, $passwordHashVO, $pinVO);
+        $updatedUser = $user->updateData($emailVO,$nameVO,$passwordHashVO,$roleVO,$imageSrcVO,$pinVO);
         $this->userRepository->save($updatedUser);
         
         return UpdateUserResponse::create($updatedUser);

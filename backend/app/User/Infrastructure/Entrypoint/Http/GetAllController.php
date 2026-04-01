@@ -3,7 +3,7 @@
 namespace App\User\Infrastructure\Entrypoint\Http;
 
 use App\User\Application\GetAllUsers\GetAllUsers;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Illuminate\Http\JsonResponse;
 
 class GetAllController
 {
