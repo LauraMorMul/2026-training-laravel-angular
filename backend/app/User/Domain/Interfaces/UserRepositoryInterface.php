@@ -14,5 +14,5 @@ interface UserRepositoryInterface
 
     public function getByRestaurant(string $restaurantID): ?array;
 
-    public function deleteByID(string $id): ?string;
+    public function deleteByID(string $id): void;
 }

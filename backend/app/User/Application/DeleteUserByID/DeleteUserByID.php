@@ -10,10 +10,8 @@ class DeleteUserByID
         private UserRepositoryInterface $userRepository
     ) {}
 
-    public function __invoke(string $id): string
+    public function __invoke(string $id): void
     {
         $deleted = $this->userRepository->deleteByID($id);
-
-        return $deleted;
     }
 }

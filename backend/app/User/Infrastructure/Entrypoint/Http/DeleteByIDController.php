@@ -17,7 +17,7 @@ class DeleteByIDController
         if($response == null) {
             return new JsonResponse('User not deleted.', 200);
         } else {
-            return new JsonResponse($response->toArray(), 204);
+            return new JsonResponse($response, 204);
         }
     }
 }
