@@ -15,6 +15,7 @@ class UserFactory extends Factory
 {
     protected $model = EloquentUser::class;
 
+
     /**
      * The current password being used by the factory.
      */
@@ -27,16 +28,22 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $firstName = fake()->firstName;
+        $lastName = fake()->lastName;
+        $fullName = $firstName.' '.$lastName;
+        $email = $firstName.'.'.$lastName.'@company.com';
+        $extension = fake()->randomElement(['jpeg', 'jpg', 'png', 'gif', 'webp', 'avif', 'svg']);
+        $imageSrc = $firstName.'_'.$lastName.'.'.$extension;
         return [
             'uuid' => (string) Str::uuid(),
             'restaurant_id' => RestaurantFactory::new(),
             'role' => fake()->randomElement(['admin', 'camarero', 'barra', 'jefe_sala']),
-            'image_src' => fake()->imageUrl(),
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'image_src' => $imageSrc,
+            'name' => $fullName,
+            'email' => $email,
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
-            'pin' => fake()->randomNumber(),
+            'pin' => random_int(1000, 9999),
             'remember_token' => Str::random(10),
         ];
     }
