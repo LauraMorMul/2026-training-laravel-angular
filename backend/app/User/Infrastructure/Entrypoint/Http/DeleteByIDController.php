@@ -15,7 +15,7 @@ class DeleteByIDController
     {
         $response = ($this->deleteUserByID)($id);
         if($response == null) {
-            return new JsonResponse('User not deleted.', 200);
+            return new JsonResponse('User deleted correctly.', 200);
         } else {
             return new JsonResponse($response, 204);
         }

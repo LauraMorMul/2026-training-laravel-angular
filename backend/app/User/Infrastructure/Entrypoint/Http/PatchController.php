@@ -15,25 +15,25 @@ class PatchController
     public function __invoke(string $id, Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'restaurant_id' => ['required', 'integer', 'exists:restaurants,id' ],
-            'role' => ['required', 'string', 'max:40'],
-            'image_src' => ['required', 'string'],
-            'pin' => ['required', 'string', 'digits_between:4,6'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'restaurant_id' => ['nullable', 'integer', 'exists:restaurants,id' ],
+            'role' => ['nullable', 'string', 'max:40'],
+            'image_src' => ['nullable', 'string'],
+            'pin' => ['nullable', 'string', 'digits_between:4,6'],
 
         ]);
 
         $response = ($this->updateUser)(
             $id,
-            $validated['email'],
-            $validated['name'],
-            $validated['password'],
-            $validated['restaurant_id'],
-            $validated['role'],
-            $validated['image_src'],
-            $validated['pin'],
+            $validated['email'] ?? null,
+            $validated['name'] ?? null,
+            $validated['password'] ?? null,
+            $validated['restaurant_id'] ?? null,
+            $validated['role'] ?? null,
+            $validated['image_src'] ?? null,
+            $validated['pin'] ?? null,
         );
         return new JsonResponse($response->toArray(), 201);
     }
