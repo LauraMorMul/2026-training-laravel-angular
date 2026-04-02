@@ -6,7 +6,7 @@ use App\User\Application\CreateUser\CreateUser;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class PostController
+class PostUserController
 {
     public function __construct(
         private CreateUser $createUser,

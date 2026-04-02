@@ -2,24 +2,24 @@
 
 namespace App\User\Infrastructure\Entrypoint\Http;
 
-use App\User\Application\GetUserByID\GetUserByID;
+use App\User\Application\GetAllUsers\GetAllUsers;
 use Illuminate\Http\JsonResponse;
 
-class GetByIDController
+class GetAllUserController
 {
     public function __construct(
-        private GetUserByID $getUserByID
+        private GetAllUsers $getAllUsers,
     )
     {}
 
-    public function __invoke(string $id)
+    public function __invoke(): JsonResponse
     {
-        $response = ($this->getUserByID)($id);
+        $response = ($this->getAllUsers)();
+
         if($response == null) {
-            return new JsonResponse('User not found', 404);
+            return new JsonResponse('Users not found', 404);
         } else {
             return new JsonResponse($response->toArray(), 200);
         }
-        
     }
 }

@@ -5,7 +5,7 @@ namespace App\User\Infrastructure\Entrypoint\Http;
 use App\User\Application\GetUsersByRestaurant\GetUsersByRestaurant;
 use Illuminate\Http\JsonResponse;
 
-class GetByRestaurantController
+class GetUserByRestaurantController
 {
     public function __construct(
         private GetUsersByRestaurant $getUsersByRestaurant

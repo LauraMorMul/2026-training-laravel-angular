@@ -5,7 +5,7 @@ namespace App\User\Infrastructure\Entrypoint\Http;
 use App\User\Application\DeleteUserByID\DeleteUserByID;
 use Illuminate\Http\JsonResponse;
 
-class DeleteByIDController
+class DeleteUserByIDController
 {
     public function __construct(
         private DeleteUserByID $deleteUserByID,
