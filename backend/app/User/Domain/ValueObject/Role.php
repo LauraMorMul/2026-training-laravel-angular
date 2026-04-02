@@ -17,7 +17,7 @@ class Role
 
         if(!in_array($value, self::AVAILABLE_ROLES)) {
             throw new \InvalidArgumentException(
-                sprintf('Role %d isn\'t available as an option.', $value)
+                sprintf('Role %s isn\'t available as an option.', $value)
             );
         }
         $this->value = $trimmed;
