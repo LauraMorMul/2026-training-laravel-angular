@@ -30,13 +30,12 @@ class UpdateUser
         $emailVO = Email::create($email);
         $nameVO = UserName::create($name);
         $passwordHashVO = PasswordHash::create($this->passwordHasher->hash($plainPassword));
-        $restaurantIDVO = RestaurantID::create($user->restaurantID());
         $roleVO = Role::create($role);
         $imageSrcVO = ImageSrc::create($imageSrc);
         $pinVO = Pin::create($pin);
-        $updatedUser = $user->updateData($emailVO,$nameVO,$passwordHashVO,$roleVO,$imageSrcVO,$pinVO);
-        $this->userRepository->save($updatedUser);
+        $user = $user->updateData($emailVO,$nameVO,$passwordHashVO,$roleVO,$imageSrcVO,$pinVO);
+        $this->userRepository->save($user);
         
-        return UpdateUserResponse::create($updatedUser);
+        return UpdateUserResponse::create($user);
     }
 }
