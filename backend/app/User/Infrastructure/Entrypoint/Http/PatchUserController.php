@@ -6,7 +6,7 @@ use App\User\Application\UpdateUser\UpdateUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-class PatchController
+class PatchUserController
 {
     public function __construct(
         private UpdateUser $updateUser
