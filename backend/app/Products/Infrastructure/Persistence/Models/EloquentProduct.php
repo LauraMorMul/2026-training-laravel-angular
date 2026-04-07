@@ -2,14 +2,23 @@
 
 namespace App\Products\Infrastructure\Persistence\Models;
 
+use App\Families\Infrastructure\Persistence\Models\EloquentFamily;
+use App\Order_lines\Infrastructure\Persistence\Models\EloquentOrderLine;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Restaurants\Infrastructure\Persistence\Models\EloquentRestaurant;
+use App\Taxes\Infrastructure\Persistence\Models\EloquentTax;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EloquentProduct extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'products';
 
@@ -29,4 +38,24 @@ class EloquentProduct extends Model
         'stock',
         'active',
     ];
+
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(EloquentRestaurant::class, 'restaurant_id');
+    }
+
+    public function family(): BelongsTo
+    {
+        return $this->belongsTo(EloquentFamily::class, 'family_id');
+    }
+
+    public function tax(): BelongsTo
+    {
+        return $this->belongsTo(EloquentTax::class, 'tax_id');
+    }
+
+    public function orderLines(): HasMany
+    {
+        return $this->hasMany(EloquentOrderLine::class, 'product_id');
+    }
 }

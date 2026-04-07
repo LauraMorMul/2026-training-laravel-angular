@@ -2,10 +2,13 @@
 
 namespace App\Tables\Infrastructure\Persistence\Models;
 
+use App\Restaurants\Infrastructure\Persistence\Models\EloquentRestaurant;
+use App\Zones\Infrastructure\Persistence\Models\EloquentZone;
 use Database\Factories\TableFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EloquentTable extends Model
 {
@@ -24,4 +27,14 @@ class EloquentTable extends Model
         'zone_id',
         'name',
     ];
+
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(EloquentRestaurant::class, 'restaurant_id');
+    }
+
+    public function zone(): BelongsTo
+    {
+        return $this->belongsTo(EloquentZone::class, 'zone_id');
+    }
 }

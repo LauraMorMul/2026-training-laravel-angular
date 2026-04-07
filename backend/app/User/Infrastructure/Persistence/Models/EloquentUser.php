@@ -2,9 +2,12 @@
 
 namespace App\User\Infrastructure\Persistence\Models;
 
+use App\Order_lines\Infrastructure\Persistence\Models\EloquentOrderLine;
+use App\Sales_lines\Infrastructure\Persistence\Models\EloquentSaleLine;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -46,5 +49,15 @@ class EloquentUser extends Authenticatable
     public function getKeyName(): string
     {
         return 'id';
+    }
+
+    public function orderLines(): HasMany
+    {
+        return $this->hasMany(EloquentOrderLine::class, 'user_id');
+    }
+
+    public function salesLines(): HasMany
+    {
+        return $this->hasMany(EloquentSaleLine::class, 'user_id');
     }
 }

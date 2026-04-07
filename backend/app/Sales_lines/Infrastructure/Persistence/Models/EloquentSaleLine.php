@@ -2,10 +2,16 @@
 
 namespace App\Sales_lines\Infrastructure\Persistence\Models;
 
+use App\Order_lines\Infrastructure\Persistence\Models\EloquentOrderLine;
+use App\Restaurants\Infrastructure\Persistence\Models\EloquentRestaurant;
+use App\Sales\Infrastructure\Persistence\Models\EloquentSale;
+use App\User\Infrastructure\Persistence\Models\EloquentUser;
 use Database\Factories\SaleLineFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class EloquentSaleLine extends Model
 {
@@ -28,4 +34,24 @@ class EloquentSaleLine extends Model
         'price',
         'tax_percentage',
     ];
+
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(EloquentRestaurant::class, 'restaurant_id');
+    }
+
+    public function sale(): BelongsTo
+    {
+        return $this->belongsTo(EloquentSale::class, 'sale_id');
+    }
+
+    public function orderLine(): BelongsTo
+    {
+        return $this->belongsTo(EloquentOrderLine::class, 'order_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(EloquentUser::class, 'user_id');
+    }
 }
