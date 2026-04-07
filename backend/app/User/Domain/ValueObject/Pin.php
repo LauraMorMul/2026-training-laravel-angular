@@ -20,9 +20,9 @@ class Pin
             throw new \InvalidArgumentException('Pin has to be numeric.');
         }
 
-        if($trimmed < self::MIN_LENGTH || $trimmed > self::MAX_LENGTH) {
+        if(strlen($trimmed) < self::MIN_LENGTH || strlen($trimmed) > self::MAX_LENGTH) {
             throw new \InvalidArgumentException(
-                sprintf('Length of the pin should be between %d and %e.', self::MIN_LENGTH, self::MAX_LENGTH));
+                sprintf('Length of the pin should be between %d and %d. Yours is %d', self::MIN_LENGTH, self::MAX_LENGTH, strlen($trimmed)));
         }
 
         $this->value = $trimmed;

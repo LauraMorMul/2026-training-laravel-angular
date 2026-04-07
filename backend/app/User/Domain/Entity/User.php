@@ -8,6 +8,7 @@ use App\Shared\Domain\ValueObject\ImageSrc;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\PasswordHash;
 use App\Shared\Domain\ValueObject\RestaurantID;
+use App\User\Domain\ValueObject\Name;
 use App\User\Domain\ValueObject\Pin;
 use App\User\Domain\ValueObject\Role;
 use App\User\Domain\ValueObject\UserName;
@@ -68,6 +69,29 @@ class User
             Pin::create($pin),
             DomainDateTime::create($createdAt),
             DomainDateTime::create($updatedAt),
+        );
+    }
+
+    public function updateData(
+        Email $email,
+        UserName $name,
+        PasswordHash $password,
+        Role $role,
+        ImageSrc $imageSrc,
+        Pin $pin,
+    ): self
+    {
+        return new self(
+            $this->id,
+            $this->restaurantID,
+            $role,
+            $imageSrc,
+            $name,
+            $email,
+            $password,
+            $pin,
+            $this->createdAt,
+            DomainDateTime::now(),
         );
     }
 

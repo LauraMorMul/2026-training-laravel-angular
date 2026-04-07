@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         return
         EloquentUser::factory()
         ->recycle($restaurants)
-        ->count(5)
+        ->count(50)
         ->create();
     }
 }
