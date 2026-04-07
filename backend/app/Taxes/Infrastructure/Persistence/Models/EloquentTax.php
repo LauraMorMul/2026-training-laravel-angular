@@ -2,10 +2,14 @@
 
 namespace App\Taxes\Infrastructure\Persistence\Models;
 
+use App\Products\Infrastructure\Persistence\Models\EloquentProduct;
+use App\Restaurants\Infrastructure\Persistence\Models\EloquentRestaurant;
 use Database\Factories\TaxFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class EloquentTax extends Model
 {
@@ -24,4 +28,14 @@ class EloquentTax extends Model
         'name',
         'percentage',
     ];
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(EloquentProduct::class, 'tax_id');
+    }
+
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(EloquentRestaurant::class, 'restaurant_id');
+    }
 }

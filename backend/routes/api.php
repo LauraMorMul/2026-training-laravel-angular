@@ -8,7 +8,6 @@ use App\User\Infrastructure\Entrypoint\Http\PatchUserController;
 use App\User\Infrastructure\Entrypoint\Http\PostUserController;
 use Illuminate\Support\Facades\Route;
 
-
 //Rutas relacionadas con el User
 Route::post('/users', PostUserController::class);
 Route::get('/users/all', GetAllUserController::class);

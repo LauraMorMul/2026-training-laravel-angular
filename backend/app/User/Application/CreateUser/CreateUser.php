@@ -33,5 +33,7 @@ class CreateUser
         $this->userRepository->save($user);
 
         return CreateUserResponse::create($user);
+
+
     }
 }

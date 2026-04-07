@@ -8,7 +8,6 @@ use App\Shared\Domain\ValueObject\ImageSrc;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\PasswordHash;
 use App\Shared\Domain\ValueObject\RestaurantID;
-use App\User\Domain\ValueObject\Name;
 use App\User\Domain\ValueObject\Pin;
 use App\User\Domain\ValueObject\Role;
 use App\User\Domain\ValueObject\UserName;

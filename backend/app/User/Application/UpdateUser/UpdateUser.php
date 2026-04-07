@@ -19,56 +19,55 @@ class UpdateUser
     public function __construct(
         private UserRepositoryInterface $userRepository,
         private PasswordHasherInterface $passwordHasher
-    )
-    {}
+    ) {}
 
     public function __invoke(string $uuid, ?string $email, ?string $name, ?string $plainPassword, ?string $role, ?string $imageSrc, ?string $pin): ?UpdateUserResponse
     {
         $user = $this->userRepository->findById($uuid);
-        
-        if($user === null) {
+
+        if ($user === null) {
             return null;
         }
 
-        if($email === null) {
+        if ($email === null) {
             $emailVO = $user->email();
-        }else {
+        } else {
             $emailVO = Email::create($email);
         }
 
-        if($name === null) {
+        if ($name === null) {
             $nameVO = UserName::create($user->name());
-        }else {
+        } else {
             $nameVO = UserName::create($name);
         }
-        
-        if($plainPassword === null) {
+
+        if ($plainPassword === null) {
             $passwordHashVO = PasswordHash::create($user->passwordHash());
-        }else {
+        } else {
             $passwordHashVO = PasswordHash::create($this->passwordHasher->hash($plainPassword));
         }
-        
-        if($role === null) {
+
+        if ($role === null) {
             $roleVO = Role::create($user->role());
-        }else {
+        } else {
             $roleVO = Role::create($role);
         }
-        
-        if($imageSrc === null) {
+
+        if ($imageSrc === null) {
             $imageSrcVO = ImageSrc::create($user->imageSrc());
-        }else {
+        } else {
             $imageSrcVO = ImageSrc::create($imageSrc);
         }
-        
-        if($pin === null) {
+
+        if ($pin === null) {
             $pinVO = Pin::create($user->pin());
-        }else {
+        } else {
             $pinVO = Pin::create($pin);
         }
-        
-        $user = $user->updateData($emailVO,$nameVO,$passwordHashVO,$roleVO,$imageSrcVO,$pinVO);
+
+        $user = $user->updateData($emailVO, $nameVO, $passwordHashVO, $roleVO, $imageSrcVO, $pinVO);
         $this->userRepository->save($user);
-        
+
         return UpdateUserResponse::create($user);
     }
 }
