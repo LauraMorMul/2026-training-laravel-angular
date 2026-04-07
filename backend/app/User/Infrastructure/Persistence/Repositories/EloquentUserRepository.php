@@ -5,8 +5,6 @@ namespace App\User\Infrastructure\Persistence\Repositories;
 use App\User\Domain\Entity\User;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Arr;
 
 class EloquentUserRepository implements UserRepositoryInterface
 {
