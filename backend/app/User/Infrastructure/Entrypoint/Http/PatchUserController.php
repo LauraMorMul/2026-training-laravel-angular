@@ -35,6 +35,6 @@ class PatchUserController
             $validated['image_src'] ?? null,
             $validated['pin'] ?? null,
         );
-        return new JsonResponse($response->toArray(), 201);
+        return new JsonResponse($response->toArray(), 200);
     }
 }
