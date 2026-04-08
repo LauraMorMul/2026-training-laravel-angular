@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Family\Domain\Interface;
+namespace App\Families\Domain\Interfaces;
 
 use App\Families\Domain\Entity\Family;
 

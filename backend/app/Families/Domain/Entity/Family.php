@@ -3,9 +3,9 @@
 namespace App\Families\Domain\Entity;
 
 use App\Shared\Domain\ValueObject\DomainDateTime;
+use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\RestaurantID;
-use App\User\Domain\ValueObject\Name;
 
 class Family
 {

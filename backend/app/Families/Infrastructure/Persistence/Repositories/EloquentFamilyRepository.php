@@ -1,8 +1,10 @@
 <?php
 
+namespace App\Families\Infrastructure\Persistence\Repositories;
+
 use App\Families\Infrastructure\Persistence\Models\EloquentFamily;
 use App\Families\Domain\Entity\Family;
-use App\Family\Domain\Interface\FamilyRepositoryInterface;
+use App\Families\Domain\Interfaces\FamilyRepositoryInterface;
 
 class EloquentFamilyRepository implements FamilyRepositoryInterface
 {
@@ -16,7 +18,7 @@ class EloquentFamilyRepository implements FamilyRepositoryInterface
             ['uuid' => $family->id()->value()],
             [
                 'restaurant_id' => $family->restaurantID(),
-                'name' => $family->name(),
+                'name' => $family->name()->value(),
                 'active' => $family->active(),
                 'created_at' => $family->createdAt()->value(),
                 'updated_at' => $family->updatedAt()->value(),

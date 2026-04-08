@@ -1,6 +1,6 @@
 <?
 
-namespace App\User\Domain\ValueObject;
+namespace App\Shared\Domain\ValueObject;
 
 class Name {
     private const MAX_LENGTH = 255;
@@ -28,6 +28,6 @@ class Name {
 
     public function value(): string
     {
-        return $this->value();
+        return $this->value;
     }
 }

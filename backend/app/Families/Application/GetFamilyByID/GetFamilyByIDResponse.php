@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Families\Application\CreateFamily;
+namespace App\Families\Application\GetFamilyByID;
 
 use App\Families\Domain\Entity\Family;
 
-class CreateFamilyResponse {
+class GetFamilyByIDResponse
+{
     public function __construct(
         public string $id,
         public string $restaurantID,
