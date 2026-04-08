@@ -11,7 +11,7 @@ class Name {
     {
         $trimmed = trim($value);
         if ($trimmed === '') {
-            throw new \InvalidArgumentException('Namme cannot be empty.');
+            throw new \InvalidArgumentException('Name cannot be empty.');
         }
         if (mb_strlen($trimmed) > self::MAX_LENGTH) {
             throw new \InvalidArgumentException(

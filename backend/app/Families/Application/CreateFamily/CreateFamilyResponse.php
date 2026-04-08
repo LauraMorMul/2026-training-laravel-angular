@@ -4,7 +4,8 @@ namespace App\Families\Application\CreateFamily;
 
 use App\Families\Domain\Entity\Family;
 
-class CreateFamilyResponse {
+class CreateFamilyResponse 
+{
     public function __construct(
         public string $id,
         public string $restaurantID,
