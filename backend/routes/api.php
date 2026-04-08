@@ -1,6 +1,7 @@
 <?php
 
 use App\Families\Infrastructure\Entrypoint\Http\DeleteFamilyByIDController;
+use App\Families\Infrastructure\Entrypoint\Http\GetFamiliesByRestaurantController;
 use App\Families\Infrastructure\Entrypoint\Http\GetFamilyByIDController;
 use App\Families\Infrastructure\Entrypoint\Http\PostFamilyController;
 use App\User\Infrastructure\Entrypoint\Http\DeleteUserByIDController;
@@ -23,3 +24,4 @@ Route::patch('/users/{id}', PatchUserController::class);
 Route::post('/families', PostFamilyController::class);
 Route::delete('/families/{id}', DeleteFamilyByIDController::class);
 Route::get('/families/{id}', GetFamilyByIDController::class);
+Route::get('/families/restaurant/{id}', GetFamiliesByRestaurantController::class);
