@@ -23,7 +23,7 @@ class FamilyFactory extends Factory
         return [
             'uuid' => (string) Str::uuid(),
             'restaurant_id' => RestaurantFactory::new(),
-            'name' => fake()->word(),
+            'name' => fake()->randomElement(['carnes', 'pescados', 'vinos', 'postres', 'refrescos', 'frutas', 'verduras', 'postres', 'alcohol']),
             'active' => fake()->boolean(),
         ];
     }
