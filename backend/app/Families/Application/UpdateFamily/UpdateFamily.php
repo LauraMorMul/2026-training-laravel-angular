@@ -24,12 +24,12 @@ class UpdateFamily
 
         //Se denomina como VO para diferenciar el recibido por parámetro, pero es un booleano, no un VO
         if($active === null) {
-            $activeVO = $family->active();
+            $isActive = $family->active();
         }else {
-            $activeVO = $active;
+            $isActive = $active;
         }
 
-        $family = $family->updateData($nameVO, $activeVO);
+        $family = $family->updateData($nameVO, $isActive);
         $this->familyRepository->save($family);
 
         return UpdateFamilyResponse::create($family);
