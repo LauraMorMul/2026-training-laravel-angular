@@ -3,13 +3,12 @@
 namespace App\Restaurants\Domain\Entity;
 
 use App\Shared\Domain\ValueObject\DomainDateTime;
-use App\Restaurant\Domain\ValueObjects\LegalName;
-use App\Restaurant\Domain\ValueObjects\TaxID;
+use App\Restaurants\Domain\ValueObjects\LegalName;
+use App\Restaurants\Domain\ValueObjects\TaxID;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\PasswordHash;
 use App\Shared\Domain\ValueObject\Uuid;
-use Egulias\EmailValidator\EmailLexer;
 
 class Restaurant
 {

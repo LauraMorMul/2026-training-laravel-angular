@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Restaurant\Domain\ValueObjects;
+namespace App\Restaurants\Domain\ValueObjects;
 
 class TaxID
 {

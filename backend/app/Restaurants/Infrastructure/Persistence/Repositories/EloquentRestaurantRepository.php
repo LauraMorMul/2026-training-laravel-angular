@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Restaurant\Infastructure\Persistence\Repositories;
+namespace App\Restaurants\Infrastructure\Persistence\Repositories;
 
 use App\Restaurants\Domain\Entity\Restaurant;
 use App\Restaurants\Domain\Interfaces\RestaurantRepositoryInterface;
@@ -20,7 +20,7 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
                 'name' => $restaurant->name(),
                 'legal_name' => $restaurant->legalName(),
                 'tax_id' => $restaurant->taxID(),
-                'email' => $restaurant->email(),
+                'email' => $restaurant->email()->value(),
                 'password' => $restaurant->passwordHash(),
                 'created_at' => $restaurant->createdAt()->value(),
                 'updated_at' => $restaurant->updatedAt()->value(),
