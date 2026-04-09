@@ -22,7 +22,6 @@ class UpdateFamily
             $nameVO = Name::create($name);
         }
 
-        //Se denomina como VO para diferenciar el recibido por parámetro, pero es un booleano, no un VO
         if($active === null) {
             $isActive = $family->active();
         }else {
