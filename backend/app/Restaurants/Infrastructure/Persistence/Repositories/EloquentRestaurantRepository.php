@@ -12,6 +12,22 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
         private EloquentRestaurant $model
     ){}
 
+    public function save(Restaurant $restaurant): void
+    {
+        $this->model->newQuery()->updateOrCreate(
+            ['uuid' => $restaurant->id()->value()],
+            [
+                'name' => $restaurant->name(),
+                'legal_name' => $restaurant->legalName(),
+                'tax_id' => $restaurant->taxID(),
+                'email' => $restaurant->email(),
+                'password' => $restaurant->passwordHash(),
+                'created_at' => $restaurant->createdAt()->value(),
+                'updated_at' => $restaurant->updatedAt()->value(),
+            ]
+        );
+    }
+
     public function findById(string $id): ?Restaurant
     {
         $model = $this->model->newQuery()->where('uuid', $id)->first();
@@ -21,7 +37,45 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
         }
 
         return Restaurant::fromPersistence(
-            
-        )
+            $model->uuid,
+            $model->name,
+            $model->legal_name,
+            $model->tax_id,
+            $model->email,
+            $model->password,
+            $model->created_at,
+            $model->deleted_at,
+        );
+    }
+
+    public function getAll(): ?array
+    {
+        $models = $this->model->newQuery()->getModels();
+        $restaurants = array();
+
+        if($models === null) {
+            return null;
+        }
+
+        foreach($models as $model) {
+            $restaurant = Restaurant::fromPersistence(
+            $model->uuid,
+            $model->name,
+            $model->legal_name,
+            $model->tax_id,
+            $model->email,
+            $model->password,
+            $model->created_at,
+            $model->deleted_at,
+        );
+            array_push($restaurants, $restaurant);
+        }
+
+        return $restaurants;
+    }
+
+    public function deleteByID(string $id): void
+    {
+        $this->model->newQuery()->where('uuid', $id)->delete();
     }
 }
