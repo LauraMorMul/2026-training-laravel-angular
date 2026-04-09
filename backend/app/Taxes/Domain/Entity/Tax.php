@@ -75,9 +75,9 @@ class Tax
         return $this->restaurantID->value();
     }
 
-    public function name(): string
+    public function name(): Name
     {
-        return $this->name->value();
+        return $this->name;
     }
 
     public function percentage(): int
