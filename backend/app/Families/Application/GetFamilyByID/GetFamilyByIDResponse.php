@@ -19,7 +19,7 @@ class GetFamilyByIDResponse
     {
         return new self(
             id: $family->id()->value(),
-            restaurantID: $family->restaurantID(),
+            restaurantID: $family->restaurantID()->value(),
             name: $family->name()->value(),
             active: $family->active(),
             createdAt: $family->createdAt()->format(\DateTimeInterface::ATOM),

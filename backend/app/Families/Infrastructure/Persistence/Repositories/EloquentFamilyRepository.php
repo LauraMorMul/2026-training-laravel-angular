@@ -17,7 +17,7 @@ class EloquentFamilyRepository implements FamilyRepositoryInterface
         $this->model->newQuery()->updateOrCreate(
             ['uuid' => $family->id()->value()],
             [
-                'restaurant_id' => $family->restaurantID(),
+                'restaurant_id' => $family->restaurantID()->value(),
                 'name' => $family->name()->value(),
                 'active' => $family->active(),
                 'created_at' => $family->createdAt()->value(),

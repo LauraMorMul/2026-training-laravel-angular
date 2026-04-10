@@ -70,9 +70,9 @@ class Family
         return $this->id;
     }
 
-    public function restaurantID(): string
+    public function restaurantID(): RestaurantID
     {
-        return $this->restaurantID->value();
+        return $this->restaurantID;
     }
 
     public function name(): Name
