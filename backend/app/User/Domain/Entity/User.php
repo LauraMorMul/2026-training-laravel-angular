@@ -99,24 +99,24 @@ class User
         return $this->id;
     }
 
-    public function restaurantID(): string
+    public function restaurantID(): RestaurantID
     {
-        return $this->restaurantID->value();
+        return $this->restaurantID;
     }
 
-    public function role(): string
+    public function role(): Role
     {
-        return $this->role->value();
+        return $this->role;
     }
 
-    public function imageSrc(): string
+    public function imageSrc(): ImageSrc
     {
-        return $this->imageSrc->value();
+        return $this->imageSrc;
     }
 
-    public function name(): string
+    public function name(): UserName
     {
-        return $this->name->value();
+        return $this->name;
     }
 
     public function email(): Email
@@ -124,14 +124,14 @@ class User
         return $this->email;
     }
 
-    public function passwordHash(): string
+    public function passwordHash(): PasswordHash
     {
-        return $this->passwordHash->value();
+        return $this->passwordHash;
     }
 
-    public function pin(): string
+    public function pin(): Pin
     {
-        return $this->pin->value();
+        return $this->pin;
     }
 
     public function createdAt(): DomainDateTime
