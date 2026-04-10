@@ -4,8 +4,8 @@ namespace App\Restaurants\Application\CreateRestaurant;
 
 use App\Restaurants\Domain\Entity\Restaurant;
 use App\Restaurants\Domain\Interfaces\RestaurantRepositoryInterface;
-use App\Restaurants\Domain\ValueObjects\LegalName;
-use App\Restaurants\Domain\ValueObjects\TaxID;
+use App\Restaurants\Domain\ValueObject\LegalName;
+use App\Restaurants\Domain\ValueObject\TaxID;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\PasswordHash;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Restaurants\Domain\ValueObjects;
+namespace App\Restaurants\Domain\ValueObject;
 
 class LegalName
 {

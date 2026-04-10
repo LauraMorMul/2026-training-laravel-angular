@@ -6,7 +6,7 @@ use App\Shared\Domain\ValueObject\DomainDateTime;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\RestaurantID;
 use App\Shared\Domain\ValueObject\Uuid;
-use App\Taxes\Domain\ValueObjects\Percentage;
+use App\Taxes\Domain\ValueObject\Percentage;
 
 class Tax
 {

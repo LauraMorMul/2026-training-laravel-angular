@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Taxes\Domain\ValueObjects;
+namespace App\Taxes\Domain\ValueObject;
 
 class Percentage
 {

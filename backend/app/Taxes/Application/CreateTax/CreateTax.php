@@ -6,7 +6,7 @@ use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\RestaurantID;
 use App\Taxes\Domain\Entity\Tax;
 use App\Taxes\Domain\Interfaces\TaxRepositoryInterface;
-use App\Taxes\Domain\ValueObjects\Percentage;
+use App\Taxes\Domain\ValueObject\Percentage;
 
 class CreateTax
 {
