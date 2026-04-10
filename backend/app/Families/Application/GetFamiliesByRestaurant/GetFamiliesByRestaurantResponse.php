@@ -11,11 +11,11 @@ class GetFamiliesByRestaurantResponse
         private array $allFamilies,
     ) {}
 
-    public static function create(array $users):self {
+    public static function create(array $families):self {
         return new self(
             allFamilies: array_map(
                 fn(Family $family) => GetFamilyByIDResponse::create($family),
-                $users
+                $families
             )
         );
     }

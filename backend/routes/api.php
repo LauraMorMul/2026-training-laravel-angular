@@ -7,6 +7,8 @@ use App\Families\Infrastructure\Entrypoint\Http\PatchFamilyController;
 use App\Families\Infrastructure\Entrypoint\Http\PostFamilyController;
 use App\Restaurants\Infrastructure\Entrypoint\Http\PostRestaurantController;
 use App\Taxes\Infrastructure\Entrypoint\Http\DeleteTaxByIDController;
+use App\Taxes\Infrastructure\Entrypoint\Http\GetTaxByIDController;
+use App\Taxes\Infrastructure\Entrypoint\Http\GetTaxesbyRestaurantController;
 use App\Taxes\Infrastructure\Entrypoint\Http\PostTaxControlelr;
 use App\User\Infrastructure\Entrypoint\Http\DeleteUserByIDController;
 use App\User\Infrastructure\Entrypoint\Http\GetAllUserController;
@@ -37,3 +39,5 @@ Route::post('/restaurants', PostRestaurantController::class);
 //Rutas de tx
 Route::post('/taxes', PostTaxControlelr::class);
 Route::delete('/taxes/{id}', DeleteTaxByIDController::class);
+Route::get('/taxes/{id}', GetTaxByIDController::class);
+Route::get('/taxes/restaurant/{id}', GetTaxesbyRestaurantController::class);
