@@ -22,11 +22,11 @@ class CreateRestaurantResponse
     {
         return new self(
             id: $restaurant->id()->value(),
-            name: $restaurant->name(),
-            legalName: $restaurant->legalName(),
-            taxID: $restaurant->taxID(),
+            name: $restaurant->name()->value(),
+            legalName: $restaurant->legalName()->value(),
+            taxID: $restaurant->taxID()->value(),
             email: $restaurant->email()->value(),
-            password: $restaurant->passwordHash(),
+            password: $restaurant->passwordHash()->value(),
             createdAt: $restaurant->createdAt()->format(\DateTimeInterface::ATOM),
             updatedAt:$restaurant->updatedAt()->format(\DateTimeInterface::ATOM),
         );

@@ -87,19 +87,19 @@ class Restaurant
         return $this->id;
     }
 
-    public function name(): string
+    public function name(): Name
     {
-        return $this->name->value();
+        return $this->name;
     }
 
-    public function legalName(): string
+    public function legalName(): LegalName
     {
-        return $this->legalName->value();
+        return $this->legalName;
     }
 
-    public function taxID(): string
+    public function taxID(): TaxID
     {
-        return $this->taxID->value();
+        return $this->taxID;
     }
 
     public function email(): Email
@@ -107,9 +107,9 @@ class Restaurant
         return $this->email;
     }
 
-    public function passwordHash(): string
+    public function passwordHash(): PasswordHash
     {
-        return $this->passwordHash->value();
+        return $this->passwordHash;
     }
 
     public function createdAt(): DomainDateTime

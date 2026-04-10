@@ -17,11 +17,11 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
         $this->model->newQuery()->updateOrCreate(
             ['uuid' => $restaurant->id()->value()],
             [
-                'name' => $restaurant->name(),
-                'legal_name' => $restaurant->legalName(),
-                'tax_id' => $restaurant->taxID(),
+                'name' => $restaurant->name()->value(),
+                'legal_name' => $restaurant->legalName()->value(),
+                'tax_id' => $restaurant->taxID()->value(),
                 'email' => $restaurant->email()->value(),
-                'password' => $restaurant->passwordHash(),
+                'password' => $restaurant->passwordHash()->value(),
                 'created_at' => $restaurant->createdAt()->value(),
                 'updated_at' => $restaurant->updatedAt()->value(),
             ]
