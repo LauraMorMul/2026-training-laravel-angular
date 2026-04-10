@@ -10,6 +10,8 @@ use App\User\Infrastructure\Services\LaravelPasswordHasher;
 use App\Families\Infrastructure\Persistence\Repositories\EloquentFamilyRepository;
 use App\Restaurants\Domain\Interfaces\RestaurantRepositoryInterface;
 use App\Restaurants\Infrastructure\Persistence\Repositories\EloquentRestaurantRepository;
+use App\Taxes\Domain\Interfaces\TaxRepositoryInterface;
+use App\Taxes\Infrastructure\Persistence\Repositories\EloquentTaxRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PasswordHasherInterface::class, LaravelPasswordHasher::class);
         $this->app->bind(FamilyRepositoryInterface::class, EloquentFamilyRepository::class);
         $this->app->bind(RestaurantRepositoryInterface::class, EloquentRestaurantRepository::class);
+        $this->app->bind(TaxRepositoryInterface::class, EloquentTaxRepository::class);
     }
 
     /**
