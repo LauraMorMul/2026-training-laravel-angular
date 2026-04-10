@@ -12,7 +12,7 @@ class EloquentTaxRepository implements TaxRepositoryInterface
         private EloquentTax $model,
     ) {}
 
-    public function sace(Tax $tax): void
+    public function save(Tax $tax): void
     {
         $this->model->newQuery()->updateOrCreate(
             ['uuid' => $tax->id()->value()],
@@ -44,10 +44,37 @@ class EloquentTaxRepository implements TaxRepositoryInterface
         );
     }
 
+    public function getByRestaurant(string $restaurantID): ?array
+    {
+        $models = $this->model->newQuery()->whereIn('restaurant_id', function($query) use ($restaurantID) {
+            $query->select('id')
+            ->from('restaurants')
+            ->where('uuid', $restaurantID);
+        })->getModels();
 
+        $taxes = array();
 
+        if ($models === null) {
+            return null;
+        }
 
+        foreach($models as $model) {
+            $tax = Tax::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->name,
+            $model->percentage,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+            array_push($taxes, $tax);
+        }
 
+        return $taxes;
+    }
 
-    
+    public function deleteByID(string $id): void
+    {
+        $this->model->newQuery()->where('uuid', $id)->delete();
+    }
 }

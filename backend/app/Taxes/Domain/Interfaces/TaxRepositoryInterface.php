@@ -10,8 +10,6 @@ interface TaxRepositoryInterface
 
     public function findById(string $id): ?Tax;
 
-    public function getAll(): ?array;
-
     public function getByRestaurant(string $restaurantID): ?array;
 
     public function deleteByID(string $id): void;
