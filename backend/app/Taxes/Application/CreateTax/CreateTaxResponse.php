@@ -20,9 +20,9 @@ class CreateTaxResponse
     {
         return new self(
             id: $tax->id()->value(),
-            restaurantID: $tax->restaurantID(),
+            restaurantID: $tax->restaurantID()->value(),
             name: $tax->name()->value(),
-            percentage: $tax->percentage(),
+            percentage: $tax->percentage()->value(),
             createdAt: $tax->createdAt()->format(\DateTimeInterface::ATOM),
             updatedAt: $tax->updatedAt()->format(\DateTimeInterface::ATOM),
         );

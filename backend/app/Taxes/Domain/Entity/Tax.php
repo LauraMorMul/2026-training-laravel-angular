@@ -70,9 +70,9 @@ class Tax
         return $this->id;
     }
 
-    public function restaurantID(): string
+    public function restaurantID(): RestaurantID
     {
-        return $this->restaurantID->value();
+        return $this->restaurantID;
     }
 
     public function name(): Name
@@ -80,9 +80,9 @@ class Tax
         return $this->name;
     }
 
-    public function percentage(): int
+    public function percentage(): Percentage
     {
-        return $this->percentage->value();
+        return $this->percentage;
     }
 
     public function createdAt(): DomainDateTime
