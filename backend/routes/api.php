@@ -5,7 +5,10 @@ use App\Families\Infrastructure\Entrypoint\Http\GetFamiliesByRestaurantControlle
 use App\Families\Infrastructure\Entrypoint\Http\GetFamilyByIDController;
 use App\Families\Infrastructure\Entrypoint\Http\PatchFamilyController;
 use App\Families\Infrastructure\Entrypoint\Http\PostFamilyController;
+use App\Products\Infrastructure\Entrypoint\Http\DeleteProductByIDController;
 use App\Products\Infrastructure\Entrypoint\Http\GetProductByIDController;
+use App\Products\Infrastructure\Entrypoint\Http\GetProductsByRestaurantController;
+use App\Products\Infrastructure\Entrypoint\Http\PatchProductController;
 use App\Products\Infrastructure\Entrypoint\Http\PostProductController;
 use App\Restaurants\Infrastructure\Entrypoint\Http\PostRestaurantController;
 use App\Taxes\Infrastructure\Entrypoint\Http\DeleteTaxByIDController;
@@ -49,3 +52,6 @@ Route::patch('/taxes/{id}', PatchTaxController::class);
 //Rutas de product
 Route::post('/products', PostProductController::class);
 Route::get('/products/{id}', GetProductByIDController::class);
+Route::get('/products/restaurant/{id}', GetProductsByRestaurantController::class);
+Route::patch('/products/{id}', PatchProductController::class);
+Route::delete('/products/{id}', DeleteProductByIDController::class);
