@@ -4,9 +4,9 @@ namespace App\Products\Domain\ValueObject;
 
 class FamilyID
 {
-    private string $value;
+    private int $value;
 
-    private function __construct(string $value)
+    private function __construct(int $value)
     {
         $trimmed = trim($value);
         if($trimmed === '') {
@@ -19,12 +19,12 @@ class FamilyID
         $this->value = $trimmed;
     }
 
-    public static function create(string $value)
+    public static function create(int $value)
     {
         return new self($value);
     }
 
-    public function value(): string
+    public function value(): int
     {
         return $this->value;
     }

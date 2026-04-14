@@ -8,7 +8,7 @@ class UpdateFamilyResponse
 {
     public function __construct(
         public string $id,
-        public string $restaurantID,
+        public int $restaurantID,
         public string $name,
         public bool $active,
         public string $createdAt,

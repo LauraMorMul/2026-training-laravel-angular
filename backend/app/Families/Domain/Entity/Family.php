@@ -34,7 +34,7 @@ class Family
 
     public static function fromPersistence(
         string $id,
-        string $restaurantID,
+        int $restaurantID,
         string $name,
         bool $active,
         \DateTimeImmutable $createdAt,

@@ -47,7 +47,7 @@ class User
 
     public static function fromPersistence(
         string $id,
-        string $restaurantID,
+        int $restaurantID,
         string $role,
         string $imageSrc,
         string $name,

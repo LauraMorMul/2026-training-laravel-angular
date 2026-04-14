@@ -13,7 +13,7 @@ class CreateFamily
         private FamilyRepositoryInterface $familyRepository,
     ){}
 
-    public function __invoke(string $restaurantID, string $name, bool $active): CreateFamilyResponse
+    public function __invoke(int $restaurantID, string $name, bool $active): CreateFamilyResponse
     {
         $restaurantIDVO = RestaurantID::create($restaurantID);
         $nameVO = Name::create($name);

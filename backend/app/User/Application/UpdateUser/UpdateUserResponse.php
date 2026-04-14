@@ -11,6 +11,7 @@ class UpdateUserResponse
      */
     public function __construct(
         public string $id,
+        public int $restaurantID,
         public string $role,
         public string $imageSrc,
         public string $name,
@@ -24,11 +25,12 @@ class UpdateUserResponse
     {
         return new self(
             id: $user->id()->value(),
-            role: $user->role(),
-            imageSrc: $user->imageSrc(),
-            name: $user->name(),
+            restaurantID: $user->restaurantID()->value(),
+            role: $user->role()->value(),
+            imageSrc: $user->imageSrc()->value(),
+            name: $user->name()->value(),
             email: $user->email()->value(),
-            pin: $user->pin(),
+            pin: $user->pin()->value(),
             createdAt: $user->createdAt()->format(\DateTimeInterface::ATOM),
             updatedAt: $user->updatedAt()->format(\DateTimeInterface::ATOM),
         );
@@ -38,6 +40,7 @@ class UpdateUserResponse
     {
         return [
             'id' => $this->id,
+            'restaurant_id' => $this->restaurantID,
             'role' => $this->role,
             'imageSrc' => $this->imageSrc,
             'name' => $this->name,

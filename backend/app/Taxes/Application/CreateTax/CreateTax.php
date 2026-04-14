@@ -14,7 +14,7 @@ class CreateTax
         private TaxRepositoryInterface $taxRepository,
     ){}
 
-    public function __invoke(string $restaurantID, string $name, int $percentage): CreateTaxResponse
+    public function __invoke(int $restaurantID, string $name, int $percentage): CreateTaxResponse
     {
         $restaurantIDVO = RestaurantID::create($restaurantID);
         $nameVO = Name::create($name);

@@ -35,7 +35,7 @@ class Tax
 
     public static function fromPersistence(
         string $id,
-        string $restaurantID,
+        int $restaurantID,
         string $name,
         int $percentage,
         \DateTimeImmutable $createdAt,

@@ -8,7 +8,7 @@ class UpdateTaxResponse
 {
     public function __construct(
         public string $id,
-        public string $restaurantID,
+        public int $restaurantID,
         public string $name,
         public int $percentage,
         public string $createdAt,

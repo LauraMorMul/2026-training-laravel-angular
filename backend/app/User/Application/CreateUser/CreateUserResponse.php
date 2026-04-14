@@ -8,7 +8,7 @@ final readonly class CreateUserResponse
 {
     public function __construct(
         public string $id,
-        public string $restaurantID,
+        public int $restaurantID,
         public string $role,
         public string $imageSrc,
         public string $name,
@@ -22,12 +22,12 @@ final readonly class CreateUserResponse
     {
         return new self(
             id: $user->id()->value(),
-            restaurantID: $user->restaurantID(),
-            role: $user->role(),
-            imageSrc: $user->imageSrc(),
-            name: $user->name(),
+            restaurantID: $user->restaurantID()->value(),
+            role: $user->role()->value(),
+            imageSrc: $user->imageSrc()->value(),
+            name: $user->name()->value(),
             email: $user->email()->value(),
-            pin: $user->pin(),
+            pin: $user->pin()->value(),
             createdAt: $user->createdAt()->format(\DateTimeInterface::ATOM),
             updatedAt: $user->updatedAt()->format(\DateTimeInterface::ATOM),
         );

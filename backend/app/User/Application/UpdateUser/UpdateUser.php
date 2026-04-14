@@ -36,31 +36,31 @@ class UpdateUser
         }
 
         if ($name === null) {
-            $nameVO = UserName::create($user->name());
+            $nameVO = UserName::create($user->name()->value());
         } else {
             $nameVO = UserName::create($name);
         }
 
         if ($plainPassword === null) {
-            $passwordHashVO = PasswordHash::create($user->passwordHash());
+            $passwordHashVO = PasswordHash::create($user->passwordHash()->value());
         } else {
             $passwordHashVO = PasswordHash::create($this->passwordHasher->hash($plainPassword));
         }
 
         if ($role === null) {
-            $roleVO = Role::create($user->role());
+            $roleVO = Role::create($user->role()->value());
         } else {
             $roleVO = Role::create($role);
         }
 
         if ($imageSrc === null) {
-            $imageSrcVO = ImageSrc::create($user->imageSrc());
+            $imageSrcVO = ImageSrc::create($user->imageSrc()->value());
         } else {
             $imageSrcVO = ImageSrc::create($imageSrc);
         }
 
         if ($pin === null) {
-            $pinVO = Pin::create($user->pin());
+            $pinVO = Pin::create($user->pin()->value());
         } else {
             $pinVO = Pin::create($pin);
         }
