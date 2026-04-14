@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Products\Application\CreateProduct;
+namespace App\Products\Application\GetProductByID;
 
 use App\Products\Domain\Entity\Product;
 
-class CreateProductResponse
+class GetProductByIDResponse
 {
     public function __construct(
         public string $id,
