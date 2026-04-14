@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Shared\Domain\ValueObject;
+namespace App\Products\Domain\ValueObject;
 
-class RestaurantID
+class TaxID
 {
     private string $value;
 
@@ -10,7 +10,7 @@ class RestaurantID
     {
         $trimmed = trim($value);
         if($trimmed === '') {
-            throw new \InvalidArgumentException('Restaurant ID is mandatory.');
+            throw new \InvalidArgumentException('Tax ID is mandatory.');
         }
         if(!ctype_digit($trimmed)) {
             throw new \InvalidArgumentException('Remember, it uses the internal ID.');

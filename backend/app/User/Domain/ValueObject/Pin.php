@@ -13,7 +13,7 @@ class Pin
     {
         $trimmed = trim($value);
         if($trimmed === '') {
-            throw new \InvalidArgumentException('If an image isn\'t provided, there will be a placeholder.');
+            throw new \InvalidArgumentException('A pin is mandatory.');
         }
 
         if(!ctype_digit($trimmed)) {
