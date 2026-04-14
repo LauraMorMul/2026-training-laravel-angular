@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Tables\Infrastructure\Persistence\Repositories;
+
+use App\Tables\Domain\Entity\Table;
+use App\Tables\Domain\Interfaces\TableRepositoryInterface;
+use App\Tables\Infrastructure\Persistence\Models\EloquentTable;
+
+class EloquentTableRepository implements TableRepositoryInterface
+{
+    public function __construct(
+        private EloquentTable $model,
+    )
+    {}
+
+    public function save(Table $table): void
+    {
+        $this->model->newQuery()->updateOrCreate(
+            ['uuid' => $table->id()->value()],
+            [
+                'restaurant_id' => $table->restaurantID()->value(),
+                'zone_id' => $table->zoneID()->value(),
+                'name' => $table->name()->value(),
+                'created_at' => $table->createdAt()->value(),
+                'updated_at' => $table->updatedAt()->value(),
+            ]
+        );
+    }
+
+    public function findById(string $id): ?Table
+    {
+        $model = $this->model->newQuery()->where('uuid', $id)->first();
+
+        if ($model === null) {
+            return null;
+        }
+
+        return Table::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->zone_id,
+            $model->name,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+    }
+
+    public function getByRestaurant(string $restaurantID): ?array
+    {
+
+        $models = $this->model->newQuery()->whereIn('restaurant_id', function($query) use ($restaurantID) {
+            $query->select('id')
+            ->from('restaurants')
+            ->where('uuid', $restaurantID);
+        })->getModels();
+        $tables = array();
+
+        if ($models === null) {
+            return null;
+        }
+
+        foreach($models as $model) {
+            $table = Table::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->zone_id,
+            $model->name,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+            array_push($tables, $table);
+        }
+
+        return $tables;
+    }
+
+    public function deleteByID(string $id): void
+    {
+        $this->model->newQuery()->where('uuid', $id)->delete();
+    }
+}
