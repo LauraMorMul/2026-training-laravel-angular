@@ -22,6 +22,11 @@ use App\User\Infrastructure\Entrypoint\Http\GetUserByIDController;
 use App\User\Infrastructure\Entrypoint\Http\GetUserByRestaurantController;
 use App\User\Infrastructure\Entrypoint\Http\PatchUserController;
 use App\User\Infrastructure\Entrypoint\Http\PostUserController;
+use App\Zones\Infrastructure\Entrypoint\Http\DeleteZoneByIDController;
+use App\Zones\Infrastructure\Entrypoint\Http\GetZoneByIDController;
+use App\Zones\Infrastructure\Entrypoint\Http\GetZonesByRestaurantController;
+use App\Zones\Infrastructure\Entrypoint\Http\PatchZoneController;
+use App\Zones\Infrastructure\Entrypoint\Http\PostZoneController;
 use Illuminate\Support\Facades\Route;
 
 //Rutas relacionadas con el User
@@ -55,3 +60,10 @@ Route::get('/products/{id}', GetProductByIDController::class);
 Route::get('/products/restaurant/{id}', GetProductsByRestaurantController::class);
 Route::patch('/products/{id}', PatchProductController::class);
 Route::delete('/products/{id}', DeleteProductByIDController::class);
+
+//Rutas de zones
+Route::post('/zones', PostZoneController::class);
+Route::get('/zones/{id}', GetZoneByIDController::class);
+Route::get('/zones/restaurant/{id}', GetZonesByRestaurantController::class);
+Route::patch('/zones/{id}', PatchZoneController::class);
+Route::delete('/zones/{id}', DeleteZoneByIDController::class);

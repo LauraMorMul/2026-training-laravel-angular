@@ -61,7 +61,6 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
             $model->uuid,
             $model->restaurant_id,
             $model->name,
-            $model->active,
             $model->created_at->toDateTimeImmutable(),
             $model->updated_at->toDateTimeImmutable(),
         );
