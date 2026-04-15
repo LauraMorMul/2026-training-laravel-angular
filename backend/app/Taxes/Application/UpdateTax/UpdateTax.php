@@ -4,6 +4,7 @@ namespace App\Taxes\Application\UpdateTax;
 
 use App\Shared\Domain\ValueObject\Name;
 use App\Taxes\Domain\Interfaces\TaxRepositoryInterface;
+use App\Taxes\Domain\ValueObject\Percentage;
 
 class UpdateTax
 {
@@ -25,7 +26,7 @@ class UpdateTax
         if($percentage === null) {
             $percentageVO = $tax->percentage();
         }else {
-            $percentageVO = $percentage;
+            $percentageVO = Percentage::create($percentage);
         }
 
         $tax = $tax->updateData($nameVO, $percentageVO);

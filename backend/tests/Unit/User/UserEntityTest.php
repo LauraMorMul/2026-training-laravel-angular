@@ -4,8 +4,8 @@ namespace Tests\Unit\User;
 
 use App\Shared\Domain\ValueObject\DomainDateTime;
 use App\Shared\Domain\ValueObject\Email;
+use App\Shared\Domain\ValueObject\PasswordHash;
 use App\User\Domain\Entity\User;
-use App\User\Domain\ValueObject\PasswordHash;
 use App\User\Domain\ValueObject\UserName;
 use PHPUnit\Framework\TestCase;
 

@@ -17,13 +17,13 @@ class EloquentUserRepository implements UserRepositoryInterface
         $this->model->newQuery()->updateOrCreate(
             ['uuid' => $user->id()->value()],
             [
-                'restaurant_id' => $user->restaurantID(),
-                'role' => $user->role(),
-                'image_src' => $user->imageSrc(),
-                'name' => $user->name(),
+                'restaurant_id' => $user->restaurantID()->value(),
+                'role' => $user->role()->value(),
+                'image_src' => $user->imageSrc()->value(),
+                'name' => $user->name()->value(),
                 'email' => $user->email()->value(),
-                'password' => $user->passwordHash(),
-                'pin' => $user->pin(),
+                'password' => $user->passwordHash()->value(),
+                'pin' => $user->pin()->value(),
                 'created_at' => $user->createdAt()->value(),
                 'updated_at' => $user->updatedAt()->value(),
             ]

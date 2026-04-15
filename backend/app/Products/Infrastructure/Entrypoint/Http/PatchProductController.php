@@ -15,6 +15,8 @@ class PatchProductController
     public function __invoke(string $id, Request $request): JsonResponse
     {
         $validated = $request->validate([
+            'family_id' => ['integer'],
+            'tax_id' => ['integer'],
             'image_src' => ['string', 'max:255'],
             'name' => ['string', 'max:255'],
             'price' => ['integer'],
@@ -24,6 +26,8 @@ class PatchProductController
 
         $response = ($this->updateProduct)(
             $id,
+            $validated['family_id'] ?? null,
+            $validated['tax_id'] ?? null,
             $validated['image_src'] ?? null,
             $validated['name'] ?? null,
             $validated['price'] ?? null,
