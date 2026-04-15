@@ -14,18 +14,17 @@ class UpdateZone
 
     public function __invoke(string $uuid, ?string $name): ? UpdateZoneResponse
     {
-        $family = $this->zoneRepository->findById($uuid);
+        $zone = $this->zoneRepository->findById($uuid);
 
         if($name === null) {
-            $nameVO = $family->name();
+            $nameVO = $zone->name();
         }else {
             $nameVO = Name::create($name);
         }
 
-        $family = $family->updateData($nameVO);
-        $this->zoneRepository->save($family);
+        $zone = $zone->updateData($nameVO);
+        $this->zoneRepository->save($zone);
 
-        return UpdateZoneResponse
-::create($family);
+        return UpdateZoneResponse::create($zone);
     }
 }

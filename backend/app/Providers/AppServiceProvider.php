@@ -12,6 +12,8 @@ use App\Products\Domain\Interfaces\ProductRepositoryInterface;
 use App\Products\Infrastructure\Persistence\Repositories\EloquentProductRepository;
 use App\Restaurants\Domain\Interfaces\RestaurantRepositoryInterface;
 use App\Restaurants\Infrastructure\Persistence\Repositories\EloquentRestaurantRepository;
+use App\Tables\Domain\Interfaces\TableRepositoryInterface;
+use App\Tables\Infrastructure\Persistence\Repositories\EloquentTableRepository;
 use App\Taxes\Domain\Interfaces\TaxRepositoryInterface;
 use App\Taxes\Infrastructure\Persistence\Repositories\EloquentTaxRepository;
 use App\Zones\Domain\Interfaces\ZoneRepositoryInterface;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TaxRepositoryInterface::class, EloquentTaxRepository::class);
         $this->app->bind(ProductRepositoryInterface::class, EloquentProductRepository::class);
         $this->app->bind(ZoneRepositoryInterface::class, EloquentZoneRepository::class);
+        $this->app->bind(TableRepositoryInterface::class, EloquentTableRepository::class);
     }
 
     /**

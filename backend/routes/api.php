@@ -11,6 +11,11 @@ use App\Products\Infrastructure\Entrypoint\Http\GetProductsByRestaurantControlle
 use App\Products\Infrastructure\Entrypoint\Http\PatchProductController;
 use App\Products\Infrastructure\Entrypoint\Http\PostProductController;
 use App\Restaurants\Infrastructure\Entrypoint\Http\PostRestaurantController;
+use App\Tables\Infrastructure\Entrypoint\Http\DeleteTableByIDController;
+use App\Tables\Infrastructure\Entrypoint\Http\GetTableByIDController;
+use App\Tables\Infrastructure\Entrypoint\Http\GetTablesByRestaurantController;
+use App\Tables\Infrastructure\Entrypoint\Http\PatchTableController;
+use App\Tables\Infrastructure\Entrypoint\Http\PostTableController;
 use App\Taxes\Infrastructure\Entrypoint\Http\DeleteTaxByIDController;
 use App\Taxes\Infrastructure\Entrypoint\Http\GetTaxByIDController;
 use App\Taxes\Infrastructure\Entrypoint\Http\GetTaxesbyRestaurantController;
@@ -67,3 +72,10 @@ Route::get('/zones/{id}', GetZoneByIDController::class);
 Route::get('/zones/restaurant/{id}', GetZonesByRestaurantController::class);
 Route::patch('/zones/{id}', PatchZoneController::class);
 Route::delete('/zones/{id}', DeleteZoneByIDController::class);
+
+//Rutas de tables
+Route::post('/tables', PostTableController::class);
+Route::get('/tables/{id}', GetTableByIDController::class);
+Route::get('/tables/restaurant/{id}', GetTablesByRestaurantController::class);
+Route::patch('/tables/{id}', PatchTableController::class);
+Route::delete('/tables/{id}', DeleteTableByIDController::class);
