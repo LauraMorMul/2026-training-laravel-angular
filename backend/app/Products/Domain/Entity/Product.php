@@ -76,6 +76,8 @@ class Product
     }
 
     public function updateData(
+        FamilyID $familyID,
+        TaxID $taxID,
         ImageSrc $imageSrc,
         Name $name, 
         Price $price,
@@ -86,8 +88,8 @@ class Product
         return new self(
             $this->id,
             $this->restaurantID,
-            $this->familyID,
-            $this->taxID,
+            $familyID,
+            $taxID,
             $imageSrc,
             $name,
             $price,

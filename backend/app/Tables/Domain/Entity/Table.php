@@ -53,13 +53,14 @@ class Table
     }
 
     public function updateData(
+        ZoneID $zoneID,
         Name $name,
     ): self
     {
         return new self(
             $this->id,
             $this->restaurantId,
-            $this->zoneId,
+            $zoneID,
             $name,
             $this->createdAt,
             DomainDateTime::now(),

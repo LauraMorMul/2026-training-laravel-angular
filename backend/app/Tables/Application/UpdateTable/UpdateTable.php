@@ -4,6 +4,7 @@ namespace App\Tables\Application\UpdateTable;
 
 use App\Shared\Domain\ValueObject\Name;
 use App\Tables\Domain\Interfaces\TableRepositoryInterface;
+use App\Tables\Domain\ValueObject\ZoneID;
 
 class UpdateTable
 {
@@ -12,9 +13,15 @@ class UpdateTable
     )
     {}
 
-    public function __invoke(string $uuid, ?string $name): ? UpdateTableResponse
+    public function __invoke(string $uuid, ?int $zoneID, ?string $name): ? UpdateTableResponse
     {
         $table = $this->tableRepository->findById($uuid);
+
+        if($zoneID === null) {
+            $zoneIDVO = $table->zoneID();
+        } else {
+            $zoneIDVO = ZoneID::create($zoneID);
+        }
 
         if($name === null) {
             $nameVO = $table->name();
@@ -22,7 +29,7 @@ class UpdateTable
             $nameVO = Name::create($name);
         }
 
-        $table = $table->updateData($nameVO);
+        $table = $table->updateData($zoneIDVO, $nameVO);
         $this->tableRepository->save($table);
 
         return UpdateTableResponse::create($table);
