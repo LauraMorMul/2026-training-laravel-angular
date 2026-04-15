@@ -4,7 +4,7 @@ namespace App\Families\Application\UpdateFamily;
 
 use App\Families\Domain\Entity\Family;
 
-class UpdateFamilyResponse
+final readonly class UpdateFamilyResponse
 {
     public function __construct(
         public string $id,

@@ -4,7 +4,7 @@ namespace App\Zones\Application\GetZoneByID;
 
 use App\Zones\Domain\Entity\Zone;
 
-class GetZoneByIDResponse
+final readonly class GetZoneByIDResponse
 {
     public function __construct(
         public string $id,

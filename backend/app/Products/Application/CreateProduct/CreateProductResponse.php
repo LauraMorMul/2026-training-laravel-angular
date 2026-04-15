@@ -4,7 +4,7 @@ namespace App\Products\Application\CreateProduct;
 
 use App\Products\Domain\Entity\Product;
 
-class CreateProductResponse
+final readonly class CreateProductResponse
 {
     public function __construct(
         public string $id,

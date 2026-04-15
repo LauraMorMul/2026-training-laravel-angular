@@ -5,7 +5,7 @@ namespace App\Tables\Application\GetTablesByRestaurant;
 use App\Tables\Application\GetTableByID\GetTableByIDResponse;
 use App\Tables\Domain\Entity\Table;
 
-class GetTablesByRestaurantResponse
+final readonly class GetTablesByRestaurantResponse
 {
     public function __construct(
         private array $allTables,

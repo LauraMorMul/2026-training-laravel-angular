@@ -5,7 +5,7 @@ namespace App\User\Application\GetAllUsers;
 use App\User\Application\GetUserByID\GetUserByIDResponse;
 use App\User\Domain\Entity\User;
 
-class GetAllUsersResponse
+final readonly class GetAllUsersResponse
 {
     public function __construct(
         private array $allUsers,

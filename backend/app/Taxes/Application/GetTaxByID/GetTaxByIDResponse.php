@@ -4,7 +4,7 @@ namespace App\Taxes\Application\GetTaxByID;
 
 use App\Taxes\Domain\Entity\Tax;
 
-class GetTaxByIDResponse
+final readonly class GetTaxByIDResponse
 {
     public function __construct(
         public string $id,

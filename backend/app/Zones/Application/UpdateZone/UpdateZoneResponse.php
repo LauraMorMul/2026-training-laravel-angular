@@ -4,7 +4,7 @@ namespace App\Zones\Application\UpdateZone;
 
 use App\Zones\Domain\Entity\Zone;
 
-class UpdateZoneResponse
+final readonly class UpdateZoneResponse
 {
     public function __construct(
         public string $id,

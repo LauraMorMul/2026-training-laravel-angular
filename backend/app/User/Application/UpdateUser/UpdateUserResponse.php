@@ -4,7 +4,7 @@ namespace App\User\Application\UpdateUser;
 
 use App\User\Domain\Entity\User;
 
-class UpdateUserResponse
+final readonly class UpdateUserResponse
 {
     /**
      * Create a new class instance.

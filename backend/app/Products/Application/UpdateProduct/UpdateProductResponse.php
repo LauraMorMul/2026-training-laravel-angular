@@ -4,7 +4,7 @@ namespace App\Products\Application\UpdateProduct;
 
 use App\Products\Domain\Entity\Product;
 
-class UpdateProductResponse
+final readonly class UpdateProductResponse
 {
     public function __construct(
         public string $id,

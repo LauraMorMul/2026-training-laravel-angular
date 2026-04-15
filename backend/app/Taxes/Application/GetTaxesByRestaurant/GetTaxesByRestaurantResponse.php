@@ -5,7 +5,7 @@ namespace App\Taxes\Application\GetTaxesByRestaurant;
 use App\Taxes\Application\GetTaxByID\GetTaxByIDResponse;
 use App\Taxes\Domain\Entity\Tax;
 
-class GetTaxesByRestaurantResponse
+final readonly class GetTaxesByRestaurantResponse
 {
     public function __construct(
         private array $allTaxes,

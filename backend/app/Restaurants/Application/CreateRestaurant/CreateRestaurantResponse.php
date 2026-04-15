@@ -3,9 +3,8 @@
 namespace App\Restaurants\Application\CreateRestaurant;
 
 use App\Restaurants\Domain\Entity\Restaurant;
-use Mockery\Generator\StringManipulation\Pass\Pass;
 
-class CreateRestaurantResponse
+final readonly class CreateRestaurantResponse
 {
     public function __construct(
         public string $id,

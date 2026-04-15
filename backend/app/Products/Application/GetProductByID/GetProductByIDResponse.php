@@ -4,7 +4,7 @@ namespace App\Products\Application\GetProductByID;
 
 use App\Products\Domain\Entity\Product;
 
-class GetProductByIDResponse
+final readonly class GetProductByIDResponse
 {
     public function __construct(
         public string $id,

@@ -5,7 +5,7 @@ namespace App\Families\Application\GetFamiliesByRestaurant;
 use App\Families\Application\GetFamilyByID\GetFamilyByIDResponse;
 use App\Families\Domain\Entity\Family;
 
-class GetFamiliesByRestaurantResponse
+final readonly class GetFamiliesByRestaurantResponse
 {
     public function __construct(
         private array $allFamilies,

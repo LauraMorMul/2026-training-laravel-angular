@@ -4,7 +4,7 @@ namespace App\User\Application\GetUserByID;
 
 use App\User\Domain\Entity\User;
 
-class GetUserByIDResponse
+final readonly class GetUserByIDResponse
 {
     /**
      * Create a new class instance.

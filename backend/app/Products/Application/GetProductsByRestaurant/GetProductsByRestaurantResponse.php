@@ -5,7 +5,7 @@ namespace App\Products\Application\GetProductsByRestaurant;
 use App\Products\Application\GetProductByID\GetProductByIDResponse;
 use App\Products\Domain\Entity\Product;
 
-class GetProductsByRestaurantResponse
+final readonly class GetProductsByRestaurantResponse
 {
     public function __construct(
         private array $allProducts,

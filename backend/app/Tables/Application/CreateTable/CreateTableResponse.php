@@ -4,7 +4,7 @@ namespace App\Tables\Application\CreateTable;
 
 use App\Tables\Domain\Entity\Table;
 
-class CreateTableResponse
+final readonly class CreateTableResponse
 {
     public function __construct(
         public string $id,

@@ -5,7 +5,7 @@ namespace App\Zones\Application\GetZonesByRestaurant;
 use App\Zones\Application\GetZoneByID\GetZoneByIDResponse;
 use App\Zones\Domain\Entity\Zone;
 
-class GetZonesByRestaurantResponse
+final readonly class GetZonesByRestaurantResponse
 {
     public function __construct(
         private array $allZones,

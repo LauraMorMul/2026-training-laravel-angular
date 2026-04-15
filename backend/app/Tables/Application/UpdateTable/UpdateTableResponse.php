@@ -4,7 +4,7 @@ namespace App\Tables\Application\UpdateTable;
 
 use App\Tables\Domain\Entity\Table;
 
-class UpdateTableResponse
+final readonly class UpdateTableResponse
 {
     public function __construct(
         public string $id,

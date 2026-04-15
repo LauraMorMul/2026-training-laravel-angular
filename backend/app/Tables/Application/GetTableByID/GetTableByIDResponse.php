@@ -4,7 +4,7 @@ namespace App\Tables\Application\GetTableByID;
 
 use App\Tables\Domain\Entity\Table;
 
-class GetTableByIDResponse
+final readonly class GetTableByIDResponse
 {
     public function __construct(
         public string $id,

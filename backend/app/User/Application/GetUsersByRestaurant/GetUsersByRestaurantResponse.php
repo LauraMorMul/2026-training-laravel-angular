@@ -5,7 +5,7 @@ namespace App\User\Application\GetUsersByRestaurant;
 use App\User\Application\GetUserByID\GetUserByIDResponse;
 use App\User\Domain\Entity\User;
 
-class GetUsersByRestaurantResponse
+final readonly class GetUsersByRestaurantResponse
 {
     public function __construct(
         private array $allUsers,

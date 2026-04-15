@@ -4,7 +4,7 @@ namespace App\Families\Application\GetFamilyByID;
 
 use App\Families\Domain\Entity\Family;
 
-class GetFamilyByIDResponse
+final readonly class GetFamilyByIDResponse
 {
     public function __construct(
         public string $id,
