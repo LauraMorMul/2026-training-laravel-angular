@@ -6,10 +6,10 @@ use App\Restaurants\Domain\Entity\Restaurant;
 use App\Restaurants\Domain\Interfaces\RestaurantRepositoryInterface;
 use App\Restaurants\Domain\ValueObject\LegalName;
 use App\Restaurants\Domain\ValueObject\TaxID;
+use App\Shared\Domain\Interfaces\PasswordHasherInterface;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\PasswordHash;
-use App\User\Domain\Interfaces\PasswordHasherInterface;
 
 class CreateRestaurant
 {

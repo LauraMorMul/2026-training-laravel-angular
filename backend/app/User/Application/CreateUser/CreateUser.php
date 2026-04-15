@@ -5,7 +5,7 @@ namespace App\User\Application\CreateUser;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\ImageSrc;
 use App\User\Domain\Entity\User;
-use App\User\Domain\Interfaces\PasswordHasherInterface;
+use App\Shared\Domain\Interfaces\PasswordHasherInterface;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\Shared\Domain\ValueObject\PasswordHash;
 use App\Shared\Domain\ValueObject\RestaurantID;

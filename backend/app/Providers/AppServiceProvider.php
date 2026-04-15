@@ -3,15 +3,15 @@
 namespace App\Providers;
 
 use App\Families\Domain\Interfaces\FamilyRepositoryInterface;
-use App\User\Domain\Interfaces\PasswordHasherInterface;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\User\Infrastructure\Persistence\Repositories\EloquentUserRepository;
-use App\User\Infrastructure\Services\LaravelPasswordHasher;
 use App\Families\Infrastructure\Persistence\Repositories\EloquentFamilyRepository;
 use App\Products\Domain\Interfaces\ProductRepositoryInterface;
 use App\Products\Infrastructure\Persistence\Repositories\EloquentProductRepository;
 use App\Restaurants\Domain\Interfaces\RestaurantRepositoryInterface;
 use App\Restaurants\Infrastructure\Persistence\Repositories\EloquentRestaurantRepository;
+use App\Shared\Domain\Interfaces\PasswordHasherInterface;
+use App\Shared\Infrastructure\Services\LaravelPasswordHasher;
 use App\Tables\Domain\Interfaces\TableRepositoryInterface;
 use App\Tables\Infrastructure\Persistence\Repositories\EloquentTableRepository;
 use App\Taxes\Domain\Interfaces\TaxRepositoryInterface;

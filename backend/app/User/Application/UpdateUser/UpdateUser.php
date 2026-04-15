@@ -2,9 +2,9 @@
 
 namespace App\User\Application\UpdateUser;
 
+use App\Shared\Domain\Interfaces\PasswordHasherInterface;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\ImageSrc;
-use App\User\Domain\Interfaces\PasswordHasherInterface;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\Shared\Domain\ValueObject\PasswordHash;
 use App\User\Domain\ValueObject\Pin;
@@ -36,31 +36,31 @@ class UpdateUser
         }
 
         if ($name === null) {
-            $nameVO = UserName::create($user->name()->value());
+            $nameVO = $user->name();
         } else {
             $nameVO = UserName::create($name);
         }
 
         if ($plainPassword === null) {
-            $passwordHashVO = PasswordHash::create($user->passwordHash()->value());
+            $passwordHashVO = $user->passwordHash();
         } else {
             $passwordHashVO = PasswordHash::create($this->passwordHasher->hash($plainPassword));
         }
 
         if ($role === null) {
-            $roleVO = Role::create($user->role()->value());
+            $roleVO = $user->role();
         } else {
             $roleVO = Role::create($role);
         }
 
         if ($imageSrc === null) {
-            $imageSrcVO = ImageSrc::create($user->imageSrc()->value());
+            $imageSrcVO = $user->imageSrc();
         } else {
             $imageSrcVO = ImageSrc::create($imageSrc);
         }
 
         if ($pin === null) {
-            $pinVO = Pin::create($user->pin()->value());
+            $pinVO = $user->pin();
         } else {
             $pinVO = Pin::create($pin);
         }
