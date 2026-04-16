@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Model;
-use App\Order_lines\Infrastructure\Persistence\Models\EloquentOrderLine;
+use App\Order_line\Infrastructure\Persistence\Models\EloquentOrderLine;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

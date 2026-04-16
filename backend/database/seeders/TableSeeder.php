@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Tables\Infrastructure\Persistence\Models\EloquentTable;
+use App\Table\Infrastructure\Persistence\Models\EloquentTable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 

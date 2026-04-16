@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Taxes\Infrastructure\Persistence\Models\EloquentTax;
+use App\Tax\Infrastructure\Persistence\Models\EloquentTax;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

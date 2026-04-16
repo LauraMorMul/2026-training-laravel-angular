@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Restaurants\Infrastructure\Persistence\Models\EloquentRestaurant;
+use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
 use Illuminate\Database\Eloquent\Collection;
 
 class RestaurantSeeder extends Seeder

@@ -3,8 +3,7 @@
 namespace Database\Factories;
 
 use App\Model;
-use App\Orders\Infrastructure\Persistence\Models\EloquentOrder;
-use DateTime;
+use App\Order\Infrastructure\Persistence\Models\EloquentOrder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

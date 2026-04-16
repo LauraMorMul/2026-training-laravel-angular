@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Sales_lines\Infrastructure\Persistence\Models\EloquentSaleLine;
+use App\Sales_line\Infrastructure\Persistence\Models\EloquentSaleLine;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 

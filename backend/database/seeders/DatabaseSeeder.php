@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Database\Factories\SaleLineFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

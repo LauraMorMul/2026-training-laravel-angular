@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use App\Model;
-use App\Order_lines\Infrastructure\Persistence\Models\EloquentOrderLine;
-use App\Sales\Infrastructure\Persistence\Models\EloquentSale;
-use App\Sales_lines\Infrastructure\Persistence\Models\EloquentSaleLine;
+use App\Order_line\Infrastructure\Persistence\Models\EloquentOrderLine;
+use App\Sale\Infrastructure\Persistence\Models\EloquentSale;
+use App\Sales_line\Infrastructure\Persistence\Models\EloquentSaleLine;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;

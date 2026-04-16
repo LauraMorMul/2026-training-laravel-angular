@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Orders\Infrastructure\Persistence\Models\EloquentOrder;
+use App\Order\Infrastructure\Persistence\Models\EloquentOrder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 

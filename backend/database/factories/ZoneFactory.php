@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Model;
-use App\Zones\Infrastructure\Persistence\Models\EloquentZone;
+use App\Zone\Infrastructure\Persistence\Models\EloquentZone;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

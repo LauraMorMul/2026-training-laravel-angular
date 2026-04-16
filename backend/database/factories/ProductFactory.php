@@ -2,8 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Products\Infrastructure\Persistence\Models\EloquentProduct;
-use App\User\Domain\Entity\Family;
+use App\Product\Infrastructure\Persistence\Models\EloquentProduct;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

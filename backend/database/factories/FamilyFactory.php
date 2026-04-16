@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Families\Infrastructure\Persistence\Models\EloquentFamily;
+use App\Family\Infrastructure\Persistence\Models\EloquentFamily;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
