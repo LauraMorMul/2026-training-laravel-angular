@@ -2,19 +2,19 @@
 
 namespace App\User\Infrastructure\Persistence\Models;
 
-use App\Order_lines\Infrastructure\Persistence\Models\EloquentOrderLine;
-use App\Sales_lines\Infrastructure\Persistence\Models\EloquentSaleLine;
+use App\Order_line\Infrastructure\Persistence\Models\EloquentOrderLine;
+use App\Sales_line\Infrastructure\Persistence\Models\EloquentSaleLine;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 class EloquentUser extends Authenticatable
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes, HasApiTokens;
 
     protected $table = 'users';
 
