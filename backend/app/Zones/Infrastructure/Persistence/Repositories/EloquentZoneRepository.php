@@ -72,6 +72,13 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
 
     public function deleteByID(string $id): void
     {
-        $this->model->newQuery()->where('uuid', $id)->delete();
+        // $this->model->newQuery()->where('uuid', $id)->delete();
+        $zoneModel = $this->model->newQuery()->where('uuid', $id)->first();
+
+        if ($zoneModel === null) {
+            return;
+        }
+
+        $zoneModel->delete();
     }
 }

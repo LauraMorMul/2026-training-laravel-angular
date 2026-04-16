@@ -99,6 +99,12 @@ class EloquentFamilyRepository implements FamilyRepositoryInterface
 
     public function deleteByID(string $id): void
     {
-        $this->model->newQuery()->where('uuid', $id)->delete();
+        $familyModel = $this->model->newQuery()->where('uuid', $id)->first();
+
+        if($familyModel === null) {
+            return;
+        }
+
+        $familyModel->delete();
     }
 }

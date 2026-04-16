@@ -76,6 +76,12 @@ class EloquentTableRepository implements TableRepositoryInterface
 
     public function deleteByID(string $id): void
     {
-        $this->model->newQuery()->where('uuid', $id)->delete();
+        $tableModel = $this->model->newQuery()->where('uuid', $id)->first();
+
+        if($tableModel === null) {
+            return;
+        }
+
+        $tableModel->delete();
     }
 }

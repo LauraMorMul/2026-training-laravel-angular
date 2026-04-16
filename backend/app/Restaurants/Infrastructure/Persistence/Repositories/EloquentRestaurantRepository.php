@@ -76,6 +76,12 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
 
     public function deleteByID(string $id): void
     {
-        $this->model->newQuery()->where('uuid', $id)->delete();
+        $restaurantModel = $this->model->newQuery()->where('uuid', $id)->first();
+
+        if($restaurantModel === null) {
+            return;
+        }
+
+        $restaurantModel->delete();
     }
 }

@@ -89,6 +89,12 @@ class EloquentProductRepository implements ProductRepositoryInterface
 
     public function deleteByID(string $id): void
     {
-        $this->model->newQuery()->where('uuid', $id)->delete();
+        $productModel = $this->model->newQuery()->where('uuid', $id)->first();
+
+        if($productModel === null) {
+            return;
+        }
+
+        $productModel->delete();
     }
 }

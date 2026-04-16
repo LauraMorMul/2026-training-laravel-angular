@@ -75,6 +75,12 @@ class EloquentTaxRepository implements TaxRepositoryInterface
 
     public function deleteByID(string $id): void
     {
-        $this->model->newQuery()->where('uuid', $id)->delete();
+        $taxModel = $this->model->newQuery()->where('uuid', $id)->first();
+
+        if($taxModel === null) {
+            return;
+        }
+
+        $taxModel->delete();
     }
 }
