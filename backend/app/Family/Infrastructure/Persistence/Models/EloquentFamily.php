@@ -2,8 +2,8 @@
 
 namespace App\Family\Infrastructure\Persistence\Models;
 
-use App\Products\Infrastructure\Persistence\Models\EloquentProduct;
-use App\Restaurants\Infrastructure\Persistence\Models\EloquentRestaurant;
+use App\Product\Infrastructure\Persistence\Models\EloquentProduct;
+use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
 use Database\Factories\FamilyFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EloquentFamily extends Model
 {
-    /** @use HasFactory<\Database\Factories\\Families\Infrastructure\Persistence\EloquentFamilyFactory> */
     use HasFactory;
     use SoftDeletes;
 

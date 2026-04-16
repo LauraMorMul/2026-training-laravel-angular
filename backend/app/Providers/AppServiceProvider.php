@@ -2,22 +2,22 @@
 
 namespace App\Providers;
 
-use App\Families\Domain\Interfaces\FamilyRepositoryInterface;
+use App\Family\Domain\Interfaces\FamilyRepositoryInterface;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\User\Infrastructure\Persistence\Repositories\EloquentUserRepository;
-use App\Families\Infrastructure\Persistence\Repositories\EloquentFamilyRepository;
-use App\Products\Domain\Interfaces\ProductRepositoryInterface;
-use App\Products\Infrastructure\Persistence\Repositories\EloquentProductRepository;
-use App\Restaurants\Domain\Interfaces\RestaurantRepositoryInterface;
-use App\Restaurants\Infrastructure\Persistence\Repositories\EloquentRestaurantRepository;
+use App\Family\Infrastructure\Persistence\Repositories\EloquentFamilyRepository;
+use App\Product\Domain\Interfaces\ProductRepositoryInterface;
+use App\Product\Infrastructure\Persistence\Repositories\EloquentProductRepository;
+use App\Restaurant\Domain\Interfaces\RestaurantRepositoryInterface;
+use App\Restaurant\Infrastructure\Persistence\Repositories\EloquentRestaurantRepository;
 use App\Shared\Domain\Interfaces\PasswordHasherInterface;
 use App\Shared\Infrastructure\Services\LaravelPasswordHasher;
-use App\Tables\Domain\Interfaces\TableRepositoryInterface;
-use App\Tables\Infrastructure\Persistence\Repositories\EloquentTableRepository;
-use App\Taxes\Domain\Interfaces\TaxRepositoryInterface;
-use App\Taxes\Infrastructure\Persistence\Repositories\EloquentTaxRepository;
-use App\Zones\Domain\Interfaces\ZoneRepositoryInterface;
-use App\Zones\Infrastructure\Persistence\Repositories\EloquentZoneRepository;
+use App\Table\Domain\Interfaces\TableRepositoryInterface;
+use App\Table\Infrastructure\Persistence\Repositories\EloquentTableRepository;
+use App\Tax\Domain\Interfaces\TaxRepositoryInterface;
+use App\Tax\Infrastructure\Persistence\Repositories\EloquentTaxRepository;
+use App\Zone\Domain\Interfaces\ZoneRepositoryInterface;
+use App\Zone\Infrastructure\Persistence\Repositories\EloquentZoneRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

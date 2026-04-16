@@ -15,12 +15,13 @@ class PatchTableController
     public function __invoke(string $id, Request $request): JsonResponse
     {
         $validated = $request->validate([
+            'zone_id' => ['integer'],
             'name' => ['string', 'max:255'],
-            'active' => ['boolean'],
         ]);
 
         $response = ($this->updateTable)(
             $id,
+            $validated['zone_id'] ?? null,
             $validated['name'] ?? null,
         );
 

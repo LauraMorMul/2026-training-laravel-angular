@@ -4,7 +4,6 @@ namespace App\Restaurant\Domain\ValueObject;
 
 class LegalName
 {
-    //No se hacen más validaciones para facilitar la internacionalidad de la aplicación
     private const MAX_LENGTH = 255;
 
     private string $value;
