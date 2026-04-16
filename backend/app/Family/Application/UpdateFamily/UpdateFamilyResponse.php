@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Family\Application\UpdateFamily;
+
+use App\Family\Domain\Entity\Family;
+
+final readonly class UpdateFamilyResponse
+{
+    public function __construct(
+        public string $id,
+        public int $restaurantID,
+        public string $name,
+        public bool $active,
+        public string $createdAt,
+        public string $updatedAt,
+    ){}
+
+    public static function create(Family $family): self
+    {
+        return new self(
+            id: $family->id()->value(),
+            restaurantID: $family->restaurantID()->value(),
+            name: $family->name()->value(),
+            active: $family->active(),
+            createdAt: $family->createdAt()->format(\DateTimeInterface::ATOM),
+            updatedAt: $family->updatedAt()->format(\DateTimeInterface::ATOM),
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'restaurant_id' => $this->restaurantID,
+            'name' => $this->name,
+            'active' => $this->active,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt,
+        ];
+    }
+}
