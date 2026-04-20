@@ -10,7 +10,7 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
 {
     public function __construct(
         private EloquentRestaurant $model
-    ){}
+    ) {}
 
     public function save(Restaurant $restaurant): void
     {
@@ -32,7 +32,7 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
     {
         $model = $this->model->newQuery()->where('uuid', $id)->first();
 
-        if($model === null) {
+        if ($model === null) {
             return null;
         }
 
@@ -51,23 +51,23 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
     public function getAll(): ?array
     {
         $models = $this->model->newQuery()->getModels();
-        $restaurants = array();
+        $restaurants = [];
 
-        if($models === null) {
+        if ($models === null) {
             return null;
         }
 
-        foreach($models as $model) {
+        foreach ($models as $model) {
             $restaurant = Restaurant::fromPersistence(
-            $model->uuid,
-            $model->name,
-            $model->legal_name,
-            $model->tax_id,
-            $model->email,
-            $model->password,
-            $model->created_at,
-            $model->deleted_at,
-        );
+                $model->uuid,
+                $model->name,
+                $model->legal_name,
+                $model->tax_id,
+                $model->email,
+                $model->password,
+                $model->created_at,
+                $model->deleted_at,
+            );
             array_push($restaurants, $restaurant);
         }
 
@@ -78,7 +78,7 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
     {
         $restaurantModel = $this->model->newQuery()->where('uuid', $id)->first();
 
-        if($restaurantModel === null) {
+        if ($restaurantModel === null) {
             return;
         }
 

@@ -15,8 +15,8 @@ class ZoneSeeder extends Seeder
     {
         return
         EloquentZone::factory()
-        ->recycle($restaurants)
-        ->count(8)
-        ->create();
+            ->recycle($restaurants)
+            ->count(8)
+            ->create();
     }
 }

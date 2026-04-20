@@ -17,8 +17,7 @@ class Table
         private Name $name,
         private DomainDateTime $createdAt,
         private DomainDateTime $updatedAt,
-    )
-    {}
+    ) {}
 
     public static function dddCreate(RestaurantID $restaurantID, ZoneID $zoneId, Name $name): self
     {
@@ -55,8 +54,7 @@ class Table
     public function updateData(
         ZoneID $zoneID,
         Name $name,
-    ): self
-    {
+    ): self {
         return new self(
             $this->id,
             $this->restaurantId,

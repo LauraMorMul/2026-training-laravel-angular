@@ -3,7 +3,6 @@
 namespace App\User\Application\GetAllUsers;
 
 use App\User\Domain\Interfaces\UserRepositoryInterface;
-use App\User\Application\GetAllUsers\GetAllUsersResponse;
 
 class GetAllUsers
 {
@@ -15,8 +14,7 @@ class GetAllUsers
     {
         $users = $this->userRepository->getAll();
 
-
-        if( $users == null) {
+        if ($users == null) {
             return null;
         } else {
             return GetAllUsersResponse::create($users);

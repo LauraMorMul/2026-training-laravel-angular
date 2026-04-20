@@ -9,22 +9,21 @@ class UpdateFamily
 {
     public function __construct(
         private FamilyRepositoryInterface $familyRepository,
-    )
-    {}
+    ) {}
 
-    public function __invoke(string $uuid, ?string $name, ?bool $active): ? UpdateFamilyResponse
+    public function __invoke(string $uuid, ?string $name, ?bool $active): ?UpdateFamilyResponse
     {
         $family = $this->familyRepository->findById($uuid);
 
-        if($name === null) {
+        if ($name === null) {
             $nameVO = $family->name();
-        }else {
+        } else {
             $nameVO = Name::create($name);
         }
 
-        if($active === null) {
+        if ($active === null) {
             $isActive = $family->active();
-        }else {
+        } else {
             $isActive = $active;
         }
 

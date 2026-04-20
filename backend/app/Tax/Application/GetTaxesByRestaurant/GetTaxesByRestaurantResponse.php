@@ -11,10 +11,11 @@ final readonly class GetTaxesByRestaurantResponse
         private array $allTaxes,
     ) {}
 
-    public static function create(array $taxes):self {
+    public static function create(array $taxes): self
+    {
         return new self(
             allTaxes: array_map(
-                fn(Tax $tax) => GetTaxByIDResponse::create($tax),
+                fn (Tax $tax) => GetTaxByIDResponse::create($tax),
                 $taxes
             )
         );
@@ -23,7 +24,7 @@ final readonly class GetTaxesByRestaurantResponse
     public function toArray(): array
     {
         return array_map(
-            fn(GetTaxByIDResponse $tax) => $tax->toArray(),
+            fn (GetTaxByIDResponse $tax) => $tax->toArray(),
             $this->allTaxes
         );
     }

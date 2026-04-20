@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 class TaxFactory extends Factory
 {
     protected $model = EloquentTax::class;
+
     /**
      * Define the model's default state.
      *

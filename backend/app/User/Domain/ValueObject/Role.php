@@ -11,11 +11,11 @@ class Role
     private function __construct(string $value)
     {
         $trimmed = trim($value);
-        if($trimmed == '') {
+        if ($trimmed == '') {
             throw new \InvalidArgumentException('Role cannot be empty.');
         }
 
-        if(!in_array($value, self::AVAILABLE_ROLES)) {
+        if (! in_array($value, self::AVAILABLE_ROLES)) {
             throw new \InvalidArgumentException(
                 sprintf('Role %s isn\'t available as an option.', $value)
             );

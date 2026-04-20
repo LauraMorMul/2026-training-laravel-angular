@@ -11,7 +11,7 @@ class CreateFamily
 {
     public function __construct(
         private FamilyRepositoryInterface $familyRepository,
-    ){}
+    ) {}
 
     public function __invoke(int $restaurantID, string $name, bool $active): CreateFamilyResponse
     {

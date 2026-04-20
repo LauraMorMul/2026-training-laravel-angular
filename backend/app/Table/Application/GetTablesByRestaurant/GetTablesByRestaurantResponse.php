@@ -11,10 +11,11 @@ final readonly class GetTablesByRestaurantResponse
         private array $allTables,
     ) {}
 
-    public static function create(array $families):self {
+    public static function create(array $families): self
+    {
         return new self(
             allTables: array_map(
-                fn(Table $table) => GetTableByIDResponse::create($table),
+                fn (Table $table) => GetTableByIDResponse::create($table),
                 $families
             )
         );
@@ -23,7 +24,7 @@ final readonly class GetTablesByRestaurantResponse
     public function toArray(): array
     {
         return array_map(
-            fn(GetTableByIDResponse $table) => $table->toArray(),
+            fn (GetTableByIDResponse $table) => $table->toArray(),
             $this->allTables
         );
     }

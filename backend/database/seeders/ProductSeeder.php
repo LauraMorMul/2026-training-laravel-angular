@@ -15,10 +15,10 @@ class ProductSeeder extends Seeder
     {
         return
         EloquentProduct::factory()
-        ->recycle($restaurants)
-        ->recycle($families)
-        ->recycle($taxes)
-        ->count(50)
-        ->create();
+            ->recycle($restaurants)
+            ->recycle($families)
+            ->recycle($taxes)
+            ->count(50)
+            ->create();
     }
 }

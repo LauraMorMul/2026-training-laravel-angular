@@ -9,14 +9,13 @@ class GetAllUserController
 {
     public function __construct(
         private GetAllUsers $getAllUsers,
-    )
-    {}
+    ) {}
 
     public function __invoke(): JsonResponse
     {
         $response = ($this->getAllUsers)();
 
-        if($response == null) {
+        if ($response == null) {
             return new JsonResponse('Users not found', 404);
         } else {
             return new JsonResponse($response->toArray(), 200);

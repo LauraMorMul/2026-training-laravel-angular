@@ -19,8 +19,8 @@ class EloquentOrder extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    
-    protected $table ='orders';
+
+    protected $table = 'orders';
 
     protected static function newFactory(): Factory
     {
@@ -68,7 +68,7 @@ class EloquentOrder extends Model
     {
         static::deleting(function (EloquentOrder $order) {
             $order->orderLines()->each(
-                fn($orderLine) => $orderLine->delete()
+                fn ($orderLine) => $orderLine->delete()
             );
         });
     }

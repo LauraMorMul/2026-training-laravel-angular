@@ -13,7 +13,7 @@ final readonly class UpdateFamilyResponse
         public bool $active,
         public string $createdAt,
         public string $updatedAt,
-    ){}
+    ) {}
 
     public static function create(Family $family): self
     {

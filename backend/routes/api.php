@@ -25,6 +25,7 @@ use App\User\Infrastructure\Entrypoint\Http\DeleteUserByIDController;
 use App\User\Infrastructure\Entrypoint\Http\GetAllUserController;
 use App\User\Infrastructure\Entrypoint\Http\GetUserByIDController;
 use App\User\Infrastructure\Entrypoint\Http\GetUserByRestaurantController;
+use App\User\Infrastructure\Entrypoint\Http\LoginUserController;
 use App\User\Infrastructure\Entrypoint\Http\PatchUserController;
 use App\User\Infrastructure\Entrypoint\Http\PostUserController;
 use App\Zone\Infrastructure\Entrypoint\Http\DeleteZoneByIDController;
@@ -34,7 +35,7 @@ use App\Zone\Infrastructure\Entrypoint\Http\PatchZoneController;
 use App\Zone\Infrastructure\Entrypoint\Http\PostZoneController;
 use Illuminate\Support\Facades\Route;
 
-//Rutas relacionadas con el User
+// Rutas relacionadas con el User
 Route::post('/users', PostUserController::class);
 Route::get('/users/all', GetAllUserController::class);
 Route::get('/users/{id}', GetUserByIDController::class);
@@ -42,40 +43,43 @@ Route::get('/users/restaurant/{id}', GetUserByRestaurantController::class);
 Route::delete('/users/{id}', DeleteUserByIDController::class);
 Route::patch('/users/{id}', PatchUserController::class);
 
-//Rutas de familia
+// Rutas de familia
 Route::post('/families', PostFamilyController::class);
 Route::delete('/families/{id}', DeleteFamilyByIDController::class);
 Route::get('/families/{id}', GetFamilyByIDController::class);
 Route::get('/families/restaurant/{id}', GetFamiliesByRestaurantController::class);
 Route::patch('/families/{id}', PatchFamilyController::class);
 
-//Rutas de restaurante
+// Rutas de restaurante
 Route::post('/restaurants', PostRestaurantController::class);
 
-//Rutas de tax
+// Rutas de tax
 Route::post('/taxes', PostTaxControlelr::class);
 Route::delete('/taxes/{id}', DeleteTaxByIDController::class);
 Route::get('/taxes/{id}', GetTaxByIDController::class);
 Route::get('/taxes/restaurant/{id}', GetTaxesbyRestaurantController::class);
 Route::patch('/taxes/{id}', PatchTaxController::class);
 
-//Rutas de product
+// Rutas de product
 Route::post('/products', PostProductController::class);
 Route::get('/products/{id}', GetProductByIDController::class);
 Route::get('/products/restaurant/{id}', GetProductsByRestaurantController::class);
 Route::patch('/products/{id}', PatchProductController::class);
 Route::delete('/products/{id}', DeleteProductByIDController::class);
 
-//Rutas de zones
+// Rutas de zones
 Route::post('/zones', PostZoneController::class);
 Route::get('/zones/{id}', GetZoneByIDController::class);
 Route::get('/zones/restaurant/{id}', GetZonesByRestaurantController::class);
 Route::patch('/zones/{id}', PatchZoneController::class);
 Route::delete('/zones/{id}', DeleteZoneByIDController::class);
 
-//Rutas de tables
+// Rutas de tables
 Route::post('/tables', PostTableController::class);
 Route::get('/tables/{id}', GetTableByIDController::class);
 Route::get('/tables/restaurant/{id}', GetTablesByRestaurantController::class);
 Route::patch('/tables/{id}', PatchTableController::class);
 Route::delete('/tables/{id}', DeleteTableByIDController::class);
+
+// Rutas de login
+Route::post('/login', LoginUserController::class);

@@ -15,11 +15,11 @@ class OrderLineSeeder extends Seeder
     {
         return
         EloquentOrderLine::factory()
-        ->recycle($restaurants)
-        ->recycle($orders)
-        ->recycle($products)
-        ->recycle($users)
-        ->count(random_int(5, 50))
-        ->create();
+            ->recycle($restaurants)
+            ->recycle($orders)
+            ->recycle($products)
+            ->recycle($users)
+            ->count(random_int(5, 50))
+            ->create();
     }
 }

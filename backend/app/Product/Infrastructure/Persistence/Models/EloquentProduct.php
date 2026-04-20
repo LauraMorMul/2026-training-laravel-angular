@@ -4,10 +4,10 @@ namespace App\Product\Infrastructure\Persistence\Models;
 
 use App\Family\Infrastructure\Persistence\Models\EloquentFamily;
 use App\Order_line\Infrastructure\Persistence\Models\EloquentOrderLine;
-use Database\Factories\ProductFactory;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Restaurants\Infrastructure\Persistence\Models\EloquentRestaurant;
 use App\Taxes\Infrastructure\Persistence\Models\EloquentTax;
+use Database\Factories\ProductFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

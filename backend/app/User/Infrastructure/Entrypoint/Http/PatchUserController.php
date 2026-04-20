@@ -3,8 +3,8 @@
 namespace App\User\Infrastructure\Entrypoint\Http;
 
 use App\User\Application\UpdateUser\UpdateUser;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class PatchUserController
 {
@@ -33,6 +33,7 @@ class PatchUserController
             $validated['image_src'] ?? null,
             $validated['pin'] ?? null,
         );
+
         return new JsonResponse($response->toArray(), 200);
     }
 }

@@ -8,16 +8,16 @@ class GetZonesByRestaurant
 {
     public function __construct(
         private ZoneRepositoryInterface $zonesRepository,
-    ){}
+    ) {}
 
     public function __invoke(string $restaurantID): ?GetZonesByRestaurantResponse
     {
         $zones = $this->zonesRepository->getByRestaurant($restaurantID);
 
-        if($zones == null) {
+        if ($zones == null) {
             return null;
         } else {
             return GetZonesByRestaurantResponse::create($zones);
-        }        
+        }
     }
 }

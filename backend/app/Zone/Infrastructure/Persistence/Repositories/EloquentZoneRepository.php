@@ -45,25 +45,25 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
     public function getByRestaurant(string $restaurantID): ?array
     {
 
-        $models = $this->model->newQuery()->whereIn('restaurant_id', function($query) use ($restaurantID) {
+        $models = $this->model->newQuery()->whereIn('restaurant_id', function ($query) use ($restaurantID) {
             $query->select('id')
-            ->from('restaurants')
-            ->where('uuid', $restaurantID);
+                ->from('restaurants')
+                ->where('uuid', $restaurantID);
         })->getModels();
-        $zones = array();
+        $zones = [];
 
         if ($models === null) {
             return null;
         }
 
-        foreach($models as $model) {
+        foreach ($models as $model) {
             $zone = Zone::fromPersistence(
-            $model->uuid,
-            $model->restaurant_id,
-            $model->name,
-            $model->created_at->toDateTimeImmutable(),
-            $model->updated_at->toDateTimeImmutable(),
-        );
+                $model->uuid,
+                $model->restaurant_id,
+                $model->name,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
+            );
             array_push($zones, $zone);
         }
 

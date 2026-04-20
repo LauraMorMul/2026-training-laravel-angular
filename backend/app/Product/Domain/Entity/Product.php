@@ -26,7 +26,7 @@ class Product
         private bool $active,
         private DomainDateTime $createdAt,
         private DomainDateTime $updatedAt,
-    ){}
+    ) {}
 
     public static function dddCreate(RestaurantID $restaurantID, FamilyID $familyID, TaxID $taxID, ImageSrc $imageSrc, Name $name, Price $price, Stock $stock, bool $active): self
     {
@@ -79,12 +79,11 @@ class Product
         FamilyID $familyID,
         TaxID $taxID,
         ImageSrc $imageSrc,
-        Name $name, 
+        Name $name,
         Price $price,
         Stock $stock,
         bool $active
-    ): self
-    {
+    ): self {
         return new self(
             $this->id,
             $this->restaurantID,

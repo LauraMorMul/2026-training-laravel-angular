@@ -15,8 +15,8 @@ class FamilySeeder extends Seeder
     {
         return
         EloquentFamily::factory()
-        ->recycle($restaurants)
-        ->count(10)
-        ->create();
+            ->recycle($restaurants)
+            ->count(10)
+            ->create();
     }
 }

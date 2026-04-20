@@ -18,8 +18,7 @@ final readonly class UpdateProductResponse
         public bool $active,
         public string $createdAt,
         public string $updatedAt,
-    )
-    {}
+    ) {}
 
     public static function create(Product $product): self
     {

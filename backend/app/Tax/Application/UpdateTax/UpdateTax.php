@@ -10,22 +10,21 @@ class UpdateTax
 {
     public function __construct(
         private TaxRepositoryInterface $taxRepository,
-    )
-    {}
+    ) {}
 
-    public function __invoke(string $uuid, ?string $name, ?int $percentage): ? UpdateTaxResponse
+    public function __invoke(string $uuid, ?string $name, ?int $percentage): ?UpdateTaxResponse
     {
         $tax = $this->taxRepository->findById($uuid);
 
-        if($name === null) {
+        if ($name === null) {
             $nameVO = $tax->name();
-        }else {
+        } else {
             $nameVO = Name::create($name);
         }
 
-        if($percentage === null) {
+        if ($percentage === null) {
             $percentageVO = $tax->percentage();
-        }else {
+        } else {
             $percentageVO = Percentage::create($percentage);
         }
 

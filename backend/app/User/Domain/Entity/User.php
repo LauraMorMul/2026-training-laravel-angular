@@ -5,9 +5,9 @@ namespace App\User\Domain\Entity;
 use App\Shared\Domain\ValueObject\DomainDateTime;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\ImageSrc;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\PasswordHash;
 use App\Shared\Domain\ValueObject\RestaurantID;
+use App\Shared\Domain\ValueObject\Uuid;
 use App\User\Domain\ValueObject\Pin;
 use App\User\Domain\ValueObject\Role;
 use App\User\Domain\ValueObject\UserName;
@@ -27,7 +27,7 @@ class User
         private DomainDateTime $updatedAt,
     ) {}
 
-    public static function  dddCreate(Email $email, UserName $name, PasswordHash $passwordHash, RestaurantID $restaurantID, Role $role, ImageSrc $imageSrc, Pin $pin): self
+    public static function dddCreate(Email $email, UserName $name, PasswordHash $passwordHash, RestaurantID $restaurantID, Role $role, ImageSrc $imageSrc, Pin $pin): self
     {
         $now = DomainDateTime::now();
 
@@ -78,8 +78,7 @@ class User
         Role $role,
         ImageSrc $imageSrc,
         Pin $pin,
-    ): self
-    {
+    ): self {
         return new self(
             $this->id,
             $this->restaurantID,

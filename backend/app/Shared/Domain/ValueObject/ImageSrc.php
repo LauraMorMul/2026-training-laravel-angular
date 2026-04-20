@@ -11,11 +11,11 @@ class ImageSrc
     private function __construct(string $value)
     {
         $trimmed = trim($value);
-        if($trimmed === '') {
+        if ($trimmed === '') {
             throw new \InvalidArgumentException('If an image isn\'t provided, there will be a placeholder.');
-        }else {
+        } else {
             $extension = pathinfo($value, PATHINFO_EXTENSION);
-            if( !in_array($extension, self::ACCEPTED_FILETYPE) || $value === NULL || $value === '') {
+            if (! in_array($extension, self::ACCEPTED_FILETYPE) || $value === null || $value === '') {
                 throw new \InvalidArgumentException(
                     sprintf('File extension not accepted. %s', $trimmed)
                 );

@@ -8,11 +8,11 @@ class Percentage
 
     private function __construct(int $value)
     {
-        if($value < 0) {
+        if ($value < 0) {
             throw new \InvalidArgumentException('Percentace can\'t be negative.');
         }
 
-        if($value > 100) {
+        if ($value > 100) {
             throw new \InvalidArgumentException('Percentace shouldn\'t be higher than 100.');
         }
 

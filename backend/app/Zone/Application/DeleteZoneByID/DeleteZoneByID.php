@@ -8,8 +8,7 @@ class DeleteZoneByID
 {
     public function __construct(
         private ZoneRepositoryInterface $zoneRepository,
-    )
-    {}
+    ) {}
 
     public function __invoke(string $id): void
     {

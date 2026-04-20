@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
-use Database\Factories\RestaurantFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -14,7 +13,6 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     protected $model = EloquentUser::class;
-
 
     /**
      * The current password being used by the factory.
@@ -34,6 +32,7 @@ class UserFactory extends Factory
         $email = $firstName.'.'.$lastName.'@company.com';
         $extension = fake()->randomElement(['jpeg', 'jpg', 'png', 'gif', 'webp', 'avif', 'svg']);
         $imageSrc = $firstName.'_'.$lastName.'.'.$extension;
+
         return [
             'uuid' => (string) Str::uuid(),
             'restaurant_id' => RestaurantFactory::new(),

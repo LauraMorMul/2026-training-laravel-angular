@@ -3,8 +3,8 @@
 namespace App\Restaurant\Infrastructure\Persistence\Models;
 
 use App\Family\Infrastructure\Persistence\Models\EloquentFamily;
-use App\Order_line\Infrastructure\Persistence\Models\EloquentOrderLine;
 use App\Order\Infrastructure\Persistence\Models\EloquentOrder;
+use App\Order_line\Infrastructure\Persistence\Models\EloquentOrderLine;
 use App\Product\Infrastructure\Persistence\Models\EloquentProduct;
 use App\Sale\Infrastructure\Persistence\Models\EloquentSale;
 use App\Sales_line\Infrastructure\Persistence\Models\EloquentSaleLine;
@@ -23,6 +23,7 @@ class EloquentRestaurant extends Model
 {
     /** @use HasFactory<\Database\Factories\\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurantFactory> */
     use HasFactory;
+
     use SoftDeletes;
 
     protected $table = 'restaurants';
@@ -38,11 +39,11 @@ class EloquentRestaurant extends Model
         'legal_name',
         'tax_id',
         'email',
-        'password'
+        'password',
     ];
 
     protected $hidden = [
-        'password'
+        'password',
     ];
 
     public function users(): HasMany
@@ -99,43 +100,43 @@ class EloquentRestaurant extends Model
     {
         static::deleting(function (EloquentRestaurant $restaurant) {
             $restaurant->users()->each(
-                fn($user) => $user->delete()
+                fn ($user) => $user->delete()
             );
 
             $restaurant->families()->each(
-                fn($family) => $family->delete()
+                fn ($family) => $family->delete()
             );
 
             $restaurant->taxes()->each(
-                fn($tax) => $tax->delete()
+                fn ($tax) => $tax->delete()
             );
 
             $restaurant->products()->each(
-                fn($product) => $product->delete()
+                fn ($product) => $product->delete()
             );
 
             $restaurant->zones()->each(
-                fn($zone) => $zone->delete()
+                fn ($zone) => $zone->delete()
             );
 
             $restaurant->tables()->each(
-                fn($table) => $table->delete()
+                fn ($table) => $table->delete()
             );
 
             $restaurant->orders()->each(
-                fn($order) => $order->delete()
+                fn ($order) => $order->delete()
             );
 
             $restaurant->orderLines()->each(
-                fn($orderLine) => $orderLine->delete()
+                fn ($orderLine) => $orderLine->delete()
             );
 
             $restaurant->sales()->each(
-                fn($sale) => $sale->delete()
+                fn ($sale) => $sale->delete()
             );
 
             $restaurant->salesLines()->each(
-                fn($saleLine) => $saleLine->delete()
+                fn ($saleLine) => $saleLine->delete()
             );
         });
     }

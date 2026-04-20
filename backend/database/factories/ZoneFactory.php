@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 class ZoneFactory extends Factory
 {
     protected $model = EloquentZone::class;
+
     /**
      * Define the model's default state.
      *
@@ -23,7 +24,7 @@ class ZoneFactory extends Factory
         return [
             'uuid' => (string) Str::uuid(),
             'restaurant_id' => RestaurantFactory::new(),
-            'name' => fake()->randomElement(['terraza', 'sala', 'barra',]),
+            'name' => fake()->randomElement(['terraza', 'sala', 'barra']),
         ];
     }
 }

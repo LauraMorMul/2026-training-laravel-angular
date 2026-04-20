@@ -2,9 +2,9 @@
 
 namespace App\Family\Infrastructure\Persistence\Repositories;
 
-use App\Family\Infrastructure\Persistence\Models\EloquentFamily;
 use App\Family\Domain\Entity\Family;
 use App\Family\Domain\Interfaces\FamilyRepositoryInterface;
+use App\Family\Infrastructure\Persistence\Models\EloquentFamily;
 
 class EloquentFamilyRepository implements FamilyRepositoryInterface
 {
@@ -47,21 +47,21 @@ class EloquentFamilyRepository implements FamilyRepositoryInterface
     public function getAll(): ?array
     {
         $models = $this->model->newQuery()->getModels();
-        $families = array();
+        $families = [];
 
         if ($models === null) {
             return null;
         }
 
-        foreach($models as $model) {
+        foreach ($models as $model) {
             $family = Family::fromPersistence(
-            $model->uuid,
-            $model->restaurant_id,
-            $model->name,
-            $model->active,
-            $model->created_at->toDateTimeImmutable(),
-            $model->updated_at->toDateTimeImmutable(),
-        );
+                $model->uuid,
+                $model->restaurant_id,
+                $model->name,
+                $model->active,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
+            );
             array_push($families, $family);
         }
 
@@ -71,26 +71,26 @@ class EloquentFamilyRepository implements FamilyRepositoryInterface
     public function getByRestaurant(string $restaurantID): ?array
     {
 
-        $models = $this->model->newQuery()->whereIn('restaurant_id', function($query) use ($restaurantID) {
+        $models = $this->model->newQuery()->whereIn('restaurant_id', function ($query) use ($restaurantID) {
             $query->select('id')
-            ->from('restaurants')
-            ->where('uuid', $restaurantID);
+                ->from('restaurants')
+                ->where('uuid', $restaurantID);
         })->getModels();
-        $families = array();
+        $families = [];
 
         if ($models === null) {
             return null;
         }
 
-        foreach($models as $model) {
+        foreach ($models as $model) {
             $family = Family::fromPersistence(
-            $model->uuid,
-            $model->restaurant_id,
-            $model->name,
-            $model->active,
-            $model->created_at->toDateTimeImmutable(),
-            $model->updated_at->toDateTimeImmutable(),
-        );
+                $model->uuid,
+                $model->restaurant_id,
+                $model->name,
+                $model->active,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
+            );
             array_push($families, $family);
         }
 
@@ -101,7 +101,7 @@ class EloquentFamilyRepository implements FamilyRepositoryInterface
     {
         $familyModel = $this->model->newQuery()->where('uuid', $id)->first();
 
-        if($familyModel === null) {
+        if ($familyModel === null) {
             return;
         }
 

@@ -7,13 +7,13 @@ use App\Table\Infrastructure\Persistence\Models\EloquentTable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-
 /**
  * @extends Factory<Model>
  */
 class TableFactory extends Factory
 {
     protected $model = EloquentTable::class;
+
     /**
      * Define the model's default state.
      *

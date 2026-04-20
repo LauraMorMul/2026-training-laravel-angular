@@ -21,7 +21,8 @@ final readonly class GetUserByIDResponse
         public string $updatedAt,
     ) {}
 
-    public static function create(User $user):self {
+    public static function create(User $user): self
+    {
         return new self(
             id: $user->id()->value(),
             restaurantID: $user->restaurantID()->value(),

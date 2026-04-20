@@ -8,14 +8,14 @@ final readonly class CreateRestaurantResponse
 {
     public function __construct(
         public string $id,
-        public string $name, 
+        public string $name,
         public string $legalName,
         public string $taxID,
         public string $email,
         public string $password,
         public string $createdAt,
         public string $updatedAt,
-    ){}
+    ) {}
 
     public static function create(Restaurant $restaurant): self
     {
@@ -27,7 +27,7 @@ final readonly class CreateRestaurantResponse
             email: $restaurant->email()->value(),
             password: $restaurant->passwordHash()->value(),
             createdAt: $restaurant->createdAt()->format(\DateTimeInterface::ATOM),
-            updatedAt:$restaurant->updatedAt()->format(\DateTimeInterface::ATOM),
+            updatedAt: $restaurant->updatedAt()->format(\DateTimeInterface::ATOM),
         );
     }
 

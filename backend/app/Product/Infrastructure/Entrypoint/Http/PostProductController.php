@@ -10,7 +10,7 @@ class PostProductController
 {
     public function __construct(
         private CreateProduct $createProduct,
-    ){}
+    ) {}
 
     public function __invoke(Request $request): JsonResponse
     {

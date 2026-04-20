@@ -17,7 +17,7 @@ class Tax
         private Percentage $percentage,
         private DomainDateTime $createdAt,
         private DomainDateTime $updatedAt
-    ){}
+    ) {}
 
     public static function dddCreate(RestaurantID $restaurantID, Name $name, Percentage $percentage): self
     {

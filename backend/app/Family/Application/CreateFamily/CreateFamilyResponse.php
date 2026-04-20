@@ -4,7 +4,7 @@ namespace App\Family\Application\CreateFamily;
 
 use App\Family\Domain\Entity\Family;
 
-final readonly class CreateFamilyResponse 
+final readonly class CreateFamilyResponse
 {
     public function __construct(
         public string $id,
@@ -13,7 +13,7 @@ final readonly class CreateFamilyResponse
         public bool $active,
         public string $createdAt,
         public string $updatedAt,
-    ){}
+    ) {}
 
     public static function create(Family $family): self
     {

@@ -14,7 +14,7 @@ class GetFamilyByID
     {
         $family = $this->familyRepository->findByID($id);
 
-        if($family == null) {
+        if ($family == null) {
             return null;
         } else {
             return GetFamilyByIDResponse::create($family);

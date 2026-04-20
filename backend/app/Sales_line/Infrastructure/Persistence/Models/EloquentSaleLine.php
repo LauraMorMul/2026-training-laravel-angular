@@ -7,9 +7,9 @@ use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
 use App\Sale\Infrastructure\Persistence\Models\EloquentSale;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
 use Database\Factories\SaleLineFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

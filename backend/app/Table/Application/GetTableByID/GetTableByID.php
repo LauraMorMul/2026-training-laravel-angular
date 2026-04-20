@@ -14,7 +14,7 @@ class GetTableByID
     {
         $table = $this->tableRepository->findByID($id);
 
-        if($table == null) {
+        if ($table == null) {
             return null;
         } else {
             return GetTableByIDResponse::create($table);

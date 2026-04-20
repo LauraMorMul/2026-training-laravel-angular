@@ -14,7 +14,7 @@ class GetTaxByID
     {
         $tax = $this->taxesRepository->findByID($id);
 
-        if($tax == null) {
+        if ($tax == null) {
             return null;
         } else {
             return GetTaxByIDResponse::create($tax);

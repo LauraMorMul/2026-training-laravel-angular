@@ -12,7 +12,7 @@ final readonly class CreateZoneResponse
         public string $name,
         public string $createdAt,
         public string $updatedAt,
-    ){}
+    ) {}
 
     public static function create(Zone $zone): self
     {

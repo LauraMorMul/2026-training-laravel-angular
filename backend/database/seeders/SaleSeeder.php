@@ -15,10 +15,10 @@ class SaleSeeder extends Seeder
     {
         return
         EloquentSale::factory()
-        ->recycle($restaurants)
-        ->recycle($orders)
-        ->recycle($users)
-        ->count(100)
-        ->create();
+            ->recycle($restaurants)
+            ->recycle($orders)
+            ->recycle($users)
+            ->count(100)
+            ->create();
     }
 }

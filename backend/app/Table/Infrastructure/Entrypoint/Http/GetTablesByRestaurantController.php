@@ -9,17 +9,16 @@ class GetTablesByRestaurantController
 {
     public function __construct(
         private GetTablesByRestaurant $getTablesByRestaurant
-    )
-    {}
+    ) {}
 
     public function __invoke(string $restaurantID)
     {
         $response = ($this->getTablesByRestaurant)($restaurantID);
 
-        if($response == null) {
+        if ($response == null) {
             return new JsonResponse('Tables not found', 404);
         } else {
             return new JsonResponse($response->toArray(), 200);
-        }        
+        }
     }
 }

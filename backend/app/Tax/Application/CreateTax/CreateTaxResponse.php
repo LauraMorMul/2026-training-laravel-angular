@@ -13,8 +13,7 @@ final readonly class CreateTaxResponse
         public int $percentage,
         public string $createdAt,
         public string $updatedAt,
-    )
-    {}
+    ) {}
 
     public static function create(Tax $tax): self
     {

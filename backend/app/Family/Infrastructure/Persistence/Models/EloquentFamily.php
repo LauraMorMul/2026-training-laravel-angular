@@ -45,7 +45,7 @@ class EloquentFamily extends Model
     {
         static::deleting(function (EloquentFamily $family) {
             $family->products()->each(
-                fn($product) => $product->delete()
+                fn ($product) => $product->delete()
             );
         });
     }

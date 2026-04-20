@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Seeder;
 
 class RestaurantSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class RestaurantSeeder extends Seeder
     {
         return
         EloquentRestaurant::factory()
-        ->count(3)
-        ->create();
+            ->count(3)
+            ->create();
     }
 }

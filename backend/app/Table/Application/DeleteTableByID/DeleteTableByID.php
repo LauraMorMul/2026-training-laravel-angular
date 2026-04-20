@@ -8,8 +8,7 @@ class DeleteTableByID
 {
     public function __construct(
         private TableRepositoryInterface $tableRepository,
-    )
-    {}
+    ) {}
 
     public function __invoke(string $id): void
     {

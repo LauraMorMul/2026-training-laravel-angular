@@ -16,7 +16,7 @@ class CreateRestaurant
     public function __construct(
         private RestaurantRepositoryInterface $restaurantRepository,
         private PasswordHasherInterface $passwordHasher,
-    ){}
+    ) {}
 
     public function __invoke(string $name, string $legalName, string $taxID, string $email, string $password)
     {

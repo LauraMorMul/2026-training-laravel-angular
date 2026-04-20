@@ -14,7 +14,7 @@ class GetProductByID
     {
         $product = $this->productRepository->findByID($id);
 
-        if($product == null) {
+        if ($product == null) {
             return null;
         } else {
             return GetProductByIDResponse::create($product);

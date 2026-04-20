@@ -15,8 +15,8 @@ class TaxSeeder extends Seeder
     {
         return
         EloquentTax::factory()
-        ->recycle($restaurants)
-        ->count(4)
-        ->create();
+            ->recycle($restaurants)
+            ->count(4)
+            ->create();
     }
 }

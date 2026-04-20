@@ -9,10 +9,10 @@ class ZoneID
     private function __construct(int $value)
     {
         $trimmed = trim($value);
-        if($trimmed === '') {
+        if ($trimmed === '') {
             throw new \InvalidArgumentException('Zone ID is mandatory.');
         }
-        if(!ctype_digit($trimmed)) {
+        if (! ctype_digit($trimmed)) {
             throw new \InvalidArgumentException('Remember, it uses the internal ID.');
         }
 

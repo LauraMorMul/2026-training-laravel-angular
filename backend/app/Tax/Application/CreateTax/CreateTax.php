@@ -12,7 +12,7 @@ class CreateTax
 {
     public function __construct(
         private TaxRepositoryInterface $taxRepository,
-    ){}
+    ) {}
 
     public function __invoke(int $restaurantID, string $name, int $percentage): CreateTaxResponse
     {

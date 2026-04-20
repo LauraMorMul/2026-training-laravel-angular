@@ -10,8 +10,7 @@ class PatchTaxController
 {
     public function __construct(
         private UpdateTax $updateTax
-    )
-    {}
+    ) {}
 
     public function __invoke(string $id, Request $request): JsonResponse
     {

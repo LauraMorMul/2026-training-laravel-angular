@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        
+
         $restaurants = app(RestaurantSeeder::class)->run();
         $families = app(FamilySeeder::class)->run($restaurants);
         $users = app(UserSeeder::class)->run($restaurants);

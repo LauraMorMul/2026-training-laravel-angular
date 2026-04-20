@@ -14,52 +14,51 @@ class UpdateProduct
 {
     public function __construct(
         private ProductRepositoryInterface $productRepository
-    )
-    {}
+    ) {}
 
     public function __invoke(string $uuid, ?int $familyID, ?int $taxID, ?string $imageSrc, ?string $name, ?int $price, ?int $stock, ?bool $active)
     {
         $product = $this->productRepository->findById($uuid);
 
-        if($familyID === null) {
+        if ($familyID === null) {
             $familyIDVO = $product->familyID();
-        }else {
+        } else {
             $familyIDVO = FamilyID::create($familyID);
         }
 
-        if($taxID === null) {
+        if ($taxID === null) {
             $taxIDVO = $product->taxID();
-        }else {
+        } else {
             $taxIDVO = TaxID::create($taxID);
         }
 
-        if($imageSrc === null) {
+        if ($imageSrc === null) {
             $imageSrcVO = $product->imageSrc();
-        }else {
+        } else {
             $imageSrcVO = ImageSrc::create($imageSrc);
         }
 
-        if($name === null) {
+        if ($name === null) {
             $nameVO = $product->name();
-        }else {
+        } else {
             $nameVO = Name::create($name);
         }
 
-        if($price === null) {
+        if ($price === null) {
             $priceVO = $product->price();
-        }else {
+        } else {
             $priceVO = Price::create($price);
         }
 
-        if($stock === null) {
+        if ($stock === null) {
             $stockVO = $product->stock();
-        }else {
+        } else {
             $stockVO = Stock::create($stock);
         }
 
-        if($active === null) {
+        if ($active === null) {
             $isActive = $product->active();
-        }else {
+        } else {
             $isActive = $active;
         }
 

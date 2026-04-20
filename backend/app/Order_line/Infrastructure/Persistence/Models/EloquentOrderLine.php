@@ -8,9 +8,9 @@ use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
 use App\Sales_line\Infrastructure\Persistence\Models\EloquentSaleLine;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
 use Database\Factories\OrderLineFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -67,7 +67,7 @@ class EloquentOrderLine extends Model
     protected static function booted(): void
     {
         static::deleting(function (EloquentOrderLine $orderLine) {
-            //Al eliminar una línea de pedido se debería actualizar la cantidad de stock de producto disponible
+            // Al eliminar una línea de pedido se debería actualizar la cantidad de stock de producto disponible
             $orderLine->product();
         });
     }

@@ -3,14 +3,14 @@
 namespace App\Table\Infrastructure\Entrypoint\Http;
 
 use App\Table\Application\UpdateTable\UpdateTable;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class PatchTableController
 {
     public function __construct(
         private UpdateTable $updateTable,
-    ){}
+    ) {}
 
     public function __invoke(string $id, Request $request): JsonResponse
     {

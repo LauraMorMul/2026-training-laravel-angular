@@ -18,7 +18,7 @@ class PostUserController
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'restaurant_id' => ['required', 'integer', 'exists:restaurants,id' ],
+            'restaurant_id' => ['required', 'integer', 'exists:restaurants,id'],
             'role' => ['required', 'string', 'max:40'],
             'image_src' => ['required', 'string'],
             'pin' => ['required', 'string', 'digits_between:4,6'],

@@ -2,13 +2,13 @@
 
 namespace App\User\Application\CreateUser;
 
+use App\Shared\Domain\Interfaces\PasswordHasherInterface;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\ImageSrc;
-use App\User\Domain\Entity\User;
-use App\Shared\Domain\Interfaces\PasswordHasherInterface;
-use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\Shared\Domain\ValueObject\PasswordHash;
 use App\Shared\Domain\ValueObject\RestaurantID;
+use App\User\Domain\Entity\User;
+use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\User\Domain\ValueObject\Pin;
 use App\User\Domain\ValueObject\Role;
 use App\User\Domain\ValueObject\UserName;
@@ -33,7 +33,6 @@ class CreateUser
         $this->userRepository->save($user);
 
         return CreateUserResponse::create($user);
-
 
     }
 }

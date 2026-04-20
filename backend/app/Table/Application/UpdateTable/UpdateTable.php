@@ -10,22 +10,21 @@ class UpdateTable
 {
     public function __construct(
         private TableRepositoryInterface $tableRepository,
-    )
-    {}
+    ) {}
 
-    public function __invoke(string $uuid, ?int $zoneID, ?string $name): ? UpdateTableResponse
+    public function __invoke(string $uuid, ?int $zoneID, ?string $name): ?UpdateTableResponse
     {
         $table = $this->tableRepository->findById($uuid);
 
-        if($zoneID === null) {
+        if ($zoneID === null) {
             $zoneIDVO = $table->zoneID();
         } else {
             $zoneIDVO = ZoneID::create($zoneID);
         }
 
-        if($name === null) {
+        if ($name === null) {
             $nameVO = $table->name();
-        }else {
+        } else {
             $nameVO = Name::create($name);
         }
 

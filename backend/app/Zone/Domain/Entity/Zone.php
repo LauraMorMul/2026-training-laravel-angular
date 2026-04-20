@@ -15,8 +15,7 @@ class Zone
         private Name $name,
         private DomainDateTime $createdAt,
         private DomainDateTime $updatedAt,
-    )
-    {}
+    ) {}
 
     public static function dddCreate(RestaurantID $restaurantID, Name $name): self
     {
@@ -49,8 +48,7 @@ class Zone
 
     public function updateData(
         Name $name,
-    ): self
-    {
+    ): self {
         return new self(
             $this->id,
             $this->restaurantID,

@@ -13,7 +13,7 @@ final readonly class CreateTableResponse
         public string $name,
         public string $createdAt,
         public string $updatedAt,
-    ){}
+    ) {}
 
     public static function create(Table $table): self
     {

@@ -4,7 +4,7 @@ namespace App\Restaurant\Domain\ValueObject;
 
 class TaxID
 {
-    //No se hacen más validaciones para facilitar la internacionalidad de la aplicación
+    // No se hacen más validaciones para facilitar la internacionalidad de la aplicación
     private string $value;
 
     private function __construct(string $value)

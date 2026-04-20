@@ -16,7 +16,7 @@ class CreateProduct
 {
     public function __construct(
         private ProductRepositoryInterface $productRepository,
-    ){}
+    ) {}
 
     public function __invoke(int $restaurantID, int $familyID, int $taxID, string $imageSrc, string $name, int $price, int $stock, bool $active): CreateProductResponse
     {

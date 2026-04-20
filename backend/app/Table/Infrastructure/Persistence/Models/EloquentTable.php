@@ -5,9 +5,9 @@ namespace App\Table\Infrastructure\Persistence\Models;
 use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
 use App\Zone\Infrastructure\Persistence\Models\EloquentZone;
 use Database\Factories\TableFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

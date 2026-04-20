@@ -10,10 +10,10 @@ use Illuminate\Support\Str;
 /**
  * @extends Factory<Model>
  */
-class  OrderFactory extends Factory
+class OrderFactory extends Factory
 {
     protected $model = EloquentOrder::class;
-    
+
     /**
      * Define the model's default state.
      *
@@ -23,6 +23,7 @@ class  OrderFactory extends Factory
     {
         $dateBefore = fake()->dateTimeBetween('-2 years', '-1year', null);
         $status = fake()->randomElement(['open', 'cancelled', 'invoiced']);
+
         return [
             'uuid' => (string) Str::uuid(),
             'restaurant_id' => RestaurantFactory::new(),

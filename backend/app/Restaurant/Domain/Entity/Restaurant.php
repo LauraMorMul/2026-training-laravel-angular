@@ -2,9 +2,9 @@
 
 namespace App\Restaurant\Domain\Entity;
 
-use App\Shared\Domain\ValueObject\DomainDateTime;
 use App\Restaurant\Domain\ValueObject\LegalName;
 use App\Restaurant\Domain\ValueObject\TaxID;
+use App\Shared\Domain\ValueObject\DomainDateTime;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\PasswordHash;
@@ -21,8 +21,7 @@ class Restaurant
         private PasswordHash $passwordHash,
         private DomainDateTime $createdAt,
         private DomainDateTime $updatedAt,
-    )
-    {}
+    ) {}
 
     public static function dddCreate(Name $name, LegalName $legalName, TaxID $taxID, Email $email, PasswordHash $passwordHash): self
     {
@@ -68,8 +67,7 @@ class Restaurant
         TaxID $taxID,
         Email $email,
         PasswordHash $passwordHash,
-    ): self
-    {
+    ): self {
         return new self(
             $this->id,
             $name,

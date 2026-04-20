@@ -46,27 +46,27 @@ class EloquentTaxRepository implements TaxRepositoryInterface
 
     public function getByRestaurant(string $restaurantID): ?array
     {
-        $models = $this->model->newQuery()->whereIn('restaurant_id', function($query) use ($restaurantID) {
+        $models = $this->model->newQuery()->whereIn('restaurant_id', function ($query) use ($restaurantID) {
             $query->select('id')
-            ->from('restaurants')
-            ->where('uuid', $restaurantID);
+                ->from('restaurants')
+                ->where('uuid', $restaurantID);
         })->getModels();
 
-        $taxes = array();
+        $taxes = [];
 
         if ($models === null) {
             return null;
         }
 
-        foreach($models as $model) {
+        foreach ($models as $model) {
             $tax = Tax::fromPersistence(
-            $model->uuid,
-            $model->restaurant_id,
-            $model->name,
-            $model->percentage,
-            $model->created_at->toDateTimeImmutable(),
-            $model->updated_at->toDateTimeImmutable(),
-        );
+                $model->uuid,
+                $model->restaurant_id,
+                $model->name,
+                $model->percentage,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
+            );
             array_push($taxes, $tax);
         }
 
@@ -77,7 +77,7 @@ class EloquentTaxRepository implements TaxRepositoryInterface
     {
         $taxModel = $this->model->newQuery()->where('uuid', $id)->first();
 
-        if($taxModel === null) {
+        if ($taxModel === null) {
             return;
         }
 

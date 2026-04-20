@@ -15,6 +15,7 @@ class RestaurantFactory extends Factory
     protected $model = EloquentRestaurant::class;
 
     protected static ?string $password;
+
     /**
      * Define the model's default state.
      *

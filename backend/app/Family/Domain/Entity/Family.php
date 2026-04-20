@@ -4,8 +4,8 @@ namespace App\Family\Domain\Entity;
 
 use App\Shared\Domain\ValueObject\DomainDateTime;
 use App\Shared\Domain\ValueObject\Name;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Domain\ValueObject\RestaurantID;
+use App\Shared\Domain\ValueObject\Uuid;
 
 class Family
 {
@@ -53,8 +53,7 @@ class Family
     public function updateData(
         Name $name,
         bool $active,
-    ): self 
-    {
+    ): self {
         return new self(
             $this->id,
             $this->restaurantID,

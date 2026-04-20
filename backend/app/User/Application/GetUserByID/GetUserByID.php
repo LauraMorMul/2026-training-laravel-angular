@@ -2,7 +2,6 @@
 
 namespace App\User\Application\GetUserByID;
 
-use App\User\Application\GetUserByID\GetUserByIDResponse;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 
 class GetUserByID
@@ -15,7 +14,7 @@ class GetUserByID
     {
         $user = $this->userRepository->findByID($id);
 
-        if($user == null) {
+        if ($user == null) {
             return null;
         } else {
             return GetUserByIDResponse::create($user);

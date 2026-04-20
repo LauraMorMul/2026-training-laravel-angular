@@ -9,16 +9,15 @@ class UpdateZone
 {
     public function __construct(
         private ZoneRepositoryInterface $zoneRepository,
-    )
-    {}
+    ) {}
 
-    public function __invoke(string $uuid, ?string $name): ? UpdateZoneResponse
+    public function __invoke(string $uuid, ?string $name): ?UpdateZoneResponse
     {
         $zone = $this->zoneRepository->findById($uuid);
 
-        if($name === null) {
+        if ($name === null) {
             $nameVO = $zone->name();
-        }else {
+        } else {
             $nameVO = Name::create($name);
         }
 

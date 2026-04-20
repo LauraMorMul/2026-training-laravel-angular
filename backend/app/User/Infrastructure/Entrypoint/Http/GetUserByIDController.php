@@ -9,17 +9,16 @@ class GetUserByIDController
 {
     public function __construct(
         private GetUserByID $getUserByID
-    )
-    {}
+    ) {}
 
     public function __invoke(string $id)
     {
         $response = ($this->getUserByID)($id);
-        if($response == null) {
+        if ($response == null) {
             return new JsonResponse('User not found', 404);
         } else {
             return new JsonResponse($response->toArray(), 200);
         }
-        
+
     }
 }

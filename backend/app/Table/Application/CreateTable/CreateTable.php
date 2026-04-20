@@ -12,8 +12,7 @@ class CreateTable
 {
     public function __construct(
         private TableRepositoryInterface $tableRepository
-    )
-    {}
+    ) {}
 
     public function __invoke(int $restaurantID, int $zoneID, string $name): CreateTableResponse
     {

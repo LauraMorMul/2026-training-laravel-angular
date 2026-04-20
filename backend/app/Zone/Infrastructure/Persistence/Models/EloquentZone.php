@@ -6,8 +6,8 @@ use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
 use App\Table\Infrastructure\Persistence\Models\EloquentTable;
 use Database\Factories\ZoneFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -44,7 +44,7 @@ class EloquentZone extends Model
     {
         static::deleting(function (EloquentZone $zone) {
             $zone->tables()->each(
-                fn($table) => $table->delete()
+                fn ($table) => $table->delete()
             );
         });
     }

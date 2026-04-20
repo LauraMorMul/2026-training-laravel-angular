@@ -14,7 +14,7 @@ class DeleteUserByIDController
     public function __invoke(string $id): JsonResponse
     {
         $response = ($this->deleteUserByID)($id);
-        if($response == null) {
+        if ($response == null) {
             return new JsonResponse('User deleted correctly.', 200);
         } else {
             return new JsonResponse($response, 204);

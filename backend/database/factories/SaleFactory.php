@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 class SaleFactory extends Factory
 {
     protected $model = EloquentSale::class;
+
     /**
      * Define the model's default state.
      *

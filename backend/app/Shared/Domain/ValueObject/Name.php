@@ -1,8 +1,9 @@
-<?
+<?php
 
 namespace App\Shared\Domain\ValueObject;
 
-class Name {
+class Name
+{
     private const MAX_LENGTH = 255;
 
     private string $value;

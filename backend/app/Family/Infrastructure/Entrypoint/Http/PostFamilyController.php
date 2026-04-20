@@ -10,7 +10,7 @@ class PostFamilyController
 {
     public function __construct(
         private CreateFamily $createFamily,
-    ){}
+    ) {}
 
     public function __invoke(Request $request): JsonResponse
     {

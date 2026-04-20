@@ -15,9 +15,9 @@ class TableSeeder extends Seeder
     {
         return
         EloquentTable::factory()
-        ->recycle($restaurants)
-        ->recycle($zones)
-        ->count(20)
-        ->create();
+            ->recycle($restaurants)
+            ->recycle($zones)
+            ->count(20)
+            ->create();
     }
 }

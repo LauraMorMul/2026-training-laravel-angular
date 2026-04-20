@@ -10,7 +10,7 @@ class PostTaxControlelr
 {
     public function __construct(
         private CreateTax $createTax,
-    ){}
+    ) {}
 
     public function __invoke(Request $request): JsonResponse
     {

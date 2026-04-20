@@ -11,10 +11,11 @@ final readonly class GetAllUsersResponse
         private array $allUsers,
     ) {}
 
-    public static function create(array $users):self {
+    public static function create(array $users): self
+    {
         return new self(
             allUsers: array_map(
-                fn(User $user) => GetUserByIDResponse::create($user),
+                fn (User $user) => GetUserByIDResponse::create($user),
                 $users
             )
         );
@@ -23,7 +24,7 @@ final readonly class GetAllUsersResponse
     public function toArray(): array
     {
         return array_map(
-            fn(GetUserByIDResponse $user) => $user->toArray(),
+            fn (GetUserByIDResponse $user) => $user->toArray(),
             $this->allUsers
         );
     }

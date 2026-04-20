@@ -10,7 +10,7 @@ class PatchProductController
 {
     public function __construct(
         private UpdateProduct $updateProduct
-    ){}
+    ) {}
 
     public function __invoke(string $id, Request $request): JsonResponse
     {

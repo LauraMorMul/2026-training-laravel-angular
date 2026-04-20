@@ -14,7 +14,7 @@ class GetZoneByID
     {
         $zone = $this->zoneRepository->findByID($id);
 
-        if($zone == null) {
+        if ($zone == null) {
             return null;
         } else {
             return GetZoneByIDResponse::create($zone);

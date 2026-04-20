@@ -10,7 +10,7 @@ class PostRestaurantController
 {
     public function __construct(
         private CreateRestaurant $createRestaurant,
-    ){}
+    ) {}
 
     public function __invoke(Request $request): JsonResponse
     {

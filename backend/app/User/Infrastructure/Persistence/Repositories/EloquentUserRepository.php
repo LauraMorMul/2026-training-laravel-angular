@@ -52,7 +52,7 @@ class EloquentUserRepository implements UserRepositoryInterface
         );
     }
 
-    public function getByEmail(string $email): ?User
+    public function findByEmail(string $email): ?User
     {
         $model = $this->model->newQuery()->where('email', $email)->first();
 
@@ -77,25 +77,25 @@ class EloquentUserRepository implements UserRepositoryInterface
     public function getAll(): ?array
     {
         $models = $this->model->newQuery()->getModels();
-        $users = array();
+        $users = [];
 
         if ($models === null) {
             return null;
         }
 
-        foreach($models as $model) {
+        foreach ($models as $model) {
             $user = User::fromPersistence(
-            $model->uuid,
-            $model->restaurant_id,
-            $model->role,
-            $model->image_src,
-            $model->name,
-            $model->email,
-            $model->password,
-            $model->pin,
-            $model->created_at->toDateTimeImmutable(),
-            $model->updated_at->toDateTimeImmutable(),
-        );
+                $model->uuid,
+                $model->restaurant_id,
+                $model->role,
+                $model->image_src,
+                $model->name,
+                $model->email,
+                $model->password,
+                $model->pin,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
+            );
             array_push($users, $user);
         }
 
@@ -104,30 +104,30 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function getByRestaurant(string $restaurantID): ?array
     {
-        $models = $this->model->newQuery()->whereIn('restaurant_id', function($query) use ($restaurantID) {
+        $models = $this->model->newQuery()->whereIn('restaurant_id', function ($query) use ($restaurantID) {
             $query->select('id')
-            ->from('restaurants')
-            ->where('uuid', $restaurantID);
+                ->from('restaurants')
+                ->where('uuid', $restaurantID);
         })->getModels();
-        $users = array();
+        $users = [];
 
         if ($models === null) {
             return null;
         }
 
-        foreach($models as $model) {
+        foreach ($models as $model) {
             $user = User::fromPersistence(
-            $model->uuid,
-            $model->restaurant_id,
-            $model->role,
-            $model->image_src,
-            $model->name,
-            $model->email,
-            $model->password,
-            $model->pin,
-            $model->created_at->toDateTimeImmutable(),
-            $model->updated_at->toDateTimeImmutable(),
-        );
+                $model->uuid,
+                $model->restaurant_id,
+                $model->role,
+                $model->image_src,
+                $model->name,
+                $model->email,
+                $model->password,
+                $model->pin,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
+            );
             array_push($users, $user);
         }
 
@@ -138,7 +138,7 @@ class EloquentUserRepository implements UserRepositoryInterface
     {
         $userModel = $this->model->newQuery()->where('uuid', $id)->first();
 
-        if($userModel === null) {
+        if ($userModel === null) {
             return;
         }
 

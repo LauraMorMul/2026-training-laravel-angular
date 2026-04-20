@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 class OrderLineFactory extends Factory
 {
     protected $model = EloquentOrderLine::class;
+
     /**
      * Define the model's default state.
      *

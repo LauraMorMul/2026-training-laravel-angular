@@ -10,8 +10,7 @@ class EloquentTableRepository implements TableRepositoryInterface
 {
     public function __construct(
         private EloquentTable $model,
-    )
-    {}
+    ) {}
 
     public function save(Table $table): void
     {
@@ -48,26 +47,26 @@ class EloquentTableRepository implements TableRepositoryInterface
     public function getByRestaurant(string $restaurantID): ?array
     {
 
-        $models = $this->model->newQuery()->whereIn('restaurant_id', function($query) use ($restaurantID) {
+        $models = $this->model->newQuery()->whereIn('restaurant_id', function ($query) use ($restaurantID) {
             $query->select('id')
-            ->from('restaurants')
-            ->where('uuid', $restaurantID);
+                ->from('restaurants')
+                ->where('uuid', $restaurantID);
         })->getModels();
-        $tables = array();
+        $tables = [];
 
         if ($models === null) {
             return null;
         }
 
-        foreach($models as $model) {
+        foreach ($models as $model) {
             $table = Table::fromPersistence(
-            $model->uuid,
-            $model->restaurant_id,
-            $model->zone_id,
-            $model->name,
-            $model->created_at->toDateTimeImmutable(),
-            $model->updated_at->toDateTimeImmutable(),
-        );
+                $model->uuid,
+                $model->restaurant_id,
+                $model->zone_id,
+                $model->name,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
+            );
             array_push($tables, $table);
         }
 
@@ -78,7 +77,7 @@ class EloquentTableRepository implements TableRepositoryInterface
     {
         $tableModel = $this->model->newQuery()->where('uuid', $id)->first();
 
-        if($tableModel === null) {
+        if ($tableModel === null) {
             return;
         }
 

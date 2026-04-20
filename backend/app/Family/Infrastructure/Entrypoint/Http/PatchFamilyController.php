@@ -3,14 +3,14 @@
 namespace App\Family\Infrastructure\Entrypoint\Http;
 
 use App\Family\Application\UpdateFamily\UpdateFamily;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class PatchFamilyController
 {
     public function __construct(
         private UpdateFamily $updateFamily,
-    ){}
+    ) {}
 
     public function __invoke(string $id, Request $request): JsonResponse
     {

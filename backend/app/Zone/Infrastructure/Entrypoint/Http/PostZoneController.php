@@ -10,7 +10,7 @@ class PostZoneController
 {
     public function __construct(
         private CreateZone $createZone,
-    ){}
+    ) {}
 
     public function __invoke(Request $request): JsonResponse
     {

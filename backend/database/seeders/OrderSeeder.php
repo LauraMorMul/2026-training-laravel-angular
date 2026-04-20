@@ -15,10 +15,10 @@ class OrderSeeder extends Seeder
     {
         return
         EloquentOrder::factory()
-        ->recycle($restaurants)
-        ->recycle($tables)
-        ->recycle($users)
-        ->count(50)
-        ->create();
+            ->recycle($restaurants)
+            ->recycle($tables)
+            ->recycle($users)
+            ->count(50)
+            ->create();
     }
 }

@@ -39,15 +39,17 @@ final readonly class CreateUserResponse
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'restaurant_id' => $this->restaurantID,
-            'role' => $this->role,
-            'imageSrc' => $this->imageSrc,
-            'name' => $this->name,
-            'email' => $this->email,
-            'pin' => $this->pin,
-            'created_at' => $this->createdAt,
-            'updated_at' => $this->updatedAt,
+            'user' => [
+                'id' => $this->id,
+                'restaurant_id' => $this->restaurantID,
+                'role' => $this->role,
+                'imageSrc' => $this->imageSrc,
+                'name' => $this->name,
+                'email' => $this->email,
+                'pin' => $this->pin,
+                'created_at' => $this->createdAt,
+                'updated_at' => $this->updatedAt,
+            ],
         ];
     }
 }

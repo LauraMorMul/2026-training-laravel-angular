@@ -10,7 +10,7 @@ class EloquentProductRepository implements ProductRepositoryInterface
 {
     public function __construct(
         private EloquentProduct $model,
-    ){}
+    ) {}
 
     public function save(Product $product): void
     {
@@ -56,31 +56,31 @@ class EloquentProductRepository implements ProductRepositoryInterface
 
     public function getByRestaurant(string $restaurantID): ?array
     {
-        $models = $this->model->newQuery()->whereIn('restaurant_id', function($query) use ($restaurantID) {
+        $models = $this->model->newQuery()->whereIn('restaurant_id', function ($query) use ($restaurantID) {
             $query->select('id')
-            ->from('restaurants')
-            ->where('uuid', $restaurantID);
+                ->from('restaurants')
+                ->where('uuid', $restaurantID);
         })->getModels();
-        $products = array();
+        $products = [];
 
         if ($models === null) {
             return null;
         }
 
-        foreach($models as $model) {
+        foreach ($models as $model) {
             $product = Product::fromPersistence(
-            $model->uuid,
-            $model->restaurant_id,
-            $model->family_id,
-            $model->tax_id,
-            $model->image_src,
-            $model->name,
-            $model->price,
-            $model->stock,
-            $model->active,
-            $model->created_at->toDateTimeImmutable(),
-            $model->updated_at->toDateTimeImmutable(),
-        );
+                $model->uuid,
+                $model->restaurant_id,
+                $model->family_id,
+                $model->tax_id,
+                $model->image_src,
+                $model->name,
+                $model->price,
+                $model->stock,
+                $model->active,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
+            );
             array_push($products, $product);
         }
 
@@ -91,7 +91,7 @@ class EloquentProductRepository implements ProductRepositoryInterface
     {
         $productModel = $this->model->newQuery()->where('uuid', $id)->first();
 
-        if($productModel === null) {
+        if ($productModel === null) {
             return;
         }
 
