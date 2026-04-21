@@ -1,5 +1,6 @@
 <?php
 
+use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
 
 return [
@@ -38,8 +39,12 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
+        'restaurant' => [
+            'driver' => 'sanctum',
+            'provider' => 'restaurants',
+        ],
+        'user' => [
+            'driver' => 'sanctum',
             'provider' => 'users',
         ],
     ],
@@ -62,9 +67,13 @@ return [
     */
 
     'providers' => [
+        'restaurants' => [
+            'driver' => 'eloquent',
+            'model' => EloquentRestaurant::class,
+        ],
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', EloquentUser::class),
+            'model' => EloquentUser::class,
         ],
 
         // 'users' => [

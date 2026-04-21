@@ -10,6 +10,8 @@ interface RestaurantRepositoryInterface
 
     public function findById(string $id): ?Restaurant;
 
+    public function findByEmail(string $email): ?Restaurant;
+
     public function getAll(): ?array;
 
     public function deleteByID(string $id): void;

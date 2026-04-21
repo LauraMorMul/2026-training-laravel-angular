@@ -10,6 +10,7 @@ use App\Product\Infrastructure\Entrypoint\Http\GetProductByIDController;
 use App\Product\Infrastructure\Entrypoint\Http\GetProductsByRestaurantController;
 use App\Product\Infrastructure\Entrypoint\Http\PatchProductController;
 use App\Product\Infrastructure\Entrypoint\Http\PostProductController;
+use App\Restaurant\Infrastructure\Entrypoint\Http\LoginRestaurantController;
 use App\Restaurant\Infrastructure\Entrypoint\Http\PostRestaurantController;
 use App\Table\Infrastructure\Entrypoint\Http\DeleteTableByIDController;
 use App\Table\Infrastructure\Entrypoint\Http\GetTableByIDController;
@@ -83,3 +84,4 @@ Route::delete('/tables/{id}', DeleteTableByIDController::class);
 
 // Rutas de login
 Route::post('/login', LoginUserController::class);
+Route::post('/context', LoginRestaurantController::class);

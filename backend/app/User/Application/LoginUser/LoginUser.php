@@ -21,7 +21,7 @@ class LoginUser
 
         if ($user === null || ! $this->passwordHasher->check($plainPassword, $user->passwordHash()->value())) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'Login' => ['The provided credentials are incorrect.'],
             ]);
         }
 

@@ -18,13 +18,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Sanctum\HasApiTokens;
 
 class EloquentRestaurant extends Model
 {
     /** @use HasFactory<\Database\Factories\\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurantFactory> */
-    use HasFactory;
-
-    use SoftDeletes;
+    use HasApiTokens, HasFactory, SoftDeletes;
 
     protected $table = 'restaurants';
 

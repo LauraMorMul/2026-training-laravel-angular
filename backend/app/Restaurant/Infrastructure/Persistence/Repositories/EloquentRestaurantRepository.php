@@ -43,8 +43,28 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
             $model->tax_id,
             $model->email,
             $model->password,
-            $model->created_at,
-            $model->deleted_at,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+    }
+
+    public function findByEmail(string $email): ?Restaurant
+    {
+        $model = $this->model->newQuery()->where('email', $email)->first();
+
+        if ($model === null) {
+            return null;
+        }
+
+        return Restaurant::fromPersistence(
+            $model->uuid,
+            $model->name,
+            $model->legal_name,
+            $model->tax_id,
+            $model->email,
+            $model->password,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
         );
     }
 
@@ -65,8 +85,8 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
                 $model->tax_id,
                 $model->email,
                 $model->password,
-                $model->created_at,
-                $model->deleted_at,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
             );
             array_push($restaurants, $restaurant);
         }
