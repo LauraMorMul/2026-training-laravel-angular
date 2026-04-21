@@ -15,12 +15,12 @@ use App\Zone\Infrastructure\Persistence\Models\EloquentZone;
 use Database\Factories\RestaurantFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
-class EloquentRestaurant extends Model
+class EloquentRestaurant extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurantFactory> */
     use HasApiTokens, HasFactory, SoftDeletes;

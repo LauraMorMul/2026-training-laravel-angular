@@ -10,6 +10,8 @@ interface UserRepositoryInterface
 
     public function findById(string $id): ?User;
 
+    public function findByEmailAndRestaurant(string $email, int $id): ?User;
+
     public function findByEmail(string $email): ?User;
 
     public function getAll(): ?array;

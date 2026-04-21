@@ -20,9 +20,16 @@ class LoginUserController
             'password' => ['required', 'string', 'min:8'],
         ]);
 
+        $restaurantId = auth('restaurant')->user()->id;
+
+        if ($restaurantId === null) {
+            return new JsonResponse('Unknown user', 403);
+        }
+
         $response = ($this->loginUser)(
             $validated['email'],
             $validated['password'],
+            $restaurantId,
         );
 
         return new JsonResponse($response->toArray(), 200);

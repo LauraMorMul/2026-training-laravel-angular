@@ -36,6 +36,11 @@ use App\Zone\Infrastructure\Entrypoint\Http\PatchZoneController;
 use App\Zone\Infrastructure\Entrypoint\Http\PostZoneController;
 use Illuminate\Support\Facades\Route;
 
+Route::post('/context', LoginRestaurantController::class);
+
+Route::middleware('auth:restaurant')->group(function () {
+    Route::post('/login', LoginUserController::class);
+});
 // Rutas relacionadas con el User
 Route::post('/users', PostUserController::class);
 Route::get('/users/all', GetAllUserController::class);
@@ -81,7 +86,3 @@ Route::get('/tables/{id}', GetTableByIDController::class);
 Route::get('/tables/restaurant/{id}', GetTablesByRestaurantController::class);
 Route::patch('/tables/{id}', PatchTableController::class);
 Route::delete('/tables/{id}', DeleteTableByIDController::class);
-
-// Rutas de login
-Route::post('/login', LoginUserController::class);
-Route::post('/context', LoginRestaurantController::class);

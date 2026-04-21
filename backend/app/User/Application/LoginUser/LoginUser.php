@@ -15,9 +15,9 @@ class LoginUser
         private TokenManagerInterface $tokenManager,
     ) {}
 
-    public function __invoke(string $email, string $plainPassword): LoginUserResponse
+    public function __invoke(string $email, string $plainPassword, int $id): LoginUserResponse
     {
-        $user = $this->userRepository->findByEmail($email);
+        $user = $this->userRepository->findByEmailAndRestaurant($email, $id);
 
         if ($user === null || ! $this->passwordHasher->check($plainPassword, $user->passwordHash()->value())) {
             throw ValidationException::withMessages([
