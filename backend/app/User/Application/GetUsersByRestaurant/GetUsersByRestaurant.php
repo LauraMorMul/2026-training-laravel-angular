@@ -10,7 +10,7 @@ class GetUsersByRestaurant
         private UserRepositoryInterface $userRepository
     ) {}
 
-    public function __invoke(string $restaurantID): ?GetUsersByRestaurantResponse
+    public function __invoke(int $restaurantID): ?GetUsersByRestaurantResponse
     {
         $users = $this->userRepository->getByRestaurant($restaurantID);
 

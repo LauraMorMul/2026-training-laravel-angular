@@ -13,7 +13,7 @@ class GetFamiliesByRestaurantController
 
     public function __invoke()
     {
-        $restaurantID = auth('restaurant')->user()->id;
+        $restaurantID = auth('user')->user()->restaurant_id;
 
         $response = ($this->getFamiliesByRestaurant)($restaurantID);
 

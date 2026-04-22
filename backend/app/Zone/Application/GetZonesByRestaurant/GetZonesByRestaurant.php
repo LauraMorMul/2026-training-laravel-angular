@@ -10,7 +10,7 @@ class GetZonesByRestaurant
         private ZoneRepositoryInterface $zonesRepository,
     ) {}
 
-    public function __invoke(string $restaurantID): ?GetZonesByRestaurantResponse
+    public function __invoke(int $restaurantID): ?GetZonesByRestaurantResponse
     {
         $zones = $this->zonesRepository->getByRestaurant($restaurantID);
 

@@ -14,8 +14,8 @@ class PostProductController
 
     public function __invoke(Request $request): JsonResponse
     {
+        $restaurantId = auth('user')->user()->restaurant_id;
         $validated = $request->validate([
-            'restaurant_id' => ['required', 'integer', 'exists:restaurants,id'],
             'family_id' => ['required', 'integer', 'exists:families,id'],
             'tax_id' => ['required', 'integer', 'exists:taxes,id'],
             'image_src' => ['required', 'string', 'max:255'],
@@ -26,7 +26,6 @@ class PostProductController
         ]);
 
         $response = ($this->createProduct)(
-            $validated['restaurant_id'],
             $validated['family_id'],
             $validated['tax_id'],
             $validated['image_src'],
@@ -34,6 +33,7 @@ class PostProductController
             $validated['price'],
             $validated['stock'],
             $validated['active'],
+            $restaurantId
         );
 
         return new JsonResponse($response->toArray(), 201);

@@ -14,13 +14,13 @@ class PostZoneController
 
     public function __invoke(Request $request): JsonResponse
     {
+        $restaurantId = auth('user')->user()->restaurant_id;
         $validated = $request->validate([
-            'restaurant_id' => ['required', 'integer', 'exists:restaurants,id'],
             'name' => ['required', 'string', 'max:255'],
         ]);
 
         $response = ($this->createZone)(
-            $validated['restaurant_id'],
+            $restaurantId,
             $validated['name'],
         );
 

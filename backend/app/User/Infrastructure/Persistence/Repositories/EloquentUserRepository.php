@@ -96,41 +96,9 @@ class EloquentUserRepository implements UserRepositoryInterface
         );
     }
 
-    public function getAll(): ?array
+    public function getByRestaurant(int $restaurantID): ?array
     {
-        $models = $this->model->newQuery()->getModels();
-        $users = [];
-
-        if ($models === null) {
-            return null;
-        }
-
-        foreach ($models as $model) {
-            $user = User::fromPersistence(
-                $model->uuid,
-                $model->restaurant_id,
-                $model->role,
-                $model->image_src,
-                $model->name,
-                $model->email,
-                $model->password,
-                $model->pin,
-                $model->created_at->toDateTimeImmutable(),
-                $model->updated_at->toDateTimeImmutable(),
-            );
-            array_push($users, $user);
-        }
-
-        return $users;
-    }
-
-    public function getByRestaurant(string $restaurantID): ?array
-    {
-        $models = $this->model->newQuery()->whereIn('restaurant_id', function ($query) use ($restaurantID) {
-            $query->select('id')
-                ->from('restaurants')
-                ->where('uuid', $restaurantID);
-        })->getModels();
+        $models = $this->model->newQuery()->where('restaurant_id', $restaurantID)->get();
         $users = [];
 
         if ($models === null) {

@@ -10,7 +10,7 @@ class GetTaxesByRestaurant
         private TaxRepositoryInterface $taxesRepository,
     ) {}
 
-    public function __invoke(string $restaurantID): ?GetTaxesByRestaurantResponse
+    public function __invoke(int $restaurantID): ?GetTaxesByRestaurantResponse
     {
         $taxes = $this->taxesRepository->getByRestaurant($restaurantID);
 

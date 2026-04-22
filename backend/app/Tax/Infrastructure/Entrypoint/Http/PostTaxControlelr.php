@@ -14,14 +14,15 @@ class PostTaxControlelr
 
     public function __invoke(Request $request): JsonResponse
     {
+        $restaurantId = auth('user')->user()->restaurant_id;
+
         $validated = $request->validate([
-            'restaurant_id' => ['required', 'integer', 'exists:restaurants,id'],
             'name' => ['required', 'string', 'max:255'],
             'percentage' => ['required', 'integer'],
         ]);
 
         $response = ($this->createTax)(
-            $validated['restaurant_id'],
+            $restaurantId,
             $validated['name'],
             $validated['percentage'],
         );

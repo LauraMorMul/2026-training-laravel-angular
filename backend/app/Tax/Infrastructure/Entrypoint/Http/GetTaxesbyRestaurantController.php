@@ -11,12 +11,15 @@ class GetTaxesbyRestaurantController
         private GetTaxesByRestaurant $getTaxesByRestaurant
     ) {}
 
-    public function __invoke(string $restaurantID)
+    public function __invoke()
     {
+        $restaurantID = auth('user')->user()->restaurant_id;
         $response = ($this->getTaxesByRestaurant)($restaurantID);
 
-        if ($response == null) {
-            return new JsonResponse('Families not found', 404);
+        if ($restaurantID === null) {
+            return new JsonResponse('Restaurant not found', 404);
+        } elseif ($response == null) {
+            return new JsonResponse('Taxes not found', 404);
         } else {
             return new JsonResponse($response->toArray(), 200);
         }

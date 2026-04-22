@@ -46,11 +46,7 @@ class EloquentTaxRepository implements TaxRepositoryInterface
 
     public function getByRestaurant(string $restaurantID): ?array
     {
-        $models = $this->model->newQuery()->whereIn('restaurant_id', function ($query) use ($restaurantID) {
-            $query->select('id')
-                ->from('restaurants')
-                ->where('uuid', $restaurantID);
-        })->getModels();
+        $models = $this->model->newQuery()->where('restaurant_id', $restaurantID)->get();
 
         $taxes = [];
 
