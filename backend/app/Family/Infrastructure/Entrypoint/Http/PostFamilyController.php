@@ -15,15 +15,16 @@ class PostFamilyController
     public function __invoke(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'restaurant_id' => ['required', 'integer', 'exists:restaurants,id'],
             'name' => ['required', 'string', 'max:255'],
             'active' => ['required', 'boolean'],
         ]);
 
+        $restaurantId = auth('user')->user()->restaurant_id;
+
         $response = ($this->createFamily)(
-            $validated['restaurant_id'],
             $validated['name'],
             $validated['active'],
+            $restaurantId,
         );
 
         return new JsonResponse($response->toArray(), 201);

@@ -10,7 +10,7 @@ class GetFamiliesByRestaurant
         private FamilyRepositoryInterface $familyRepository,
     ) {}
 
-    public function __invoke(string $restaurantID): ?GetFamiliesByRestaurantResponse
+    public function __invoke(int $restaurantID): ?GetFamiliesByRestaurantResponse
     {
         $families = $this->familyRepository->getByRestaurant($restaurantID);
 

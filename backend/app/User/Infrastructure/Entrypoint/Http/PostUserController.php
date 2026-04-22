@@ -18,21 +18,26 @@ class PostUserController
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'restaurant_id' => ['required', 'integer', 'exists:restaurants,id'],
             'role' => ['required', 'string', 'max:40'],
             'image_src' => ['required', 'string'],
             'pin' => ['required', 'string', 'digits_between:4,6'],
 
         ]);
 
+        $restaurantId = auth('restaurant')->user()->id;
+
+        if ($restaurantId === null) {
+            return new JsonResponse('Unknown user', 403);
+        }
+
         $response = ($this->createUser)(
             $validated['email'],
             $validated['name'],
             $validated['password'],
-            $validated['restaurant_id'],
             $validated['role'],
             $validated['image_src'],
             $validated['pin'],
+            $restaurantId,
         );
 
         return new JsonResponse($response->toArray(), 201);

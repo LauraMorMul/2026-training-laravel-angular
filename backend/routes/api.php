@@ -40,9 +40,21 @@ Route::post('/context', LoginRestaurantController::class);
 
 Route::middleware('auth:restaurant')->group(function () {
     Route::post('/login', LoginUserController::class);
+    Route::get('/families/restaurant', GetFamiliesByRestaurantController::class);
 });
+
+Route::middleware('auth:user')->group(function () {
+    Route::get('/families/{id}', GetFamilyByIDController::class);
+    Route::middleware(['auth:sanctum', 'ability:admin'])->group(function () {
+        Route::post('/users', PostUserController::class);
+        Route::post('/families', PostFamilyController::class);
+        Route::delete('/families/{id}', DeleteFamilyByIDController::class);
+        Route::patch('/families/{id}', PatchFamilyController::class);
+    });
+});
+
 // Rutas relacionadas con el User
-Route::post('/users', PostUserController::class);
+
 Route::get('/users/all', GetAllUserController::class);
 Route::get('/users/{id}', GetUserByIDController::class);
 Route::get('/users/restaurant/{id}', GetUserByRestaurantController::class);
@@ -50,11 +62,11 @@ Route::delete('/users/{id}', DeleteUserByIDController::class);
 Route::patch('/users/{id}', PatchUserController::class);
 
 // Rutas de familia
-Route::post('/families', PostFamilyController::class);
-Route::delete('/families/{id}', DeleteFamilyByIDController::class);
-Route::get('/families/{id}', GetFamilyByIDController::class);
-Route::get('/families/restaurant/{id}', GetFamiliesByRestaurantController::class);
-Route::patch('/families/{id}', PatchFamilyController::class);
+
+
+
+
+
 
 // Rutas de restaurante
 Route::post('/restaurants', PostRestaurantController::class);
