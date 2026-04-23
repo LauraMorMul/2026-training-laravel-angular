@@ -13,6 +13,7 @@ use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Price;
 use App\Shared\Domain\ValueObject\RestaurantID;
 use App\Tax\Domain\Interfaces\TaxRepositoryInterface;
+use InvalidArgumentException;
 
 class CreateProduct
 {
@@ -22,8 +23,18 @@ class CreateProduct
         private TaxRepositoryInterface $taxesRepository
     ) {}
 
-    public function __invoke(int $familyID, int $taxID, string $imageSrc, string $name, int $price, int $stock, bool $active, int $restaurantID): CreateProductResponse
+    public function __invoke(string $familyUUID, string $taxUUID, string $imageSrc, string $name, int $price, int $stock, bool $active, int $restaurantID): CreateProductResponse
     {
+        $restaurantFamily = $this->familyRepository->findById($familyUUID)->restaurantID()->value();
+        $restaurantTax = $this->taxesRepository->findById($taxUUID)->restaurantID()->value();
+
+        if($restaurantFamily != $restaurantID || $restaurantTax != $restaurantID) {
+            throw new InvalidArgumentException("Either the family ID or the tax ID are incorrect.");
+        } else {
+            $familyID = $this->familyRepository->findIDbyUUID($familyUUID);
+            $taxID = $this->taxesRepository->findIDbyUUID($taxUUID);
+        }
+
         $restaurantIDVO = RestaurantID::create($restaurantID);
         $familyIDVO = FamilyID::create($familyID);
         $taxIDVO = TaxID::create($taxID);

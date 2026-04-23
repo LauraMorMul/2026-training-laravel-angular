@@ -11,12 +11,12 @@ final readonly class GetProductsByRestaurantResponse
         private array $allProducts,
     ) {}
 
-    public static function create(array $products): self
+    public static function create(array $productsWithRelations): self
     {
         return new self(
             allProducts: array_map(
-                fn (Product $product) => GetProductByIDResponse::create($product),
-                $products
+                fn (array $data) => GetProductByIDResponse::create($data[0], $data[1], $data[2]),
+                $productsWithRelations
             )
         );
     }

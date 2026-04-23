@@ -44,28 +44,33 @@ class EloquentFamilyRepository implements FamilyRepositoryInterface
         );
     }
 
-    public function getAll(): ?array
+    public function findByInternalID(int $id): ?Family
     {
-        $models = $this->model->newQuery()->getModels();
-        $families = [];
+        $model = $this->model->newQuery()->where('id', $id)->first();
 
-        if ($models === null) {
+        if ($model === null) {
             return null;
         }
 
-        foreach ($models as $model) {
-            $family = Family::fromPersistence(
-                $model->uuid,
-                $model->restaurant_id,
-                $model->name,
-                $model->active,
-                $model->created_at->toDateTimeImmutable(),
-                $model->updated_at->toDateTimeImmutable(),
-            );
-            array_push($families, $family);
+        return Family::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->name,
+            $model->active,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+    }
+
+    public function findIDbyUUID(string $uuid): ?int
+    {
+        $model = $this->model->newQuery()->where('uuid', $uuid)->value('id');
+
+        if ($model === null) {
+            return null;
         }
 
-        return $families;
+        return $model;
     }
 
     public function getByRestaurant(int $restaurantID): ?array

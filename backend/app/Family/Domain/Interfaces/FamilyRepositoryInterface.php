@@ -10,7 +10,9 @@ interface FamilyRepositoryInterface
 
     public function findById(string $id): ?Family;
 
-    public function getAll(): ?array;
+    public function findByInternalID(int $id): ?Family;
+
+    public function findIDbyUUID(string $uuid): ?int;
 
     public function getByRestaurant(int $restaurantID): ?array;
 

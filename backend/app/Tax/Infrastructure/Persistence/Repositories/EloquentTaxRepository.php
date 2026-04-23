@@ -44,6 +44,35 @@ class EloquentTaxRepository implements TaxRepositoryInterface
         );
     }
 
+    public function findByInternalID(int $id): ?Tax
+    {
+        $model = $this->model->newQuery()->where('id', $id)->first();
+
+        if ($model === null) {
+            return null;
+        }
+
+        return Tax::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->name,
+            $model->percentage,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+    }
+
+    public function findIDbyUUID(string $uuid): ?int
+    {
+        $model = $this->model->newQuery()->where('uuid', $uuid)->value('id');
+
+        if ($model === null) {
+            return null;
+        }
+
+        return $model;
+    }
+
     public function getByRestaurant(string $restaurantID): ?array
     {
         $models = $this->model->newQuery()->where('restaurant_id', $restaurantID)->get();

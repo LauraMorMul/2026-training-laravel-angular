@@ -15,7 +15,8 @@ class PostRestaurantController
     public function __invoke(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'admin_name' => ['required', 'string'],
+            'restaurant_name' => ['required', 'string', 'max:255'],
             'legal_name' => ['required', 'string', 'max:255'],
             'tax_id' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255'],
@@ -23,7 +24,8 @@ class PostRestaurantController
         ]);
 
         $response = ($this->createRestaurant)(
-            $validated['name'],
+            $validated['admin_name'],
+            $validated['restaurant_name'],
             $validated['legal_name'],
             $validated['tax_id'],
             $validated['email'],

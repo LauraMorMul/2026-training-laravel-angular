@@ -68,6 +68,17 @@ class EloquentRestaurantRepository implements RestaurantRepositoryInterface
         );
     }
 
+    public function findIDbyUUID(string $uuid): ?int
+    {
+        $model = $this->model->newQuery()->where('uuid', $uuid)->value('id');
+
+        if ($model === null) {
+            return null;
+        }
+
+        return $model;
+    }
+
     public function getAll(): ?array
     {
         $models = $this->model->newQuery()->getModels();

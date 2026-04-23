@@ -31,7 +31,6 @@ final readonly class CreateFamilyResponse
     {
         return [
             'id' => $this->id,
-            'restaurant_id' => $this->restaurantID,
             'name' => $this->name,
             'active' => $this->active,
             'created_at' => $this->createdAt,

@@ -4,6 +4,7 @@ namespace App\Family\Infrastructure\Entrypoint\Http;
 
 use App\Family\Application\DeleteFamilyByID\DeleteFamilyByID;
 use Illuminate\Http\JsonResponse;
+use InvalidArgumentException;
 
 class DeleteFamilyByIDController
 {
@@ -13,11 +14,11 @@ class DeleteFamilyByIDController
 
     public function __invoke(string $id): JsonResponse
     {
-        $response = ($this->deleteFamilyByID)($id);
-        if ($response == null) {
-            return new JsonResponse('Family deleted correctly.', 200);
-        } else {
-            return new JsonResponse($response, 204);
+        try {
+            $response = ($this->deleteFamilyByID)($id);
+        } catch(InvalidArgumentException $e) {
+            return new JsonResponse('Family not found.', 404);
         }
+        return new JsonResponse('Family deleted correctly.', 200);
     }
 }

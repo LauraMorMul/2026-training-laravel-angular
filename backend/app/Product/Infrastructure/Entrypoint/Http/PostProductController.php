@@ -5,6 +5,7 @@ namespace App\Product\Infrastructure\Entrypoint\Http;
 use App\Product\Application\CreateProduct\CreateProduct;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use InvalidArgumentException;
 
 class PostProductController
 {
@@ -15,17 +16,18 @@ class PostProductController
     public function __invoke(Request $request): JsonResponse
     {
         $restaurantId = auth('user')->user()->restaurant_id;
+
         $validated = $request->validate([
-            'family_id' => ['required', 'integer', 'exists:families,id'],
-            'tax_id' => ['required', 'integer', 'exists:taxes,id'],
+            'family_id' => ['required', 'string', 'exists:families,uuid'],
+            'tax_id' => ['required', 'string', 'exists:taxes,uuid'],
             'image_src' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'integer'],
             'stock' => ['required', 'integer'],
             'active' => ['required', 'boolean'],
         ]);
-
-        $response = ($this->createProduct)(
+        try {
+            $response = ($this->createProduct)(
             $validated['family_id'],
             $validated['tax_id'],
             $validated['image_src'],
@@ -35,6 +37,10 @@ class PostProductController
             $validated['active'],
             $restaurantId
         );
+        }catch (InvalidArgumentException $e) {
+            return new JsonResponse("Invalid family ID or tax ID.", 400);
+        }
+        
 
         return new JsonResponse($response->toArray(), 201);
     }
