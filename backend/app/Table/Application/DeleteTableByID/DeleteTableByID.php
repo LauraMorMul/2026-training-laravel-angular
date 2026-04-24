@@ -10,8 +10,15 @@ class DeleteTableByID
         private TableRepositoryInterface $tableRepository,
     ) {}
 
-    public function __invoke(string $id): void
+    public function __invoke(string $id, int $restaurantID): bool
     {
-        $deleted = $this->tableRepository->deleteByID($id);
+        $exists = $this->tableRepository->findById($id);
+        if ($exists === null || $exists->restaurantID()->value() !== $restaurantID) {
+            return false;
+        } else {
+            $deleted = $this->tableRepository->deleteByID($id);
+
+            return true;
+        }
     }
 }

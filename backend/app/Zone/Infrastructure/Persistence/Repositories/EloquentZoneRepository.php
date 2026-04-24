@@ -42,6 +42,34 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
         );
     }
 
+    public function findByInternalID(int $id): ?Zone
+    {
+        $model = $this->model->newQuery()->where('id', $id)->first();
+
+        if ($model === null) {
+            return null;
+        }
+
+        return Zone::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->name,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+    }
+
+    public function findIDbyUUID(string $uuid): ?int
+    {
+        $model = $this->model->newQuery()->where('uuid', $uuid)->value('id');
+
+        if ($model === null) {
+            return null;
+        }
+
+        return $model;
+    }
+
     public function getByRestaurant(string $restaurantID): ?array
     {
 

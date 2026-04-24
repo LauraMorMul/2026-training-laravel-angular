@@ -3,7 +3,6 @@
 namespace App\Table\Application\GetTablesByRestaurant;
 
 use App\Table\Application\GetTableByID\GetTableByIDResponse;
-use App\Table\Domain\Entity\Table;
 
 final readonly class GetTablesByRestaurantResponse
 {
@@ -11,12 +10,12 @@ final readonly class GetTablesByRestaurantResponse
         private array $allTables,
     ) {}
 
-    public static function create(array $families): self
+    public static function create(array $tablesWithRelations): self
     {
         return new self(
             allTables: array_map(
-                fn (Table $table) => GetTableByIDResponse::create($table),
-                $families
+                fn (array $data) => GetTableByIDResponse::create($data['table'], $data['zone']),
+                $tablesWithRelations
             )
         );
     }

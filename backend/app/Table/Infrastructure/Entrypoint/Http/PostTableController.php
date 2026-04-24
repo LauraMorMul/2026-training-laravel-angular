@@ -5,6 +5,7 @@ namespace App\Table\Infrastructure\Entrypoint\Http;
 use App\Table\Application\CreateTable\CreateTable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use InvalidArgumentException;
 
 class PostTableController
 {
@@ -14,17 +15,22 @@ class PostTableController
 
     public function __invoke(Request $request): JsonResponse
     {
+        $restaurantId = auth('user')->user()->restaurant_id;
+
         $validated = $request->validate([
-            'restaurant_id' => ['required', 'integer', 'exists:restaurants,id'],
-            'zone_id' => ['required', 'integer', 'exists:zones,id'],
+            'zone_id' => ['required', 'string', 'exists:zones,uuid'],
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $response = ($this->createTable)(
-            $validated['restaurant_id'],
-            $validated['zone_id'],
-            $validated['name'],
-        );
+        try {
+            $response = ($this->createTable)(
+                $restaurantId,
+                $validated['zone_id'],
+                $validated['name'],
+            );
+        } catch (InvalidArgumentException $e) {
+            return new JsonResponse('Invalid family ID or tax ID.', 400);
+        }
 
         return new JsonResponse($response->toArray(), 201);
     }

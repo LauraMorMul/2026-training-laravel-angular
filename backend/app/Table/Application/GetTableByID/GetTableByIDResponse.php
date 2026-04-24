@@ -3,39 +3,41 @@
 namespace App\Table\Application\GetTableByID;
 
 use App\Table\Domain\Entity\Table;
+use App\Zone\Domain\Entity\Zone;
 
 final readonly class GetTableByIDResponse
 {
     public function __construct(
-        public string $id,
-        public int $restaurantID,
-        public int $zoneID,
-        public string $name,
-        public string $createdAt,
-        public string $updatedAt,
+        public string $tableId,
+        public int $tableRestaurantID,
+        public string $tableName,
+        public string $tableCreatedAt,
+        public string $tableUpdatedAt,
+        public string $zoneId
     ) {}
 
-    public static function create(Table $table): self
+    public static function create(Table $table, Zone $zone): self
     {
         return new self(
-            id: $table->id()->value(),
-            restaurantID: $table->restaurantID()->value(),
-            zoneID: $table->zoneID()->value(),
-            name: $table->name()->value(),
-            createdAt: $table->createdAt()->format(\DateTimeInterface::ATOM),
-            updatedAt: $table->updatedAt()->format(\DateTimeInterface::ATOM),
+            tableId: $table->id()->value(),
+            tableRestaurantID: $table->restaurantID()->value(),
+            tableName: $table->name()->value(),
+            tableCreatedAt: $table->createdAt()->format(\DateTimeInterface::ATOM),
+            tableUpdatedAt: $table->updatedAt()->format(\DateTimeInterface::ATOM),
+            zoneId: $zone->id()->value(),
         );
     }
 
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'restaurant_id' => $this->restaurantID,
-            'zone_id' => $this->zoneID,
-            'name' => $this->name,
-            'created_at' => $this->createdAt,
-            'updated_at' => $this->updatedAt,
+            'table' => [
+                'id' => $this->tableId,
+                'zone_id' => $this->zoneId,
+                'name' => $this->tableName,
+                'created_at' => $this->tableCreatedAt,
+                'updated_at' => $this->tableUpdatedAt,
+            ],
         ];
     }
 }

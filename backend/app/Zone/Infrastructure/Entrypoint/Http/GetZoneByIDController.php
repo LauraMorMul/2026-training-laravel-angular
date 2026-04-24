@@ -13,9 +13,10 @@ class GetZoneByIDController
 
     public function __invoke(string $id)
     {
-        $response = ($this->getZoneByID)($id);
+        $restaurantId = auth('user')->user()->restaurant_id;
+        $response = ($this->getZoneByID)($id, $restaurantId);
         if ($response == null) {
-            return new JsonResponse('Zone not found', 404);
+            return new JsonResponse('Zone not found.', 404);
         } else {
             return new JsonResponse($response->toArray(), 200);
         }

@@ -10,8 +10,15 @@ class DeleteZoneByID
         private ZoneRepositoryInterface $zoneRepository,
     ) {}
 
-    public function __invoke(string $id): void
+    public function __invoke(string $id, int $restaurantID): bool
     {
-        $deleted = $this->zoneRepository->deleteByID($id);
+        $exists = $this->zoneRepository->findById($id);
+        if ($exists === null || $exists->restaurantID()->value() !== $restaurantID) {
+            return false;
+        } else {
+            $deleted = $this->zoneRepository->deleteByID($id);
+
+            return true;
+        }
     }
 }

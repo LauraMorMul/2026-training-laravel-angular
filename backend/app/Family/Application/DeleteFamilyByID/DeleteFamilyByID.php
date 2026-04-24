@@ -14,7 +14,7 @@ class DeleteFamilyByID
     public function __invoke(string $id): void
     {
         $exists = $this->familyRepository->findById($id);
-        if($exists === null) {
+        if ($exists === null) {
             throw new InvalidArgumentException("Family doesn't exist or is already deleted.");
         } else {
             $deleted = $this->familyRepository->deleteByID($id);

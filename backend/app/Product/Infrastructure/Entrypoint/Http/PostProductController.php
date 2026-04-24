@@ -28,19 +28,18 @@ class PostProductController
         ]);
         try {
             $response = ($this->createProduct)(
-            $validated['family_id'],
-            $validated['tax_id'],
-            $validated['image_src'],
-            $validated['name'],
-            $validated['price'],
-            $validated['stock'],
-            $validated['active'],
-            $restaurantId
-        );
-        }catch (InvalidArgumentException $e) {
-            return new JsonResponse("Invalid family ID or tax ID.", 400);
+                $validated['family_id'],
+                $validated['tax_id'],
+                $validated['image_src'],
+                $validated['name'],
+                $validated['price'],
+                $validated['stock'],
+                $validated['active'],
+                $restaurantId
+            );
+        } catch (InvalidArgumentException $e) {
+            return new JsonResponse('Invalid family ID or tax ID.', 400);
         }
-        
 
         return new JsonResponse($response->toArray(), 201);
     }

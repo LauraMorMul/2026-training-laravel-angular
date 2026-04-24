@@ -2,7 +2,6 @@
 
 namespace App\Restaurant\Application\CreateRestaurant;
 
-use App\Restaurant\Application\CreateRestaurant\CreateRestaurantResponse;
 use App\Restaurant\Domain\Entity\Restaurant;
 use App\Restaurant\Domain\Interfaces\RestaurantRepositoryInterface;
 use App\Restaurant\Domain\ValueObject\LegalName;
@@ -38,7 +37,7 @@ class CreateRestaurant
 
         $this->restaurantRepository->save($restaurant);
 
-        $emailUser = strtolower(strtok($nameAdmin, " ")).strstr($emailRestaurant, '@');
+        $emailUser = strtolower(strtok($nameAdmin, ' ')).strstr($emailRestaurant, '@');
         $restaurantID = $this->restaurantRepository->findIDbyUUID($restaurant->id()->value());
         $emailVO = Email::create($emailUser);
         $nameVO = UserName::create($nameAdmin);

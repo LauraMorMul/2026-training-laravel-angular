@@ -16,9 +16,10 @@ class DeleteFamilyByIDController
     {
         try {
             $response = ($this->deleteFamilyByID)($id);
-        } catch(InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             return new JsonResponse('Family not found.', 404);
         }
+
         return new JsonResponse('Family deleted correctly.', 200);
     }
 }

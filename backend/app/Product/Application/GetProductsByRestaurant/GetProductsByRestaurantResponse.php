@@ -3,7 +3,6 @@
 namespace App\Product\Application\GetProductsByRestaurant;
 
 use App\Product\Application\GetProductByID\GetProductByIDResponse;
-use App\Product\Domain\Entity\Product;
 
 final readonly class GetProductsByRestaurantResponse
 {
@@ -15,7 +14,11 @@ final readonly class GetProductsByRestaurantResponse
     {
         return new self(
             allProducts: array_map(
-                fn (array $data) => GetProductByIDResponse::create($data[0], $data[1], $data[2]),
+                fn (array $data) => GetProductByIDResponse::create(
+                    $data['product'],
+                    $data['family'],
+                    $data['tax']
+                ),
                 $productsWithRelations
             )
         );

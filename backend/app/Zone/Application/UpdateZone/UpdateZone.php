@@ -11,9 +11,13 @@ class UpdateZone
         private ZoneRepositoryInterface $zoneRepository,
     ) {}
 
-    public function __invoke(string $uuid, ?string $name): ?UpdateZoneResponse
+    public function __invoke(string $uuid, ?string $name, int $restaurantID): ?UpdateZoneResponse
     {
         $zone = $this->zoneRepository->findById($uuid);
+
+        if ($zone === null || $zone->restaurantID()->value() !== $restaurantID) {
+            return null;
+        }
 
         if ($name === null) {
             $nameVO = $zone->name();

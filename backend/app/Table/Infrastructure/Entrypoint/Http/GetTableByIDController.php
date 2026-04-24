@@ -13,9 +13,11 @@ class GetTableByIDController
 
     public function __invoke(string $id)
     {
-        $response = ($this->getTableByID)($id);
+        $restaurantId = auth('user')->user()->restaurant_id;
+
+        $response = ($this->getTableByID)($id, $restaurantId);
         if ($response == null) {
-            return new JsonResponse('Table not found', 404);
+            return new JsonResponse('Table not found.', 404);
         } else {
             return new JsonResponse($response->toArray(), 200);
         }

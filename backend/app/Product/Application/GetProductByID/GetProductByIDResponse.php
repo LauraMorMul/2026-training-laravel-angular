@@ -46,20 +46,20 @@ final readonly class GetProductByIDResponse
     public function toArray(): array
     {
         return [
-            'id'           => $this->id,
-            'family_id'    => $this->familyID,
-            'image_src'    => $this->imageSrc,
-            'name'         => $this->name,
-            'price'        => $this->price,
-            'stock'        => $this->stock,
-            'active'       => $this->active,
-            'tax'          => [
-                'uuid'       => $this->taxUuid,
-                'name'       => $this->taxName,
+            'id' => $this->id,
+            'family_id' => $this->familyID,
+            'image_src' => $this->imageSrc,
+            'name' => $this->name,
+            'price' => $this->price,
+            'stock' => $this->stock,
+            'active' => $this->active,
+            'tax' => [
+                'uuid' => $this->taxUuid,
+                'name' => $this->taxName,
                 'percentage' => $this->taxPercentage,
             ],
-            'created_at'   => $this->createdAt,
-            'updated_at'   => $this->updatedAt,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt,
         ];
     }
 }

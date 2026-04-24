@@ -14,8 +14,10 @@ class PatchTableController
 
     public function __invoke(string $id, Request $request): JsonResponse
     {
+        $restaurantId = auth('user')->user()->restaurant_id;
+
         $validated = $request->validate([
-            'zone_id' => ['integer'],
+            'zone_id' => ['string'],
             'name' => ['string', 'max:255'],
         ]);
 
@@ -23,6 +25,7 @@ class PatchTableController
             $id,
             $validated['zone_id'] ?? null,
             $validated['name'] ?? null,
+            $restaurantId,
         );
 
         return new JsonResponse($response->toArray(), 200);

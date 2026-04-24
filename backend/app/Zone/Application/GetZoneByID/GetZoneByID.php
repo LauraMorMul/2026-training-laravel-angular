@@ -10,11 +10,11 @@ class GetZoneByID
         private ZoneRepositoryInterface $zoneRepository
     ) {}
 
-    public function __invoke(string $id): ?GetZoneByIDResponse
+    public function __invoke(string $id, int $restaurantID): ?GetZoneByIDResponse
     {
         $zone = $this->zoneRepository->findByID($id);
 
-        if ($zone == null) {
+        if ($zone == null || $zone->restaurantID()->value() !== $restaurantID) {
             return null;
         } else {
             return GetZoneByIDResponse::create($zone);

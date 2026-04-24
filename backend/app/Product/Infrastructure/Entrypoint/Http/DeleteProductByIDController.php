@@ -16,9 +16,10 @@ class DeleteProductByIDController
     {
         try {
             $response = ($this->deleteProductByID)($id);
-        } catch(InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             return new JsonResponse('Product not found.', 404);
         }
+
         return new JsonResponse('Product deleted correctly.', 200);
     }
 }

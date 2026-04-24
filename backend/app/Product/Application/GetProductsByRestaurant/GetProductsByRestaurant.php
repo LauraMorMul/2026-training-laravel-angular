@@ -3,7 +3,6 @@
 namespace App\Product\Application\GetProductsByRestaurant;
 
 use App\Family\Domain\Interfaces\FamilyRepositoryInterface;
-use App\Product\Application\GetProductsByRestaurant\GetProductsByRestaurantResponse;
 use App\Product\Domain\Entity\Product;
 use App\Product\Domain\Interfaces\ProductRepositoryInterface;
 use App\Tax\Domain\Interfaces\TaxRepositoryInterface;
@@ -29,7 +28,11 @@ class GetProductsByRestaurant
                 $family = $this->familyRepository->findByInternalID($product->familyID()->value());
                 $tax = $this->taxRepository->findByInternalID($product->taxID()->value());
 
-                return [$product, $family, $tax];
+                return [
+                    'product' => $product,
+                    'family' => $family,
+                    'tax' => $tax,
+                ];
             },
             $products
         );

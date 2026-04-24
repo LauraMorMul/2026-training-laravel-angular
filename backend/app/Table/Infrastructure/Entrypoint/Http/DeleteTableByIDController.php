@@ -13,11 +13,12 @@ class DeleteTableByIDController
 
     public function __invoke(string $id): JsonResponse
     {
-        $response = ($this->deleteTableByID)($id);
-        if ($response == null) {
+        $restaurantId = auth('user')->user()->restaurant_id;
+        $response = ($this->deleteTableByID)($id, $restaurantId);
+        if ($response == true) {
             return new JsonResponse('Table deleted correctly.', 200);
         } else {
-            return new JsonResponse($response, 204);
+            return new JsonResponse('Table not found.', 404);
         }
     }
 }

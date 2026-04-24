@@ -41,8 +41,6 @@ final readonly class CreateProductResponse
     {
         return [
             'id' => $this->id,
-            'family_id' => $this->familyID,
-            'tax_id' => $this->taxID,
             'image_src' => $this->imageSrc,
             'name' => $this->name,
             'price' => $this->price,

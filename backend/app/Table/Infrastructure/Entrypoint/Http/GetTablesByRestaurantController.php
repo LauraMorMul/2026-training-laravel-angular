@@ -11,8 +11,9 @@ class GetTablesByRestaurantController
         private GetTablesByRestaurant $getTablesByRestaurant
     ) {}
 
-    public function __invoke(string $restaurantID)
+    public function __invoke()
     {
+        $restaurantID = auth('user')->user()->restaurant_id;
         $response = ($this->getTablesByRestaurant)($restaurantID);
 
         if ($response == null) {

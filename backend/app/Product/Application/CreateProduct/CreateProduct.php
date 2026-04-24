@@ -28,8 +28,8 @@ class CreateProduct
         $restaurantFamily = $this->familyRepository->findById($familyUUID)->restaurantID()->value();
         $restaurantTax = $this->taxesRepository->findById($taxUUID)->restaurantID()->value();
 
-        if($restaurantFamily != $restaurantID || $restaurantTax != $restaurantID) {
-            throw new InvalidArgumentException("Either the family ID or the tax ID are incorrect.");
+        if ($restaurantFamily != $restaurantID || $restaurantTax != $restaurantID) {
+            throw new InvalidArgumentException('Either the family ID or the tax ID are incorrect.');
         } else {
             $familyID = $this->familyRepository->findIDbyUUID($familyUUID);
             $taxID = $this->taxesRepository->findIDbyUUID($taxUUID);

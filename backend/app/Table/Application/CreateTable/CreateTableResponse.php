@@ -31,8 +31,6 @@ final readonly class CreateTableResponse
     {
         return [
             'id' => $this->id,
-            'restaurant_id' => $this->restaurantID,
-            'zone_id' => $this->zoneID,
             'name' => $this->name,
             'created_at' => $this->createdAt,
             'updated_at' => $this->updatedAt,

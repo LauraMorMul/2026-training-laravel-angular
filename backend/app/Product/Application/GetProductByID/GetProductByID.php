@@ -23,6 +23,7 @@ class GetProductByID
         } else {
             $family = $this->familyRepository->findByInternalID($product->familyID()->value());
             $tax = $this->taxRepository->findByInternalID($product->taxID()->value());
+
             return GetProductByIDResponse::create($product, $family, $tax);
         }
     }
