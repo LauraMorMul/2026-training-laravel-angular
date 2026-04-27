@@ -14,9 +14,10 @@ class PatchProductController
 
     public function __invoke(string $id, Request $request): JsonResponse
     {
+        $restaurantId = auth('user')->user()->restaurant_id;
         $validated = $request->validate([
-            'family_id' => ['integer'],
-            'tax_id' => ['integer'],
+            'family_id' => ['string'],
+            'tax_id' => ['string'],
             'image_src' => ['string', 'max:255'],
             'name' => ['string', 'max:255'],
             'price' => ['integer'],
@@ -33,6 +34,7 @@ class PatchProductController
             $validated['price'] ?? null,
             $validated['stock'] ?? null,
             $validated['active'] ?? null,
+            $restaurantId
         );
 
         return new JsonResponse($response->toArray(), 200);

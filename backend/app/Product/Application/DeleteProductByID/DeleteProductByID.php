@@ -3,7 +3,6 @@
 namespace App\Product\Application\DeleteProductByID;
 
 use App\Product\Domain\Interfaces\ProductRepositoryInterface;
-use InvalidArgumentException;
 
 class DeleteProductByID
 {
@@ -11,14 +10,14 @@ class DeleteProductByID
         private ProductRepositoryInterface $productRepository,
     ) {}
 
-    public function __invoke(string $id): void
+    public function __invoke(string $id, int $restaurantID): bool
     {
         $exists = $this->productRepository->findById($id);
-        if ($exists === null) {
-            throw new InvalidArgumentException("Family doesn't exist or is already deleted.");
+        if ($exists === null || $exists->restaurantID()->value() !== $restaurantID) {
+            return false;
         } else {
             $deleted = $this->productRepository->deleteByID($id);
+            return true;
         }
-
     }
 }

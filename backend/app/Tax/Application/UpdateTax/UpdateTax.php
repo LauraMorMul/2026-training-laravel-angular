@@ -12,9 +12,13 @@ class UpdateTax
         private TaxRepositoryInterface $taxRepository,
     ) {}
 
-    public function __invoke(string $uuid, ?string $name, ?int $percentage): ?UpdateTaxResponse
+    public function __invoke(string $uuid, ?string $name, ?int $percentage, int $restaurantID): ?UpdateTaxResponse
     {
         $tax = $this->taxRepository->findById($uuid);
+
+        if($tax ===null || $tax->restaurantID()->value() !== $restaurantID) {
+            return null;
+        }
 
         if ($name === null) {
             $nameVO = $tax->name();

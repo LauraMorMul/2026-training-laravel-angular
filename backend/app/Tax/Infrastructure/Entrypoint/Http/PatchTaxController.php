@@ -14,6 +14,7 @@ class PatchTaxController
 
     public function __invoke(string $id, Request $request): JsonResponse
     {
+        $restaurantId = auth('user')->user()->restaurant_id;
         $validated = $request->validate([
             'name' => ['string', 'max:255'],
             'percentage' => ['integer'],
@@ -23,8 +24,13 @@ class PatchTaxController
             $id,
             $validated['name'] ?? null,
             $validated['percentage'] ?? null,
+            $restaurantId
         );
 
-        return new JsonResponse($response->toArray(), 200);
+        if ($response === null) {
+            return new JsonResponse('Tax not found.', 404);
+        } else {
+            return new JsonResponse($response->toArray(), 200);
+        }
     }
 }

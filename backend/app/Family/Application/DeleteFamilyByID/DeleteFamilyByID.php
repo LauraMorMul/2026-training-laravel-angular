@@ -3,7 +3,6 @@
 namespace App\Family\Application\DeleteFamilyByID;
 
 use App\Family\Domain\Interfaces\FamilyRepositoryInterface;
-use InvalidArgumentException;
 
 class DeleteFamilyByID
 {
@@ -11,13 +10,14 @@ class DeleteFamilyByID
         private FamilyRepositoryInterface $familyRepository,
     ) {}
 
-    public function __invoke(string $id): void
+    public function __invoke(string $id, int $restaurantID): bool
     {
         $exists = $this->familyRepository->findById($id);
-        if ($exists === null) {
-            throw new InvalidArgumentException("Family doesn't exist or is already deleted.");
+        if ($exists === null || $exists->restaurantID()->value() !== $restaurantID) {
+            return false;
         } else {
             $deleted = $this->familyRepository->deleteByID($id);
+            return true;
         }
     }
 }

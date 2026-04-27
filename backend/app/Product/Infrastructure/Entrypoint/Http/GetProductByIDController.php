@@ -13,7 +13,8 @@ class GetProductByIDController
 
     public function __invoke(string $id)
     {
-        $response = ($this->getProductByID)($id);
+        $restaurantID = auth('user')->user()->restaurant_id;
+        $response = ($this->getProductByID)($id, $restaurantID);
         if ($response == null) {
             return new JsonResponse('Product not found', 404);
         } else {

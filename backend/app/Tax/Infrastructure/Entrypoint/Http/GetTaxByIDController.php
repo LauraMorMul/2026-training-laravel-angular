@@ -13,7 +13,8 @@ class GetTaxByIDController
 
     public function __invoke(string $id)
     {
-        $response = ($this->getTaxByID)($id);
+        $restaurantId = auth('user')->user()->restaurant_id;
+        $response = ($this->getTaxByID)($id, $restaurantId);
         if ($response == null) {
             return new JsonResponse('Family not found', 404);
         } else {

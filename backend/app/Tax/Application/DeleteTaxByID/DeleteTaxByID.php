@@ -10,8 +10,14 @@ class DeleteTaxByID
         private TaxRepositoryInterface $taxRepository,
     ) {}
 
-    public function __invoke(string $id): void
+    public function __invoke(string $id, int $restaurantID): bool
     {
-        $deleted = $this->taxRepository->deleteByID($id);
+        $exists = $this->taxRepository->findById($id);
+        if ($exists === null || $exists->restaurantID()->value() !== $restaurantID) {
+            return false;
+        } else {
+            $deleted = $this->taxRepository->deleteByID($id);
+            return true;
+        }
     }
 }

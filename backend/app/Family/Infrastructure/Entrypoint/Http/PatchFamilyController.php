@@ -14,6 +14,7 @@ class PatchFamilyController
 
     public function __invoke(string $id, Request $request): JsonResponse
     {
+        $restaurantId = auth('user')->user()->restaurant_id;
         $validated = $request->validate([
             'name' => ['string', 'max:255'],
             'active' => ['boolean'],
@@ -23,6 +24,7 @@ class PatchFamilyController
             $id,
             $validated['name'] ?? null,
             $validated['active'] ?? null,
+            $restaurantId
         );
 
         return new JsonResponse($response->toArray(), 200);

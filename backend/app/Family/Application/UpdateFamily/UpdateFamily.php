@@ -11,9 +11,13 @@ class UpdateFamily
         private FamilyRepositoryInterface $familyRepository,
     ) {}
 
-    public function __invoke(string $uuid, ?string $name, ?bool $active): ?UpdateFamilyResponse
+    public function __invoke(string $uuid, ?string $name, ?bool $active, int $restaurantID): ?UpdateFamilyResponse
     {
         $family = $this->familyRepository->findById($uuid);
+
+        if($family === null || $family->restaurantID()->value() !== $restaurantID) {
+            return null;
+        }
 
         if ($name === null) {
             $nameVO = $family->name();

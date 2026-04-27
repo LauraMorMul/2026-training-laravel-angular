@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:user')->group(function () {
     Route::get('/taxes/restaurant', GetTaxesbyRestaurantController::class);
     Route::get('/taxes/{id}', GetTaxByIDController::class);
-    Route::middleware(['auth:sanctum', 'ability:admin'])->group(function () {
+    Route::middleware('ability:admin')->group(function () {
         Route::post('/taxes', PostTaxControlelr::class);
         Route::delete('/taxes/{id}', DeleteTaxByIDController::class);
         Route::patch('/taxes/{id}', PatchTaxController::class);

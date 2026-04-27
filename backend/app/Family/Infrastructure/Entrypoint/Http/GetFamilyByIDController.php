@@ -13,7 +13,8 @@ class GetFamilyByIDController
 
     public function __invoke(string $id)
     {
-        $response = ($this->getFamilyByID)($id);
+        $restaurantId = auth('user')->user()->restaurant_id;
+        $response = ($this->getFamilyByID)($id, $restaurantId);
         if ($response == null) {
             return new JsonResponse('Family not found', 404);
         } else {

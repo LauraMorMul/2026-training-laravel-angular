@@ -13,11 +13,12 @@ class DeleteTaxByIDController
 
     public function __invoke(string $id): JsonResponse
     {
-        $response = ($this->deleteTaxByID)($id);
-        if ($response == null) {
+        $restaurantId = auth('user')->user()->restaurant_id;
+        $response = ($this->deleteTaxByID)($id, $restaurantId);
+        if ($response == true) {
             return new JsonResponse('Tax deleted correctly.', 200);
         } else {
-            return new JsonResponse($response, 204);
+            return new JsonResponse("Tax doesn't exist.", 500);
         }
     }
 }

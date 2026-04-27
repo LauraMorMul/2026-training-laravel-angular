@@ -2,6 +2,7 @@
 
 namespace App\Product\Application\UpdateProduct;
 
+use App\Family\Domain\Interfaces\FamilyRepositoryInterface;
 use App\Product\Domain\Interfaces\ProductRepositoryInterface;
 use App\Product\Domain\ValueObject\FamilyID;
 use App\Product\Domain\ValueObject\Stock;
@@ -9,26 +10,42 @@ use App\Product\Domain\ValueObject\TaxID;
 use App\Shared\Domain\ValueObject\ImageSrc;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Price;
+use App\Tax\Domain\Interfaces\TaxRepositoryInterface;
 
 class UpdateProduct
 {
     public function __construct(
-        private ProductRepositoryInterface $productRepository
+        private ProductRepositoryInterface $productRepository,
+        private FamilyRepositoryInterface $familyRepository,
+        private TaxRepositoryInterface $taxesRepository
     ) {}
 
-    public function __invoke(string $uuid, ?int $familyID, ?int $taxID, ?string $imageSrc, ?string $name, ?int $price, ?int $stock, ?bool $active)
+    public function __invoke(string $uuid, ?string $familyUUID, ?string $taxUUID, ?string $imageSrc, ?string $name, ?int $price, ?int $stock, ?bool $active, int $restaurantID)
     {
         $product = $this->productRepository->findById($uuid);
 
-        if ($familyID === null) {
+        if($product == null || $product->restaurantID()->value() !== $restaurantID) {
+            return null;
+        }
+
+        $restaurantFamily = $this->familyRepository->findById($familyUUID)->restaurantID()->value();
+        $restaurantTax = $this->taxesRepository->findById($taxUUID)->restaurantID()->value();
+
+        if ($restaurantFamily != $restaurantID || $restaurantTax != $restaurantID) {
+            return null;
+        }
+
+        if ($familyUUID === null) {
             $familyIDVO = $product->familyID();
         } else {
+            $familyID = $this->familyRepository->findIDbyUUID($familyUUID);
             $familyIDVO = FamilyID::create($familyID);
         }
 
-        if ($taxID === null) {
+        if ($taxUUID === null) {
             $taxIDVO = $product->taxID();
         } else {
+            $taxID = $this->taxesRepository->findIDbyUUID($taxUUID);
             $taxIDVO = TaxID::create($taxID);
         }
 
