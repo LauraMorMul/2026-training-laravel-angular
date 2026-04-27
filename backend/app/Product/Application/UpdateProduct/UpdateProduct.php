@@ -24,7 +24,7 @@ class UpdateProduct
     {
         $product = $this->productRepository->findById($uuid);
 
-        if($product == null || $product->restaurantID()->value() !== $restaurantID) {
+        if ($product == null || $product->restaurantID()->value() !== $restaurantID) {
             return null;
         }
 

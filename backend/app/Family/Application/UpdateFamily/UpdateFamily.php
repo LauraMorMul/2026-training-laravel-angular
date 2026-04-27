@@ -15,7 +15,7 @@ class UpdateFamily
     {
         $family = $this->familyRepository->findById($uuid);
 
-        if($family === null || $family->restaurantID()->value() !== $restaurantID) {
+        if ($family === null || $family->restaurantID()->value() !== $restaurantID) {
             return null;
         }
 

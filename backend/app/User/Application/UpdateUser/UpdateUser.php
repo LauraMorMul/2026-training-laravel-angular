@@ -21,9 +21,13 @@ class UpdateUser
         private PasswordHasherInterface $passwordHasher
     ) {}
 
-    public function __invoke(string $uuid, ?string $email, ?string $name, ?string $plainPassword, ?string $role, ?string $imageSrc, ?string $pin): ?UpdateUserResponse
+    public function __invoke(string $uuid, ?string $email, ?string $name, ?string $plainPassword, ?string $role, ?string $imageSrc, ?string $pin, int $restaurantID): ?UpdateUserResponse
     {
         $user = $this->userRepository->findById($uuid);
+
+        if ($user === null || $user->restaurantID()->value() !== $restaurantID) {
+            return null;
+        }
 
         if ($user === null) {
             return null;

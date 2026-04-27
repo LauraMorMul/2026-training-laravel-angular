@@ -1,10 +1,10 @@
 <?php
 
-namespace App\User\Application\LogoutUser;
+namespace App\User\Application\RemoveTokens;
 
 use App\User\Domain\Interfaces\TokenManagerInterface;
 
-class LogoutUser
+class RemoveTokens
 {
     public function __construct(
         private TokenManagerInterface $tokenManager,
@@ -12,6 +12,6 @@ class LogoutUser
 
     public function __invoke()
     {
-        $this->tokenManager->removeCurrentToken();
+        $this->tokenManager->removeAllTokens();
     }
 }

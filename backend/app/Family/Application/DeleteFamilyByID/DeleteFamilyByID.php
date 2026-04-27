@@ -17,6 +17,7 @@ class DeleteFamilyByID
             return false;
         } else {
             $deleted = $this->familyRepository->deleteByID($id);
+
             return true;
         }
     }

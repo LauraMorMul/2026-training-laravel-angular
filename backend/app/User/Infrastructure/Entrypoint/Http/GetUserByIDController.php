@@ -13,7 +13,8 @@ class GetUserByIDController
 
     public function __invoke(string $id)
     {
-        $response = ($this->getUserByID)($id);
+        $restaurantID = auth('user')->user()->restaurant_id;
+        $response = ($this->getUserByID)($id, $restaurantID);
         if ($response == null) {
             return new JsonResponse('User not found', 404);
         } else {

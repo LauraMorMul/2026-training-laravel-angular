@@ -10,11 +10,11 @@ class GetUserByID
         private UserRepositoryInterface $userRepository
     ) {}
 
-    public function __invoke(string $id): ?GetUserByIDResponse
+    public function __invoke(string $id, int $restaurantID): ?GetUserByIDResponse
     {
         $user = $this->userRepository->findByID($id);
 
-        if ($user == null) {
+        if ($user == null || $user->restaurantID()->value() !== $restaurantID) {
             return null;
         } else {
             return GetUserByIDResponse::create($user);

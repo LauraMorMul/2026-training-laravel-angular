@@ -16,7 +16,7 @@ class UpdateTax
     {
         $tax = $this->taxRepository->findById($uuid);
 
-        if($tax ===null || $tax->restaurantID()->value() !== $restaurantID) {
+        if ($tax === null || $tax->restaurantID()->value() !== $restaurantID) {
             return null;
         }
 

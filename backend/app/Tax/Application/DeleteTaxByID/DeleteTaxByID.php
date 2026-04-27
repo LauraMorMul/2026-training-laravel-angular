@@ -17,6 +17,7 @@ class DeleteTaxByID
             return false;
         } else {
             $deleted = $this->taxRepository->deleteByID($id);
+
             return true;
         }
     }

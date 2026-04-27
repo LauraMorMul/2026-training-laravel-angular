@@ -10,8 +10,16 @@ class DeleteUserByID
         private UserRepositoryInterface $userRepository
     ) {}
 
-    public function __invoke(string $id): void
+    public function __invoke(string $id, int $restaurantID): bool
     {
-        $deleted = $this->userRepository->deleteByID($id);
+        $exists = $this->userRepository->findById($id);
+
+        if ($exists === null || $exists->restaurantID()->value() !== $restaurantID) {
+            return false;
+        } else {
+            $deleted = $this->userRepository->deleteByID($id);
+
+            return true;
+        }
     }
 }

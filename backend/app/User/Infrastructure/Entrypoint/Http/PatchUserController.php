@@ -14,6 +14,7 @@ class PatchUserController
 
     public function __invoke(string $id, Request $request): JsonResponse
     {
+        $restaurantID = auth('user')->user()->restaurant_id;
         $validated = $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users,email'],
@@ -32,8 +33,13 @@ class PatchUserController
             $validated['role'] ?? null,
             $validated['image_src'] ?? null,
             $validated['pin'] ?? null,
+            $restaurantID
         );
 
-        return new JsonResponse($response->toArray(), 200);
+        if ($response === null) {
+            return new JsonResponse('User not found.', 404);
+        } else {
+            return new JsonResponse($response->toArray(), 200);
+        }
     }
 }

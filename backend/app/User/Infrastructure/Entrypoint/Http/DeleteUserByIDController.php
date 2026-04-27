@@ -13,11 +13,12 @@ class DeleteUserByIDController
 
     public function __invoke(string $id): JsonResponse
     {
-        $response = ($this->deleteUserByID)($id);
-        if ($response == null) {
+        $restaurantId = auth('user')->user()->restaurant_id;
+        $response = ($this->deleteUserByID)($id, $restaurantId);
+        if ($response == true) {
             return new JsonResponse('User deleted correctly.', 200);
         } else {
-            return new JsonResponse($response, 204);
+            return new JsonResponse("User doesn't exist.", 500);
         }
     }
 }

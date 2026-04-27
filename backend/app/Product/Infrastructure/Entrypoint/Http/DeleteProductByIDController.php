@@ -4,6 +4,7 @@ namespace App\Product\Infrastructure\Entrypoint\Http;
 
 use App\Product\Application\DeleteProductByID\DeleteProductByID;
 use Illuminate\Http\JsonResponse;
+
 class DeleteProductByIDController
 {
     public function __construct(

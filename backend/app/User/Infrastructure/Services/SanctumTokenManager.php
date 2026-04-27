@@ -35,25 +35,13 @@ class SanctumTokenManager implements TokenManagerInterface
         return $token->plainTextToken;
     }
 
-    public function removeCurrentToken(User $user): void
+    public function removeCurrentToken(): void
     {
-        $eloquentUser = EloquentUser::where('uuid', $user->id()->value())->first();
-
-        if ($eloquentUser === null) {
-            throw new NotFoundResourceException('Usuario no encontrado');
-        }
-
-        $eloquentUser->currentAccessToken()->delete();
+        auth('user')->user()->currentAccessToken()->delete();
     }
 
-    public function removeAllTokens(User $user): void
+    public function removeAllTokens(): void
     {
-        $eloquentUser = EloquentUser::where('uuid', $user->id()->value())->first();
-
-        if ($eloquentUser === null) {
-            throw new NotFoundResourceException('Usuario no encontrado');
-        }
-
-        $eloquentUser->tokens()->delete();
+        auth('user')->user()->tokens()->delete();
     }
 }

@@ -8,7 +8,7 @@ interface TokenManagerInterface
 {
     public function issueToken(User $user, string $abilities): string;
 
-    public function removeCurrentToken(User $user): void;
+    public function removeCurrentToken(): void;
 
-    public function removeAllTokens(User $user): void;
+    public function removeAllTokens(): void;
 }

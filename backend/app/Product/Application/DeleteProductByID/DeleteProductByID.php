@@ -17,6 +17,7 @@ class DeleteProductByID
             return false;
         } else {
             $deleted = $this->productRepository->deleteByID($id);
+
             return true;
         }
     }
