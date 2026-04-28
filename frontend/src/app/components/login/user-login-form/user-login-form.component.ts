@@ -66,8 +66,8 @@ export class UserLoginFormComponent {
           next: (response: any) => {
             console.log(JSON.stringify(response));
             loading.remove();
-            this.localService.setItem('user_token', response.token);
-            this.localService.setItem('user_name', response.user.name);
+            this.localService.setUserToken(response.token);
+            this.localService.setUserName(response.user.name);
             if (response.user.role === 'admin') {
               this.router.navigate(['/backoffice']);
             } else {

@@ -68,11 +68,8 @@ export class RestaurantLoginFormComponent {
           next: (response: any) => {
             console.log(JSON.stringify(response));
             loading.remove();
-            this.localService.setItem('restaurant_token', response.token);
-            this.localService.setItem(
-              'restaurant_name',
-              response.restaurant.name,
-            );
+            this.localService.setRestaurantToken(response.token);
+            this.localService.setRestName(response.restaurant.name);
             this.router.navigate(['/login']);
           },
           error: (err) => {

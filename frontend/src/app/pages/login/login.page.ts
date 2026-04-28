@@ -28,12 +28,17 @@ import { UserLoginFormComponent } from 'src/app/components/login/user-login-form
   ],
 })
 export class LoginPage implements OnInit {
+  contador = 1;
   private local = inject(LocalStorageService);
 
   restaurantName = 'Laura';
 
-  ngOnInit() {
-    this.restaurantName =
-      this.local.getItem('restaurant_name') ?? 'Restaurante';
+  ionViewWillEnter() {
+    console.log(this.local.getUserToken());
+    this.local.removeUserToken();
+  }
+
+  ngOnInit(): void {
+    this.restaurantName = this.local.getRestName() ?? 'Restaurante';
   }
 }
