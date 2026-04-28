@@ -1,30 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
 
 @Injectable()
 export class InterceptorProvider implements HttpInterceptor {
-
   /**
    * Intercepta las peticiones HTTP y les añade las cabeceras por defecto
-   * 
+   *
    */
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler,
+  ): Observable<HttpEvent<any>> {
     return next.handle(this.setHeader(request));
   }
 
-
   /**
    * Clona la petición añadiendo las cabeceras
-   * 
+   *
    */
   private setHeader(request: HttpRequest<any>): HttpRequest<any> {
+    const userToken = localStorage.getItem('user_token');
+    const restaurantToken = localStorage.getItem('restaurant_token');
+    const token = userToken ?? restaurantToken;
     return request.clone({
       setHeaders: {
         Accept: 'application/json',
         'Accept-Language': 'es',
-      }
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
     });
   }
-
 }

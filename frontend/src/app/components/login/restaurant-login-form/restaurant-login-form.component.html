@@ -1,0 +1,38 @@
+<ion-card>
+  <ion-card-title> Inicio de sesión como restaurante </ion-card-title>
+  <ion-card-content>
+    <form [formGroup]="formulario" (ngSubmit)="login()">
+      <ion-input
+        type="email"
+        name="email"
+        id="email"
+        label="Email"
+        labelPlacement="floating"
+        mode="md"
+        fill="solid"
+        helperText="Introduce el email del restaurante."
+        errorText="Email obligatorio."
+        aria-label="email"
+        formControlName="email"
+      ></ion-input>
+      <ion-input
+        type="password"
+        name="password"
+        id="password"
+        label="Password"
+        labelPlacement="floating"
+        mode="md"
+        fill="solid"
+        helperText="Introduce la contraseña del restaurante."
+        errorText="Contraseña obligatoria."
+        aria-label="password"
+        formControlName="password"
+      >
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+      <ion-button type="submit" [disabled]="!formulario.valid"
+        >Accede al restaurante</ion-button
+      >
+    </form>
+  </ion-card-content>
+</ion-card>
