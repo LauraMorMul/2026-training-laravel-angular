@@ -13,4 +13,8 @@ export class AuthService extends BaseApiService {
   context(email: string, password: string): Observable<ApiResponse> {
     return this.httpCall('/context', { email, password }, 'post');
   }
+
+  logout(): Observable<ApiResponse> {
+    return this.httpCall('/users/logout', null, 'post');
+  }
 }

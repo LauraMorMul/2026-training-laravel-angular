@@ -1,9 +1,16 @@
-ion-card {
-  width: 50%;
-  margin: 0 auto;
+.center {
+  display: flex;
+  position: relative;
+  height: 400px;
 }
 
 ion-card-title {
   text-align: center;
   padding: 10px;
+}
+
+ion-button {
+  display: flex;
+  justify-self: center;
+  width: 15vw;
 }

@@ -29,6 +29,22 @@ export const routes: Routes = [
       import('./pages/backoffice/backoffice.page').then(
         (m) => m.BackofficePage,
       ),
+    children: [
+      {
+        path: 'users',
+        loadComponent: () =>
+          import('./components/backoffice/users/users-container/users-container.component').then(
+            (m) => m.UsersContainerComponent,
+          ),
+      },
+      {
+        path: 'tables',
+        loadComponent: () =>
+          import('./components/backoffice/tables/tables-container/tables-container.component').then(
+            (m) => m.TablesContainerComponent,
+          ),
+      },
+    ],
   },
   {
     path: 'tpv',

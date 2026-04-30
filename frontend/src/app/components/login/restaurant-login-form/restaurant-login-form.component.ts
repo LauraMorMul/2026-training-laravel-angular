@@ -66,7 +66,6 @@ export class RestaurantLoginFormComponent {
         .context(this.formulario.value.email!, this.formulario.value.password!)
         .subscribe({
           next: (response: any) => {
-            console.log(JSON.stringify(response));
             loading.remove();
             this.localService.setRestaurantToken(response.token);
             this.localService.setRestName(response.restaurant.name);
@@ -74,7 +73,6 @@ export class RestaurantLoginFormComponent {
           },
           error: (err) => {
             toast.present();
-            console.log(JSON.stringify(err));
             loading.remove();
           },
         });

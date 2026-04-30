@@ -64,7 +64,6 @@ export class UserLoginFormComponent {
         .login(this.formulario.value.email!, this.formulario.value.password!)
         .subscribe({
           next: (response: any) => {
-            console.log(JSON.stringify(response));
             loading.remove();
             this.localService.setUserToken(response.token);
             this.localService.setUserName(response.user.name);
@@ -76,7 +75,6 @@ export class UserLoginFormComponent {
           },
           error: (err) => {
             toast.present();
-            console.log(JSON.stringify(err));
             loading.remove();
           },
         });
