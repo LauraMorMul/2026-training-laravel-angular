@@ -34,7 +34,7 @@ export class UserListComponent implements OnInit {
     this.getUsers();
   }
 
-  private getUsers() {
+  getUsers() {
     this.userService
     .getAll()
     .subscribe({

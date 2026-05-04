@@ -31,6 +31,11 @@ export const routes: Routes = [
       ),
     children: [
       {
+        path: '',
+        redirectTo: 'users',
+        pathMatch: 'full'
+      },
+      {
         path: 'users',
         loadComponent: () =>
           import('./components/backoffice/users/users-container/users-container.component').then(

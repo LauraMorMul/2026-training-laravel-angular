@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { UserListComponent } from "../user-list/user-list.component";
+import { Component, ViewChild } from '@angular/core';
+import { UserListComponent } from '../user-list/user-list.component';
+import { AddUserComponent } from '../add-user/add-user.component';
 
 @Component({
   selector: 'app-users-container',
   templateUrl: './users-container.component.html',
   styleUrls: ['./users-container.component.scss'],
-  imports: [UserListComponent],
+  imports: [UserListComponent, AddUserComponent],
 })
-export class UsersContainerComponent  implements OnInit {
+export class UsersContainerComponent {
+  @ViewChild('userListRef') userListRef!: UserListComponent;
 
-  constructor() { }
-
-  ngOnInit() {}
-
+  refreshList() {
+    this.userListRef.getUsers(); // Llama al método que obtiene los usuarios
+  }
 }
