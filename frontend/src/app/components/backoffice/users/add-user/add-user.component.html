@@ -77,15 +77,20 @@
       </ion-select>
 
       <ion-label for="image">Foto</ion-label>
-      <ion-input
-        type="text"
-        name="image"
-        id="image"
-        mode="md"
-        fill="solid"
-        aria-label="image"
-        formControlName="image_src"
-      ></ion-input>
+      <br>
+      <input
+  type="file"
+  id="file-upload"
+  #fileUpload
+  style="display: none;"
+  (change)="setImage($event)"/>
+
+<ion-button (click)="openFileDialog()">
+  <ion-icon slot="start" name="image"></ion-icon>
+  Subir imagen
+</ion-button>
+
+<br>
 
       <ion-label for="pin">Pin</ion-label>
       <ion-input

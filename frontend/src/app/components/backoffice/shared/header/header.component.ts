@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IonHeader, IonTitle, IonToolbar, IonButtons, IonButton } from "@ionic/angular/standalone";
 
@@ -8,10 +8,8 @@ import { IonHeader, IonTitle, IonToolbar, IonButtons, IonButton } from "@ionic/a
   styleUrls: ['./header.component.scss'],
   imports: [IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, RouterLink],
 })
-export class HeaderComponent  implements OnInit {
+export class HeaderComponent {
 
   constructor() { }
-
-  ngOnInit() {}
 
 }

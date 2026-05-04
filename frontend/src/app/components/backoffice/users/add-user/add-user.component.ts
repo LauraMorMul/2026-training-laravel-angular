@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -21,8 +28,11 @@ import {
   IonButton,
   LoadingController,
   ToastController,
+  IonIcon,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
 import { UserService } from 'src/app/services/entity/user-service';
+import { image } from 'ionicons/icons';
 
 @Component({
   selector: 'app-add-user',
@@ -40,15 +50,20 @@ import { UserService } from 'src/app/services/entity/user-service';
     IonSelectOption,
     IonCardTitle,
     IonButton,
+    IonIcon,
   ],
 })
 export class AddUserComponent {
-
   @Output() userCreated = new EventEmitter<void>();
+  @ViewChild('fileUpload') fileUpload!: ElementRef<HTMLInputElement>;
 
   private userService = inject(UserService);
   private loadingController = inject(LoadingController);
   private toastController = inject(ToastController);
+
+  constructor() {
+    addIcons({ image });
+  }
 
   passwordMatchValidator: ValidatorFn = (
     form: AbstractControl,
@@ -86,7 +101,7 @@ export class AddUserComponent {
       });
       const toast = await this.toastController.create({
         duration: 1500,
-        position: 'bottom'
+        position: 'bottom',
       });
       loading.present();
       console.log('enviado');
@@ -104,7 +119,7 @@ export class AddUserComponent {
           next: (response: any) => {
             loading.remove();
             toast.message = 'Usuario creado';
-            toast.color = 'success'
+            toast.color = 'success';
             toast.present();
             this.userCreated.emit();
             this.formulario.reset();
@@ -141,5 +156,18 @@ export class AddUserComponent {
       return { specialCharacter: true };
     }
     return null;
+  }
+
+  openFileDialog(): void {
+    this.fileUpload.nativeElement.click();
+  }
+
+  setImage(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (file) {
+      console.log(file);
+    }
   }
 }
