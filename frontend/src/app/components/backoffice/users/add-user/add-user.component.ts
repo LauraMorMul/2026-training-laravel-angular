@@ -61,6 +61,8 @@ export class AddUserComponent {
   private loadingController = inject(LoadingController);
   private toastController = inject(ToastController);
 
+  selectedFile: File | null = null;
+
   constructor() {
     addIcons({ image });
   }
@@ -85,7 +87,7 @@ export class AddUserComponent {
       password: new FormControl('', [Validators.required, this.hasUppercase]),
       password_confirmation: new FormControl('', Validators.required),
       role: new FormControl('', Validators.required),
-      image_src: new FormControl('', Validators.required),
+      image: new FormControl<File | null>(null, Validators.required),
       pin: new FormControl('', Validators.required),
     },
     { validators: [this.passwordMatchValidator] },
@@ -104,33 +106,33 @@ export class AddUserComponent {
         position: 'bottom',
       });
       loading.present();
-      console.log('enviado');
-      this.userService
-        .add(
-          this.formulario.value.name!,
-          this.formulario.value.email!,
-          this.formulario.value.password!,
-          this.formulario.value.password_confirmation!,
-          this.formulario.value.role!,
-          this.formulario.value.image_src!,
-          this.formulario.value.pin!,
-        )
-        .subscribe({
-          next: (response: any) => {
-            loading.remove();
-            toast.message = 'Usuario creado';
-            toast.color = 'success';
-            toast.present();
-            this.userCreated.emit();
-            this.formulario.reset();
-          },
-          error(err) {
-            loading.remove();
-            toast.message = 'Ha habido un error.';
-            toast.color = 'danger';
-            toast.present();
-          },
-        });
+
+      const formData = new FormData();
+      const valores = this.formulario.getRawValue();
+      formData.append('name', valores.name!);
+      formData.append('email', valores.email!);
+      formData.append('password', valores.password!);
+      formData.append('password_confirmation', valores.password_confirmation!);
+      formData.append('role', valores.role!);
+      formData.append('pin', valores.pin!);
+      formData.append('image', valores.image!);
+
+      this.userService.add(formData).subscribe({
+        next: (response: any) => {
+          loading.remove();
+          toast.message = 'Usuario creado';
+          toast.color = 'success';
+          toast.present();
+          this.userCreated.emit();
+          this.formulario.reset();
+        },
+        error(err) {
+          loading.remove();
+          toast.message = 'Ha habido un error.';
+          toast.color = 'danger';
+          toast.present();
+        },
+      });
     }
   }
 
@@ -164,10 +166,11 @@ export class AddUserComponent {
 
   setImage(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
+    this.selectedFile = input.files?.[0] || null;
 
-    if (file) {
-      console.log(file);
+    if (this.selectedFile) {
+      console.log(this.selectedFile);
+      this.formulario.controls.image.setValue(this.selectedFile);
     }
   }
 }

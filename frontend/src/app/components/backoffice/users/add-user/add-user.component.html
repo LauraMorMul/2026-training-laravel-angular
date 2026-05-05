@@ -45,14 +45,14 @@
         <ion-input-password-toggle slot="end"></ion-input-password-toggle>
       </ion-input>
 
-      <ion-label for="confirmPassword">Confirmar contraseña</ion-label>
+      <ion-label for="password_confirmation">Confirmar contraseña</ion-label>
       <ion-input
         type="password"
-        name="confirmPassword"
-        id="confirmPassword"
+        name="password_confirmation"
+        id="password_confirmation"
         mode="md"
         fill="solid"
-        aria-label="confirmPassword"
+        aria-label="password_confirmation"
         formControlName="password_confirmation"
         [errorText]="
           formulario.get('password_confirmation')?.hasError('notEqual')
@@ -80,7 +80,8 @@
       <br>
       <input
   type="file"
-  id="file-upload"
+  id="image"
+  formControlName="image"
   #fileUpload
   style="display: none;"
   (change)="setImage($event)"/>
@@ -89,6 +90,9 @@
   <ion-icon slot="start" name="image"></ion-icon>
   Subir imagen
 </ion-button>
+@if(selectedFile) {
+  <ion-label>{{ selectedFile.name }}</ion-label>
+}
 
 <br>
 
@@ -103,7 +107,7 @@
         formControlName="pin"
       ></ion-input>
 
-      <ion-button type="submit" [disabled]="!formulario.valid"
+      <ion-button type="submit" [disabled]="!formulario.valid" (click)="addUser()"
         >Crear usuario</ion-button
       >
       <ion-button type="reset">Cancelar</ion-button>

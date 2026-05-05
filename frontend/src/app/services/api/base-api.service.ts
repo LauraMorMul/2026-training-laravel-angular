@@ -63,8 +63,20 @@ export abstract class BaseApiService {
    *
    */
   private postHttpCall(endpoint: string, params: any): Observable<ApiResponse> {
+    let options = {};
+
+    if (params instanceof FormData) {
+      // Si es FormData, no modificamos el Content-Type
+      options = {};
+    } else {
+      // Si es objeto normal, serializamos a JSON
+      options = {
+        headers: { 'Content-Type': 'application/json' },
+      };
+      params = JSON.stringify(params);
+    }
     return this.http
-      .post<ApiResponse>(this.apiUrl + endpoint, params)
+      .post<ApiResponse>(this.apiUrl + endpoint, params, options)
       .pipe(catchError((error) => this.handleError(error)));
   }
 

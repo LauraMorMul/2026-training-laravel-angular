@@ -19,7 +19,7 @@ class PostUserController
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required', 'string', 'max:40'],
-            'image_src' => ['required', 'string'],
+            'image' => ['required', 'image'],
             'pin' => ['required', 'string', 'digits_between:4,6'],
 
         ]);
@@ -30,12 +30,17 @@ class PostUserController
             return new JsonResponse('Unknown user', 403);
         }
 
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('users', 'public');
+        }
+
         $response = ($this->createUser)(
             $validated['email'],
             $validated['name'],
             $validated['password'],
             $validated['role'],
-            $validated['image_src'],
+            $imagePath,
             $validated['pin'],
             $restaurantId,
         );

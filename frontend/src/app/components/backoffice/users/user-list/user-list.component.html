@@ -9,11 +9,14 @@
         <ion-avatar aria-hidden="true" slot="start">
           <img
             alt="{{ user.name }}"
-            src="https://ionicframework.com/docs/img/demos/avatar.svg"
+            [src]="user?.imageSrc | imageFormatterPipe"
           />
         </ion-avatar>
         <ion-label>{{ user.name }}</ion-label>
+        <ion-label>{{ user.email }}</ion-label>
         <ion-label>{{ user.role }}</ion-label>
+        <ion-button (click)="showDeleteAlert(user.id, user.name)" [disabled]="user.role === 'admin'" color="danger">Eliminar</ion-button>
+        <ion-button [disabled]="user.role === 'admin'">Modificar</ion-button>
       </ion-item>
       }
     </ion-list>
