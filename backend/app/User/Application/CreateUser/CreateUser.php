@@ -8,6 +8,7 @@ use App\Shared\Domain\ValueObject\ImageSrc;
 use App\Shared\Domain\ValueObject\PasswordHash;
 use App\Shared\Domain\ValueObject\RestaurantID;
 use App\User\Domain\Entity\User;
+use App\User\Domain\Exception\EmailInUseException;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\User\Domain\ValueObject\Pin;
 use App\User\Domain\ValueObject\Role;
@@ -22,12 +23,16 @@ class CreateUser
 
     public function __invoke(string $email, string $name, string $plainPassword, string $role, string $imageSrc, string $pin, int $restaurantID): CreateUserResponse
     {
+        $userWithEmail = $this->userRepository->findByEmail($email);
+        if($userWithEmail !== null) {
+            throw new EmailInUseException;
+        }
         $emailVO = Email::create($email);
         $nameVO = UserName::create($name);
         $passwordHashVO = PasswordHash::create($this->passwordHasher->hash($plainPassword));
         $restaurantIDVO = RestaurantID::create($restaurantID);
         $roleVO = Role::create($role);
-        $imageSrcVO = ImageSrc::create($imageSrc);
+        $imageSrcVO = $imageSrc ? ImageSrc::create($imageSrc) : null;
         $pinVO = Pin::create($pin);
         $user = User::dddCreate($emailVO, $nameVO, $passwordHashVO, $restaurantIDVO, $roleVO, $imageSrcVO, $pinVO);
         $this->userRepository->save($user);

@@ -3,6 +3,7 @@
 namespace App\User\Infrastructure\Entrypoint\Http;
 
 use App\User\Application\CreateUser\CreateUser;
+use App\User\Domain\Exception\EmailInUseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class PostUserController
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required', 'string', 'max:40'],
             'image' => ['required', 'image'],
@@ -35,7 +36,8 @@ class PostUserController
             $imagePath = $request->file('image')->store('users', 'public');
         }
 
-        $response = ($this->createUser)(
+        try {
+            $response = ($this->createUser)(
             $validated['email'],
             $validated['name'],
             $validated['password'],
@@ -44,6 +46,9 @@ class PostUserController
             $validated['pin'],
             $restaurantId,
         );
+        } catch(EmailInUseException $e) {
+            return new JsonResponse('Email in use.', 409);
+        }
 
         return new JsonResponse($response->toArray(), 201);
     }

@@ -3,7 +3,7 @@
     <ion-card-title>Añadir un usuario</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <form [formGroup]="formulario" (ngSubmit)="addUser()">
+    <form [formGroup]="formulario">
       <!--Nombre, email, contraseña, repetir contraseña, rol, foto, pin-->
       <ion-label for="name">Nombre</ion-label>
       <ion-input

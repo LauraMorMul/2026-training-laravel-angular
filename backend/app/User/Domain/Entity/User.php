@@ -27,7 +27,7 @@ class User
         private DomainDateTime $updatedAt,
     ) {}
 
-    public static function dddCreate(Email $email, UserName $name, PasswordHash $passwordHash, RestaurantID $restaurantID, Role $role, ImageSrc $imageSrc, Pin $pin): self
+    public static function dddCreate(Email $email, UserName $name, PasswordHash $passwordHash, RestaurantID $restaurantID, Role $role, ?ImageSrc $imageSrc, Pin $pin): self
     {
         $now = DomainDateTime::now();
 
@@ -49,7 +49,7 @@ class User
         string $id,
         int $restaurantID,
         string $role,
-        string $imageSrc,
+        ?string $imageSrc,
         string $name,
         string $email,
         string $passwordHash,
@@ -57,11 +57,16 @@ class User
         \DateTimeImmutable $createdAt,
         \DateTimeImmutable $updatedAt,
     ): self {
+        if($imageSrc == null) {
+            $imageSrcVO = ImageSrc::create('');
+        } else {
+            $imageSrcVO = ImageSrc::create($imageSrc);
+        }
         return new self(
             Uuid::create($id),
             RestaurantID::create($restaurantID),
             Role::create($role),
-            ImageSrc::create($imageSrc),
+            $imageSrcVO,
             UserName::create($name),
             Email::create($email),
             PasswordHash::create($passwordHash),

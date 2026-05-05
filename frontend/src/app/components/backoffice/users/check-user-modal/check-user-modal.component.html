@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> {{ user.name }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-img [src]="user?.imageSrc | imageFormatterPipe">
+  </ion-img>
+  <p>Email: {{user.email}}</p>
+  <p>Pin: {{user.pin}}</p>
+  <p>Rol: {{user.role}}</p>
+</ion-content>

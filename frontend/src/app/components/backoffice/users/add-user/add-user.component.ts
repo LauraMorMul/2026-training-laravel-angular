@@ -125,6 +125,7 @@ export class AddUserComponent {
           toast.present();
           this.userCreated.emit();
           this.formulario.reset();
+          this.selectedFile = null;
         },
         error(err) {
           loading.remove();
@@ -169,7 +170,6 @@ export class AddUserComponent {
     this.selectedFile = input.files?.[0] || null;
 
     if (this.selectedFile) {
-      console.log(this.selectedFile);
       this.formulario.controls.image.setValue(this.selectedFile);
     }
   }

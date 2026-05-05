@@ -44,7 +44,7 @@ class CreateRestaurant
         $passwordHashVO = PasswordHash::create($this->passwordHasher->hash($password));
         $restaurantIDVO = RestaurantID::create($restaurantID);
         $roleVO = Role::create('admin');
-        $imageSrcVO = ImageSrc::create('default.jpg');
+        $imageSrcVO = ImageSrc::create('');
         $pinVO = Pin::create('1234');
         $admin = User::dddCreate($emailVO, $nameVO, $passwordHashVO, $restaurantIDVO, $roleVO, $imageSrcVO, $pinVO);
         $this->userRepository->save($admin);

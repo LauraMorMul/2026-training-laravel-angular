@@ -13,7 +13,7 @@ final readonly class GetUserByIDResponse
         public string $id,
         public int $restaurantID,
         public string $role,
-        public string $imageSrc,
+        public ?string $imageSrc,
         public string $name,
         public string $email,
         public string $pin,

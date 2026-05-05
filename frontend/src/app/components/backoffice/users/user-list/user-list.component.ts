@@ -1,5 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import {
   IonCard,
   IonCardHeader,
@@ -11,9 +10,12 @@ import {
   IonLabel,
   IonButton,
   AlertController,
+  ToastController,
+  ModalController,
 } from '@ionic/angular/standalone';
 import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { UserService } from 'src/app/services/entity/user-service';
+import { CheckUserModalComponent } from '../check-user-modal/check-user-modal.component';
 
 @Component({
   selector: 'app-user-list',
@@ -29,16 +31,21 @@ import { UserService } from 'src/app/services/entity/user-service';
     IonAvatar,
     IonLabel,
     IonButton,
-    ImageFormatterPipePipe
+    ImageFormatterPipePipe,
   ],
 })
 export class UserListComponent implements OnInit {
   private userService = inject(UserService);
   private alertController = inject(AlertController);
   private toastController = inject(ToastController);
+  private modalCtrl = inject(ModalController);
 
   users: any[] = [];
   userID: string | null = '';
+
+  ngOnInit() {
+    this.getUsers();
+  }
 
   public actionButtons = [
     {
@@ -56,10 +63,6 @@ export class UserListComponent implements OnInit {
       },
     },
   ];
-
-  ngOnInit() {
-    this.getUsers();
-  }
 
   getUsers() {
     this.userService.getAll().subscribe({
@@ -105,7 +108,13 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  getImageUrl(path: string) {
-    return `http://localhost:8000/${path}`;
-}
+  async abrirModal(selectedUser: any) {
+    const modal = await this.modalCtrl.create({
+      component: CheckUserModalComponent,
+      componentProps: {
+        user: selectedUser,
+      },
+    });
+    modal.present();
+  }
 }
