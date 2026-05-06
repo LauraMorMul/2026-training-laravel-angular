@@ -29,6 +29,9 @@ import {
   LoadingController,
   ToastController,
   IonIcon,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { UserService } from 'src/app/services/entity/user-service';
@@ -51,6 +54,9 @@ import { image } from 'ionicons/icons';
     IonCardTitle,
     IonButton,
     IonIcon,
+    IonGrid,
+    IonRow,
+    IonCol
   ],
 })
 export class AddUserComponent {

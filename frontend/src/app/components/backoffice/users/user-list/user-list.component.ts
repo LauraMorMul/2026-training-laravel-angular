@@ -16,6 +16,7 @@ import {
 import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { UserService } from 'src/app/services/entity/user-service';
 import { CheckUserModalComponent } from '../check-user-modal/check-user-modal.component';
+import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
 
 @Component({
   selector: 'app-user-list',
@@ -32,6 +33,7 @@ import { CheckUserModalComponent } from '../check-user-modal/check-user-modal.co
     IonLabel,
     IonButton,
     ImageFormatterPipePipe,
+    RoleFormatterPipe
   ],
 })
 export class UserListComponent implements OnInit {
