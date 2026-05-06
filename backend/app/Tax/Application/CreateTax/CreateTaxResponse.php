@@ -6,7 +6,7 @@ use App\Tax\Domain\Entity\Tax;
 
 final readonly class CreateTaxResponse
 {
-    public function __construct(
+    private function __construct(
         public string $id,
         public int $restaurantID,
         public string $name,

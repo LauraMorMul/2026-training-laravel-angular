@@ -56,7 +56,7 @@ import { image } from 'ionicons/icons';
     IonIcon,
     IonGrid,
     IonRow,
-    IonCol
+    IonCol,
   ],
 })
 export class AddUserComponent {
@@ -86,11 +86,30 @@ export class AddUserComponent {
     return null;
   };
 
+  passwordStrength: ValidatorFn = (
+    control: AbstractControl,
+  ): ValidationErrors | null => {
+    const value = control.value;
+
+    if (!value) return null;
+
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$/;
+
+    if (!regex.test(value)) {
+      return { insecure: true };
+    }
+
+    return null;
+  };
+
   formulario = new FormGroup(
     {
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, this.hasUppercase]),
+      password: new FormControl('', [
+        Validators.required,
+        this.passwordStrength,
+      ]),
       password_confirmation: new FormControl('', Validators.required),
       role: new FormControl('', Validators.required),
       image: new FormControl<File | null>(null, Validators.required),
@@ -143,30 +162,6 @@ export class AddUserComponent {
     }
   }
 
-  hasUppercase(control: AbstractControl) {
-    const value = control.value;
-    if (value && !/[A-Z]/.test(value)) {
-      return { uppercase: true };
-    }
-    return null;
-  }
-
-  hasNumber(control: AbstractControl) {
-    const value = control.value;
-    if (value && !/\d/.test(value)) {
-      return { number: true };
-    }
-    return null;
-  }
-
-  hasSpecialCharacter(control: AbstractControl) {
-    const value = control.value;
-    if (value && !/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-      return { specialCharacter: true };
-    }
-    return null;
-  }
-
   openFileDialog(): void {
     this.fileUpload.nativeElement.click();
   }
@@ -176,7 +171,6 @@ export class AddUserComponent {
     this.selectedFile = input.files?.[0] || null;
 
     if (this.selectedFile) {
-      console.log(this.selectedFile);
       this.formulario.controls.image.setValue(this.selectedFile);
     }
   }

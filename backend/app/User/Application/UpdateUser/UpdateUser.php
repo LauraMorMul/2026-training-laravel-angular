@@ -2,10 +2,12 @@
 
 namespace App\User\Application\UpdateUser;
 
+use App\Shared\Domain\Interfaces\ImageManagerInterface;
 use App\Shared\Domain\Interfaces\PasswordHasherInterface;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\ImageSrc;
 use App\Shared\Domain\ValueObject\PasswordHash;
+use App\User\Domain\Exception\EmailInUseException;
 use App\User\Domain\Interfaces\UserRepositoryInterface;
 use App\User\Domain\ValueObject\Pin;
 use App\User\Domain\ValueObject\Role;
@@ -18,24 +20,29 @@ class UpdateUser
      */
     public function __construct(
         private UserRepositoryInterface $userRepository,
-        private PasswordHasherInterface $passwordHasher
+        private PasswordHasherInterface $passwordHasher,
+        private ImageManagerInterface $imageManager,
     ) {}
 
-    public function __invoke(string $uuid, ?string $email, ?string $name, ?string $plainPassword, ?string $role, ?string $imageSrc, ?string $pin, int $restaurantID): ?UpdateUserResponse
+    public function __invoke(string $uuid, ?string $imageContent, ?string $imageName, ?string $email, ?string $name, ?string $plainPassword, ?string $role, ?string $pin, int $restaurantID): ?UpdateUserResponse
     {
         $user = $this->userRepository->findById($uuid);
+        $imageSrc = null;
 
         if ($user === null || $user->restaurantID()->value() !== $restaurantID) {
-            return null;
-        }
-
-        if ($user === null) {
             return null;
         }
 
         if ($email === null) {
             $emailVO = $user->email();
         } else {
+            if ($email !== $user->email()->value()) {
+                $userWithEmail = $this->userRepository->findByEmail($email);
+                if ($userWithEmail !== null && $userWithEmail->id()->value() !== $user->id()->value()) {
+                    throw new EmailInUseException;
+                }
+            }
+
             $emailVO = Email::create($email);
         }
 
@@ -55,6 +62,10 @@ class UpdateUser
             $roleVO = $user->role();
         } else {
             $roleVO = Role::create($role);
+        }
+
+        if ($imageContent && $imageName) {
+            $imageSrc = $this->imageManager->store($imageContent, $imageName, 'users');
         }
 
         if ($imageSrc === null) {

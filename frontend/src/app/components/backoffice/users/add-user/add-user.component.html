@@ -47,6 +47,11 @@
               fill="solid"
               aria-label="password"
               formControlName="password"
+              [errorText]="
+                formulario.get('password')?.hasError('insecure')
+                  ? 'La contraseña es insegura. Debe contener mínimo una mayúscula, un número y un carácter especial.'
+                  : ''
+              "
             >
               <ion-input-password-toggle slot="end"></ion-input-password-toggle>
             </ion-input>

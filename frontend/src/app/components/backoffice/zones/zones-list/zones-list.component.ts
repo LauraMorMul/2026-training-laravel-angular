@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   IonCard,
   IonCardHeader,
@@ -14,15 +14,15 @@ import {
   ModalController,
 } from '@ionic/angular/standalone';
 import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
-import { UserService } from 'src/app/services/entity/user-service';
-import { CheckUserModalComponent } from '../check-user-modal/check-user-modal.component';
 import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
-import { ModifyUserModalComponent } from '../modify-user-modal/modify-user-modal.component';
+import { CheckZoneModalComponent } from '../check-zone-modal/check-zone-modal.component';
+import { ModifyZoneModalComponent } from '../modify-zone-modal/modify-zone-modal.component';
+import { ZoneService } from 'src/app/services/entity/zone-service';
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  selector: 'app-zones-list',
+  templateUrl: './zones-list.component.html',
+  styleUrls: ['./zones-list.component.scss'],
   imports: [
     IonCard,
     IonCardHeader,
@@ -37,17 +37,17 @@ import { ModifyUserModalComponent } from '../modify-user-modal/modify-user-modal
     RoleFormatterPipe
   ],
 })
-export class UserListComponent implements OnInit {
-  private userService = inject(UserService);
+export class ZonesListComponent implements OnInit {
+  private zoneService = inject(ZoneService);
   private alertController = inject(AlertController);
   private toastController = inject(ToastController);
   private modalCtrl = inject(ModalController);
 
-  users: any[] = [];
-  userID: string | null = '';
+  zones: any[] = [];
+  zoneID: string | null = '';
 
   ngOnInit() {
-    this.getUsers();
+    this.getZones();
   }
 
   public actionButtons = [
@@ -62,15 +62,15 @@ export class UserListComponent implements OnInit {
       text: 'OK',
       role: 'confirm',
       handler: () => {
-        this.deleteUser(this.userID!);
+        this.deleteZone(this.zoneID!);
       },
     },
   ];
 
-  getUsers() {
-    this.userService.getAll().subscribe({
+  getZones() {
+    this.zoneService.getAll().subscribe({
       next: (response: any) => {
-        this.users = [...response];
+        this.zones = [...response];
       },
       error(err) {
         console.log('Ni de coña jeje');
@@ -80,22 +80,22 @@ export class UserListComponent implements OnInit {
 
   async showDeleteAlert(id: string, name: string) {
     const alert = await this.alertController.create({
-      header: 'Eliminar usuario',
+      header: 'Eliminar zona',
       subHeader: 'Esta acción es irreversible.',
-      message: '¿Eliminar al usuario ' + name + '?',
+      message: '¿Eliminar la zona ' + name + '?',
       buttons: this.actionButtons,
     });
 
     await alert.present();
 
-    this.userID = id;
+    this.zoneID = id;
   }
 
-  async abrirModalModificar(selectedUser: object) {
+  async abrirModalModificar(selectedZone: object) {
     const modal = await this.modalCtrl.create({
-      component: ModifyUserModalComponent,
+      component: ModifyZoneModalComponent,
       componentProps: {
-        user: selectedUser,
+        zone: selectedZone,
       },
     });
 
@@ -104,36 +104,27 @@ export class UserListComponent implements OnInit {
     const { data } = await modal.onDidDismiss();
 
     if (data?.updated) {
-      this.getUsers();
+      this.getZones();
     }
   }
 
-  async deleteUser(id: string) {
+  async deleteZone(id: string) {
     const toast = await this.toastController.create({
       duration: 1500,
       position: 'bottom',
     });
-    this.userService.delete(id).subscribe({
-      next: (response: any) => {
-        this.users = this.users.filter((user) => user.id !== id);
-        this.getUsers();
-        toast.message = 'Usuario eliminado correctamente.';
-        toast.color = 'success';
-        toast.present();
-      },
-      error(err) {
-        toast.message = 'Ha habido un error.';
-        toast.color = 'danger';
-        toast.present();
-      },
-    });
+    this.zones = this.zones.filter((zone) => zone.id !== id);
+    this.getZones();
+    toast.message = 'Zona eliminada correctamente.';
+    toast.color = 'success';
+    toast.present();
   }
 
-  async abrirModalUsuario(selectedUser: any) {
+  async abrirModalZona(selectedZone: any) {
     const modal = await this.modalCtrl.create({
-      component: CheckUserModalComponent,
+      component: CheckZoneModalComponent,
       componentProps: {
-        user: selectedUser,
+        zone: selectedZone,
       },
     });
     modal.present();

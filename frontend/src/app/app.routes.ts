@@ -49,6 +49,13 @@ export const routes: Routes = [
             (m) => m.TablesContainerComponent,
           ),
       },
+      {
+        path: 'zones',
+        loadComponent: () =>
+          import('./components/backoffice/zones/zones-container/zones-container.component').then(
+            (m) => m.ZonesContainerComponent,
+          ),
+      },
     ],
   },
   {

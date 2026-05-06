@@ -1,2 +1,9 @@
-<app-user-list #userListRef></app-user-list>
-<app-add-user (userCreated)="refreshList()"></app-add-user>
+<div class="users-layout">
+	<div class="users-layout__list">
+		<app-user-list #userListRef></app-user-list>
+	</div>
+
+	<div class="users-layout__form">
+		<app-add-user (userCreated)="refreshList()"></app-add-user>
+	</div>
+</div>

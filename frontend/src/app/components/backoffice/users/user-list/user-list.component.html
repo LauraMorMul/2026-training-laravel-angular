@@ -5,7 +5,7 @@
   <ion-card-content>
     <ion-list>
       @for (user of users; track user) {
-        <ion-item button (click)="abrirModal(user)">
+        <ion-item button (click)="abrirModalUsuario(user)">
           <ion-avatar aria-hidden="true" slot="start">
             <img
               alt="{{ user.name }}"
@@ -24,7 +24,7 @@
             >Eliminar</ion-button
           >
           <ion-button
-            (click)="$event.stopPropagation()"
+            (click)="$event.stopPropagation(); abrirModalModificar(user)"
             [disabled]="user.role === 'admin'"
             >Modificar</ion-button
           >

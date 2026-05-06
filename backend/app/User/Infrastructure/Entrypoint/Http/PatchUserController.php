@@ -3,6 +3,7 @@
 namespace App\User\Infrastructure\Entrypoint\Http;
 
 use App\User\Application\UpdateUser\UpdateUser;
+use App\User\Domain\Exception\EmailInUseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -17,24 +18,37 @@ class PatchUserController
         $restaurantID = auth('user')->user()->restaurant_id;
         $validated = $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['nullable', 'string', 'email', 'max:255'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'role' => ['nullable', 'string', 'max:40'],
-            'image_src' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png,gif,webp,avif,svg'],
             'pin' => ['nullable', 'string', 'digits_between:4,6'],
 
         ]);
 
-        $response = ($this->updateUser)(
+        $imageContent = null;
+        $imageName = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageContent = file_get_contents($image->getRealPath());
+            $imageName = $image->hashName();
+        }
+
+        try {
+            $response = ($this->updateUser)(
             $id,
+            $imageContent,
+            $imageName,
             $validated['email'] ?? null,
             $validated['name'] ?? null,
             $validated['password'] ?? null,
             $validated['role'] ?? null,
-            $validated['image_src'] ?? null,
             $validated['pin'] ?? null,
             $restaurantID
         );
+        } catch(EmailInUseException $e) {
+            return new JsonResponse('Email already in use.', 422);
+        }
 
         if ($response === null) {
             return new JsonResponse('User not found.', 404);

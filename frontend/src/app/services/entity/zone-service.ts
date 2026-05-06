@@ -5,20 +5,20 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService extends BaseApiService{
+export class ZoneService extends BaseApiService{
   getAll(): Observable<ApiResponse> {
-    return this.httpCall('/users/restaurant', null, 'get');
+    return this.httpCall('/zones/restaurant', null, 'get');
   }
 
   add(formData: FormData): Observable<ApiResponse> {
-    return this.httpCall('/users', formData, 'post');
+    return this.httpCall('/zones', formData, 'post');
   }
 
   delete(id: string): Observable<ApiResponse> {
-    return this.httpCall(`/users/${id}`, null, 'delete');
+    return this.httpCall(`/zones/${id}`, null, 'delete');
   }
 
   update(id: string, formData: FormData): Observable<ApiResponse> {
-    return this.httpCall(`/users/${id}`, formData, 'patch');
+    return this.httpCall(`/zones/${id}`, formData, 'patch');
   }
 }

@@ -85,8 +85,20 @@ export abstract class BaseApiService {
    *
    */
   private putHttpCall(endpoint: string, params: any): Observable<ApiResponse> {
+    let options = {};
+
+    if (params instanceof FormData) {
+      // Si es FormData, no modificamos el Content-Type
+      options = {};
+    } else {
+      // Si es objeto normal, serializamos a JSON
+      options = {
+        headers: { 'Content-Type': 'application/json' },
+      };
+      params = JSON.stringify(params);
+    }
     return this.http
-      .put<ApiResponse>(this.apiUrl + endpoint, params)
+      .put<ApiResponse>(this.apiUrl + endpoint, params, options)
       .pipe(catchError((error) => this.handleError(error)));
   }
 
@@ -98,8 +110,24 @@ export abstract class BaseApiService {
     endpoint: string,
     params?: any,
   ): Observable<ApiResponse> {
+    if (params instanceof FormData) {
+      params.append('_method', 'PATCH');
+
+      return this.http
+        .post<ApiResponse>(this.apiUrl + endpoint, params)
+        .pipe(catchError((error) => this.handleError(error)));
+    }
+
+    let options = {};
+
+    // Si es objeto normal, serializamos a JSON
+    options = {
+      headers: { 'Content-Type': 'application/json' },
+    };
+    params = JSON.stringify(params);
+
     return this.http
-      .patch<ApiResponse>(this.apiUrl + endpoint, params)
+      .patch<ApiResponse>(this.apiUrl + endpoint, params, options)
       .pipe(catchError((error) => this.handleError(error)));
   }
 

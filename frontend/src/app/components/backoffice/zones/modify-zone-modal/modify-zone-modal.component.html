@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modificar zona</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="formulario" (ngSubmit)="updateZone()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label for="name">Nombre</ion-label>
+          <ion-input
+            type="text"
+            name="name"
+            id="name"
+            mode="md"
+            fill="solid"
+            aria-label="name"
+            formControlName="name"
+            [placeholder]="zone.name"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit">Actualizar zona</ion-button>
+          <ion-button type="button" (click)="closeModal()">Cancelar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
