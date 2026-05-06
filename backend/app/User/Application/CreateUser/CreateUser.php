@@ -2,6 +2,7 @@
 
 namespace App\User\Application\CreateUser;
 
+use App\Shared\Domain\Interfaces\ImageManagerInterface;
 use App\Shared\Domain\Interfaces\PasswordHasherInterface;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\ImageSrc;
@@ -19,14 +20,16 @@ class CreateUser
     public function __construct(
         private UserRepositoryInterface $userRepository,
         private PasswordHasherInterface $passwordHasher,
+        private ImageManagerInterface $imageManager,
     ) {}
 
-    public function __invoke(string $email, string $name, string $plainPassword, string $role, string $imageSrc, string $pin, int $restaurantID): CreateUserResponse
+    public function __invoke(string $imageContent, string $imageName, string $email, string $name, string $plainPassword, string $role, string $pin, int $restaurantID): CreateUserResponse
     {
         $userWithEmail = $this->userRepository->findByEmail($email);
-        if($userWithEmail !== null) {
+        if ($userWithEmail !== null) {
             throw new EmailInUseException;
         }
+        $imageSrc = $this->imageManager->store($imageContent, $imageName, 'users');
         $emailVO = Email::create($email);
         $nameVO = UserName::create($name);
         $passwordHashVO = PasswordHash::create($this->passwordHasher->hash($plainPassword));

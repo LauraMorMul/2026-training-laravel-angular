@@ -10,7 +10,9 @@ use App\Restaurant\Domain\Interfaces\RestaurantRepositoryInterface;
 use App\Restaurant\Domain\Interfaces\TokenManagerInterface as InterfacesTokenManagerInterface;
 use App\Restaurant\Infrastructure\Persistence\Repositories\EloquentRestaurantRepository;
 use App\Restaurant\Infrastructure\Services\SanctumTokenManager as ServicesSanctumTokenManager;
+use App\Shared\Domain\Interfaces\ImageManagerInterface;
 use App\Shared\Domain\Interfaces\PasswordHasherInterface;
+use App\Shared\Infrastructure\Services\LaravelFileManager;
 use App\Shared\Infrastructure\Services\LaravelPasswordHasher;
 use App\Table\Domain\Interfaces\TableRepositoryInterface;
 use App\Table\Infrastructure\Persistence\Repositories\EloquentTableRepository;
@@ -41,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ZoneRepositoryInterface::class, EloquentZoneRepository::class);
         $this->app->bind(TableRepositoryInterface::class, EloquentTableRepository::class);
         $this->app->bind(InterfacesTokenManagerInterface::class, ServicesSanctumTokenManager::class);
+        $this->app->bind(ImageManagerInterface::class, LaravelFileManager::class);
     }
 
     /**

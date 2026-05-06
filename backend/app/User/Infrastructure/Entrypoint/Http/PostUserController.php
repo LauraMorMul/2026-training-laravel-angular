@@ -20,7 +20,7 @@ class PostUserController
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required', 'string', 'max:40'],
-            'image' => ['required', 'image'],
+            'image' => ['required', 'image', 'mimes:jpeg,jpg,png,gif,webp,avif,svg'],
             'pin' => ['required', 'string', 'digits_between:4,6'],
 
         ]);
@@ -31,22 +31,26 @@ class PostUserController
             return new JsonResponse('Unknown user', 403);
         }
 
-        $imagePath = null;
+        $imageContent = null;
+        $imageName = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('users', 'public');
+            $image = $request->file('image');
+            $imageContent = file_get_contents($image->getRealPath());
+            $imageName = $image->hashName();
         }
 
         try {
             $response = ($this->createUser)(
-            $validated['email'],
-            $validated['name'],
-            $validated['password'],
-            $validated['role'],
-            $imagePath,
-            $validated['pin'],
-            $restaurantId,
-        );
-        } catch(EmailInUseException $e) {
+                $imageContent,
+                $imageName,
+                $validated['email'],
+                $validated['name'],
+                $validated['password'],
+                $validated['role'],
+                $validated['pin'],
+                $restaurantId,
+            );
+        } catch (EmailInUseException $e) {
             return new JsonResponse('Email in use.', 409);
         }
 

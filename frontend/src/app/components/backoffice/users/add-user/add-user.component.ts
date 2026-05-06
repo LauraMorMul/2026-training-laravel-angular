@@ -176,6 +176,7 @@ export class AddUserComponent {
     this.selectedFile = input.files?.[0] || null;
 
     if (this.selectedFile) {
+      console.log(this.selectedFile);
       this.formulario.controls.image.setValue(this.selectedFile);
     }
   }

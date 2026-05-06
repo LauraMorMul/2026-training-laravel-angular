@@ -10,9 +10,10 @@ class ImageSrc
 
     private function __construct(?string $value)
     {
-        
+
         if ($value === null || trim($value) === '') {
             $this->value = null;
+
             return;
         }
         $trimmed = trim($value);

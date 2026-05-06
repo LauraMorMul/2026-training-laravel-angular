@@ -3,7 +3,6 @@
 namespace App\Product\Application\CreateProduct;
 
 use App\Family\Domain\Interfaces\FamilyRepositoryInterface;
-use App\Product\Application\CreateProduct\CreateProductResponse;
 use App\Product\Domain\Entity\Product;
 use App\Product\Domain\Interfaces\ProductRepositoryInterface;
 use App\Product\Domain\ValueObject\FamilyID;

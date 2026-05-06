@@ -57,11 +57,12 @@ class User
         \DateTimeImmutable $createdAt,
         \DateTimeImmutable $updatedAt,
     ): self {
-        if($imageSrc == null) {
+        if ($imageSrc == null) {
             $imageSrcVO = ImageSrc::create('');
         } else {
             $imageSrcVO = ImageSrc::create($imageSrc);
         }
+
         return new self(
             Uuid::create($id),
             RestaurantID::create($restaurantID),
