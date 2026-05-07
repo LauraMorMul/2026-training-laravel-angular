@@ -12,6 +12,7 @@ import {
   AlertController,
   ToastController,
   ModalController,
+  IonSearchbar,
 } from '@ionic/angular/standalone';
 import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { UserService } from 'src/app/services/entity/user-service';
@@ -34,7 +35,8 @@ import { ModifyUserModalComponent } from '../modify-user-modal/modify-user-modal
     IonLabel,
     IonButton,
     ImageFormatterPipePipe,
-    RoleFormatterPipe
+    RoleFormatterPipe,
+    IonSearchbar
   ],
 })
 export class UserListComponent implements OnInit {
@@ -44,10 +46,16 @@ export class UserListComponent implements OnInit {
   private modalCtrl = inject(ModalController);
 
   users: any[] = [];
+  results = [...this.users];
   userID: string | null = '';
 
   ngOnInit() {
-    this.getUsers();
+    this.userService.getAll().subscribe({
+        next: (users) => {
+            this.users = users;
+            this.results = users;
+        }
+    });
   }
 
   public actionButtons = [
@@ -76,6 +84,12 @@ export class UserListComponent implements OnInit {
         console.log('Ni de coña jeje');
       },
     });
+  };
+
+  handleInput(event: Event) {
+    const target = event.target as HTMLIonSearchbarElement;
+    const query = target.value?.toLowerCase() || '';
+    this.results = this.users.filter((d) => d.name.toLowerCase().includes(query));
   }
 
   async showDeleteAlert(id: string, name: string) {

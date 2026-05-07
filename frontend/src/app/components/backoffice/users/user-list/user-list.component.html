@@ -3,8 +3,9 @@
     <ion-card-title>Listado de usuarios</ion-card-title>
   </ion-card-header>
   <ion-card-content>
+    <ion-searchbar (ionInput)="handleInput($event)" placeholder="Buscar por nombre"></ion-searchbar>
     <ion-list>
-      @for (user of users; track user) {
+      @for (user of results; track user) {
         <ion-item button (click)="abrirModalUsuario(user)">
           <ion-avatar aria-hidden="true" slot="start">
             <img
@@ -25,7 +26,7 @@
           >
           <ion-button
             (click)="$event.stopPropagation(); abrirModalModificar(user)"
-            [disabled]="user.role === 'admin'"
+            
             color="secondary"
             >Modificar</ion-button
           >
