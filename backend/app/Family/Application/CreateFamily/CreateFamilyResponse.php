@@ -6,13 +6,13 @@ use App\Family\Domain\Entity\Family;
 
 final readonly class CreateFamilyResponse
 {
-    public function __construct(
-        public string $id,
-        public int $restaurantID,
-        public string $name,
-        public bool $active,
-        public string $createdAt,
-        public string $updatedAt,
+    private function __construct(
+        private string $id,
+        private int $restaurantID,
+        private string $name,
+        private bool $active,
+        private string $createdAt,
+        private string $updatedAt,
     ) {}
 
     public static function create(Family $family): self

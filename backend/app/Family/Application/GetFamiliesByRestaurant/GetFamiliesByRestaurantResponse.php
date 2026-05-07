@@ -7,7 +7,7 @@ use App\Family\Domain\Entity\Family;
 
 final readonly class GetFamiliesByRestaurantResponse
 {
-    public function __construct(
+    private function __construct(
         private array $allFamilies,
     ) {}
 

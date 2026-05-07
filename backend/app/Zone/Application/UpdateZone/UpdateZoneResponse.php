@@ -6,12 +6,12 @@ use App\Zone\Domain\Entity\Zone;
 
 final readonly class UpdateZoneResponse
 {
-    public function __construct(
-        public string $id,
-        public int $restaurantID,
-        public string $name,
-        public string $createdAt,
-        public string $updatedAt,
+    private function __construct(
+        private string $id,
+        private int $restaurantID,
+        private string $name,
+        private string $createdAt,
+        private string $updatedAt,
     ) {}
 
     public static function create(Zone $zone): self

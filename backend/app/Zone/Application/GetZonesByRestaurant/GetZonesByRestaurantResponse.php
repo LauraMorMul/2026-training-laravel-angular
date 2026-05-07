@@ -7,7 +7,7 @@ use App\Zone\Domain\Entity\Zone;
 
 final readonly class GetZonesByRestaurantResponse
 {
-    public function __construct(
+    private function __construct(
         private array $allZones,
     ) {}
 

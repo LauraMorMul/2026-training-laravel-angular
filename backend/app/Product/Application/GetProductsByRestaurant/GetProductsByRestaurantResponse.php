@@ -6,7 +6,7 @@ use App\Product\Application\GetProductByID\GetProductByIDResponse;
 
 final readonly class GetProductsByRestaurantResponse
 {
-    public function __construct(
+    private function __construct(
         private array $allProducts,
     ) {}
 

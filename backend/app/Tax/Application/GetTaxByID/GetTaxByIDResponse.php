@@ -6,13 +6,13 @@ use App\Tax\Domain\Entity\Tax;
 
 final readonly class GetTaxByIDResponse
 {
-    public function __construct(
-        public string $id,
-        public int $restaurantID,
-        public string $name,
-        public int $percentage,
-        public string $createdAt,
-        public string $updatedAt,
+    private function __construct(
+        private string $id,
+        private int $restaurantID,
+        private string $name,
+        private int $percentage,
+        private string $createdAt,
+        private string $updatedAt,
     ) {}
 
     public static function create(Tax $tax): self

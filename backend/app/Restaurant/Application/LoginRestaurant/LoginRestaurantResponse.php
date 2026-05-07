@@ -6,16 +6,16 @@ use App\Restaurant\Domain\Entity\Restaurant;
 
 final readonly class LoginRestaurantResponse
 {
-    public function __construct(
-        public string $id,
-        public string $name,
-        public string $legalName,
-        public string $taxID,
-        public string $email,
-        public string $password,
-        public string $createdAt,
-        public string $updatedAt,
-        public string $token,
+    private function __construct(
+        private string $id,
+        private string $name,
+        private string $legalName,
+        private string $taxID,
+        private string $email,
+        private string $password,
+        private string $createdAt,
+        private string $updatedAt,
+        private string $token,
     ) {}
 
     public static function create(Restaurant $restaurant, string $token): self

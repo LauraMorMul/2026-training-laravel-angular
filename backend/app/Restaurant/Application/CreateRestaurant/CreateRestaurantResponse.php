@@ -7,24 +7,24 @@ use App\User\Domain\Entity\User;
 
 final readonly class CreateRestaurantResponse
 {
-    public function __construct(
+    private function __construct(
         // Datos del restaurante
-        public string $restaurantId,
-        public string $restaurantName,
-        public string $restaurantLegalName,
-        public string $restaurantTaxID,
-        public string $restaurantEmail,
-        public string $restaurantCreatedAt,
-        public string $restaurantUpdatedAt,
+        private string $restaurantId,
+        private string $restaurantName,
+        private string $restaurantLegalName,
+        private string $restaurantTaxID,
+        private string $restaurantEmail,
+        private string $restaurantCreatedAt,
+        private string $restaurantUpdatedAt,
         // Datos del usuario administrador
-        public string $adminId,
-        public string $adminName,
-        public string $adminEmail,
-        public string $adminRole,
-        public ?string $adminImageSrc,
-        public string $adminPin,
-        public string $adminCreatedAt,
-        public string $adminUpdatedAt,
+        private string $adminId,
+        private string $adminName,
+        private string $adminEmail,
+        private string $adminRole,
+        private ?string $adminImageSrc,
+        private string $adminPin,
+        private string $adminCreatedAt,
+        private string $adminUpdatedAt,
     ) {}
 
     public static function create(Restaurant $restaurant, User $adminUser): self

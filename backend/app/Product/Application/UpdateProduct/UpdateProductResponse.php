@@ -6,18 +6,18 @@ use App\Product\Domain\Entity\Product;
 
 final readonly class UpdateProductResponse
 {
-    public function __construct(
-        public string $id,
-        public int $restaurantID,
-        public int $familyID,
-        public int $taxID,
-        public string $imageSrc,
-        public string $name,
-        public int $price,
-        public int $stock,
-        public bool $active,
-        public string $createdAt,
-        public string $updatedAt,
+    private function __construct(
+        private string $id,
+        private int $restaurantID,
+        private int $familyID,
+        private int $taxID,
+        private string $imageSrc,
+        private string $name,
+        private int $price,
+        private int $stock,
+        private bool $active,
+        private string $createdAt,
+        private string $updatedAt,
     ) {}
 
     public static function create(Product $product): self

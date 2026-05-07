@@ -7,13 +7,13 @@ use App\Zone\Domain\Entity\Zone;
 
 final readonly class GetTableByIDResponse
 {
-    public function __construct(
-        public string $tableId,
-        public int $tableRestaurantID,
-        public string $tableName,
-        public string $tableCreatedAt,
-        public string $tableUpdatedAt,
-        public string $zoneId
+    private function __construct(
+        private string $tableId,
+        private int $tableRestaurantID,
+        private string $tableName,
+        private string $tableCreatedAt,
+        private string $tableUpdatedAt,
+        private string $zoneId
     ) {}
 
     public static function create(Table $table, Zone $zone): self

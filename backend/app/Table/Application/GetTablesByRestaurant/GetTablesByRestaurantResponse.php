@@ -6,7 +6,7 @@ use App\Table\Application\GetTableByID\GetTableByIDResponse;
 
 final readonly class GetTablesByRestaurantResponse
 {
-    public function __construct(
+    private function __construct(
         private array $allTables,
     ) {}
 

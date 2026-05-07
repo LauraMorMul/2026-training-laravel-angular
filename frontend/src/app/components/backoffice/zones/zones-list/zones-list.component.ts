@@ -13,8 +13,6 @@ import {
   ToastController,
   ModalController,
 } from '@ionic/angular/standalone';
-import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
-import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
 import { CheckZoneModalComponent } from '../check-zone-modal/check-zone-modal.component';
 import { ModifyZoneModalComponent } from '../modify-zone-modal/modify-zone-modal.component';
 import { ZoneService } from 'src/app/services/entity/zone-service';
@@ -30,11 +28,8 @@ import { ZoneService } from 'src/app/services/entity/zone-service';
     IonCardContent,
     IonList,
     IonItem,
-    IonAvatar,
     IonLabel,
-    IonButton,
-    ImageFormatterPipePipe,
-    RoleFormatterPipe
+    IonButton
   ],
 })
 export class ZonesListComponent implements OnInit {

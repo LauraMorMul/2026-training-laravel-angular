@@ -9,16 +9,16 @@ final readonly class GetUserByIDResponse
     /**
      * Create a new class instance.
      */
-    public function __construct(
-        public string $id,
-        public int $restaurantID,
-        public string $role,
-        public ?string $imageSrc,
-        public string $name,
-        public string $email,
-        public string $pin,
-        public string $createdAt,
-        public string $updatedAt,
+    private function __construct(
+        private string $id,
+        private int $restaurantID,
+        private string $role,
+        private ?string $imageSrc,
+        private string $name,
+        private string $email,
+        private string $pin,
+        private string $createdAt,
+        private string $updatedAt,
     ) {}
 
     public static function create(User $user): self

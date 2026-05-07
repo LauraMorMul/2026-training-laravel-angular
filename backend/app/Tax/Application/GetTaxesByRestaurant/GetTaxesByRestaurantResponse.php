@@ -7,7 +7,7 @@ use App\Tax\Domain\Entity\Tax;
 
 final readonly class GetTaxesByRestaurantResponse
 {
-    public function __construct(
+    private function __construct(
         private array $allTaxes,
     ) {}
 

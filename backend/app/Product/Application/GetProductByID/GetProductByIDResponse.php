@@ -8,20 +8,20 @@ use App\Tax\Domain\Entity\Tax;
 
 final readonly class GetProductByIDResponse
 {
-    public function __construct(
-        public string $id,
-        public string $restaurantID,
-        public string $familyID,
-        public string $imageSrc,
-        public string $name,
-        public int $price,
-        public int $stock,
-        public bool $active,
-        public string $taxName,
-        public int $taxPercentage,
-        public string $taxUuid,
-        public string $createdAt,
-        public string $updatedAt,
+    private function __construct(
+        private string $id,
+        private string $restaurantID,
+        private string $familyID,
+        private string $imageSrc,
+        private string $name,
+        private int $price,
+        private int $stock,
+        private bool $active,
+        private string $taxName,
+        private int $taxPercentage,
+        private string $taxUuid,
+        private string $createdAt,
+        private string $updatedAt,
     ) {}
 
     public static function create(Product $product, Family $family, Tax $tax): self

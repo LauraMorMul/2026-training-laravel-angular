@@ -6,24 +6,17 @@
     <ion-list>
       @for (zone of zones; track zone) {
         <ion-item button (click)="abrirModalZona(zone)">
-          <ion-avatar aria-hidden="true" slot="start">
-            <img
-              alt="{{ zone.name }}"
-              [src]="zone?.imageSrc | imageFormatterPipe"
-            />
-          </ion-avatar>
           <ion-label>{{ zone.name }}</ion-label>
           <ion-button
             (click)="
               $event.stopPropagation(); showDeleteAlert(zone.id, zone.name)
             "
-            [disabled]="zone.role === 'admin'"
             color="danger"
             >Eliminar</ion-button
           >
           <ion-button
             (click)="$event.stopPropagation(); abrirModalModificar(zone)"
-            [disabled]="zone.role === 'admin'"
+            color="secondary"
             >Modificar</ion-button
           >
         </ion-item>
