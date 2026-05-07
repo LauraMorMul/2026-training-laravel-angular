@@ -1,41 +1,36 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import {
   IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
   IonCol,
-  IonContent,
   IonGrid,
-  IonHeader,
   IonInput,
   IonLabel,
   IonRow,
-  IonTitle,
-  IonToolbar,
   LoadingController,
   ToastController,
-  ModalController,
 } from '@ionic/angular/standalone';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
 import { ZoneService } from 'src/app/services/entity/zone-service';
 
 @Component({
-  selector: 'app-modify-zone-modal',
-  templateUrl: './modify-zone-modal.component.html',
-  styleUrls: ['./modify-zone-modal.component.scss'],
-  standalone: true,
+  selector: 'app-add-zone',
+  templateUrl: './add-zone.component.html',
+  styleUrls: ['./add-zone.component.scss'],
   imports: [
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
     IonGrid,
     IonRow,
     IonCol,
@@ -45,26 +40,25 @@ import { ZoneService } from 'src/app/services/entity/zone-service';
     ReactiveFormsModule,
   ],
 })
-export class ModifyZoneModalComponent {
-  @Input() zone!: any;
+export class AddZoneComponent {
+  @Output() userCreated = new EventEmitter<void>();
 
   private zoneService = inject(ZoneService);
   private loadingController = inject(LoadingController);
   private toastController = inject(ToastController);
-  private modalController = inject(ModalController);
 
   formulario = new FormGroup({
-    name: new FormControl(''),
+    name: new FormControl('', [Validators.required]),
   });
 
-  async updateZone() {
+  async addZone() {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
       return;
     }
 
     const loading = await this.loadingController.create({
-      message: 'Actualizando zona.',
+      message: 'Creando zona.',
     });
     const toast = await this.toastController.create({
       duration: 1500,
@@ -75,21 +69,23 @@ export class ModifyZoneModalComponent {
 
     const formData = new FormData();
     const valores = this.formulario.getRawValue();
+    formData.append('name', valores.name!);
 
-    if (valores.name) formData.append('name', valores.name);
-
-    this.zoneService.update(this.zone.id, formData).subscribe({
+    this.zoneService.add(formData).subscribe({
       next: (response: ApiResponse) => {
         loading.remove();
-        toast.message = 'Zona actualizada';
+        toast.message = 'Zona creada';
         toast.color = 'success';
         toast.present();
-        this.modalController.dismiss({ updated: true });
-      }
-    })
-  }
-
-  async closeModal(): Promise<void> {
-    await this.modalController.dismiss({ updated: false });
+        this.userCreated.emit();
+        this.formulario.reset();
+      },
+      error: () => {
+        loading.remove();
+        toast.message = 'Ha habido un error.';
+        toast.color = 'danger';
+        toast.present();
+      },
+    });
   }
 }

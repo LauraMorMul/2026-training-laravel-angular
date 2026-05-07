@@ -9,7 +9,7 @@
           <ion-label>{{ zone.name }}</ion-label>
           <ion-button
             (click)="
-              $event.stopPropagation(); showDeleteAlert(zone.id, zone.name)
+              $event.stopPropagation(); showDeleteAlert(zone.id!, zone.name)
             "
             color="danger"
             >Eliminar</ion-button

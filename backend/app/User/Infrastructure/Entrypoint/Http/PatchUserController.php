@@ -36,17 +36,17 @@ class PatchUserController
 
         try {
             $response = ($this->updateUser)(
-            $id,
-            $imageContent,
-            $imageName,
-            $validated['email'] ?? null,
-            $validated['name'] ?? null,
-            $validated['password'] ?? null,
-            $validated['role'] ?? null,
-            $validated['pin'] ?? null,
-            $restaurantID
-        );
-        } catch(EmailInUseException $e) {
+                $id,
+                $imageContent,
+                $imageName,
+                $validated['email'] ?? null,
+                $validated['name'] ?? null,
+                $validated['password'] ?? null,
+                $validated['role'] ?? null,
+                $validated['pin'] ?? null,
+                $restaurantID
+            );
+        } catch (EmailInUseException $e) {
             return new JsonResponse('Email already in use.', 422);
         }
 

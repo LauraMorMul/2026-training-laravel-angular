@@ -12,6 +12,6 @@ export class UsersContainerComponent {
   @ViewChild('userListRef') userListRef!: UserListComponent;
 
   refreshList() {
-    this.userListRef.getUsers(); // Llama al método que obtiene los usuarios
+    this.userListRef.getUsers();
   }
 }

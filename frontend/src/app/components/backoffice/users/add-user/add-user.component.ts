@@ -36,6 +36,7 @@ import {
 import { addIcons } from 'ionicons';
 import { UserService } from 'src/app/services/entity/user-service';
 import { image } from 'ionicons/icons';
+import { ApiResponse } from 'src/app/services/api/base-api.service';
 
 @Component({
   selector: 'app-add-user',
@@ -143,7 +144,7 @@ export class AddUserComponent {
       formData.append('image', valores.image!);
 
       this.userService.add(formData).subscribe({
-        next: (response: any) => {
+        next: (response: ApiResponse) => {
           loading.remove();
           toast.message = 'Usuario creado';
           toast.color = 'success';

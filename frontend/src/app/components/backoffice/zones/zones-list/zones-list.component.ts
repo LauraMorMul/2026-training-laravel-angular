@@ -16,6 +16,7 @@ import {
 import { CheckZoneModalComponent } from '../check-zone-modal/check-zone-modal.component';
 import { ModifyZoneModalComponent } from '../modify-zone-modal/modify-zone-modal.component';
 import { ZoneService } from 'src/app/services/entity/zone-service';
+import { IZone, IZones } from 'src/app/models/zone';
 
 @Component({
   selector: 'app-zones-list',
@@ -38,7 +39,7 @@ export class ZonesListComponent implements OnInit {
   private toastController = inject(ToastController);
   private modalCtrl = inject(ModalController);
 
-  zones: any[] = [];
+  zones: IZones = [];
   zoneID: string | null = '';
 
   ngOnInit() {
@@ -64,7 +65,7 @@ export class ZonesListComponent implements OnInit {
 
   getZones() {
     this.zoneService.getAll().subscribe({
-      next: (response: any) => {
+      next: (response: IZones) => {
         this.zones = [...response];
       },
       error(err) {
@@ -86,7 +87,7 @@ export class ZonesListComponent implements OnInit {
     this.zoneID = id;
   }
 
-  async abrirModalModificar(selectedZone: object) {
+  async abrirModalModificar(selectedZone: IZone) {
     const modal = await this.modalCtrl.create({
       component: ModifyZoneModalComponent,
       componentProps: {
@@ -108,14 +109,21 @@ export class ZonesListComponent implements OnInit {
       duration: 1500,
       position: 'bottom',
     });
-    this.zones = this.zones.filter((zone) => zone.id !== id);
-    this.getZones();
-    toast.message = 'Zona eliminada correctamente.';
-    toast.color = 'success';
-    toast.present();
+    this.zoneService.delete(id).subscribe({
+      next:(response: any) => {
+        toast.message = 'Zona eliminada correctamente.';
+        toast.color = 'success';
+        toast.present();
+      },
+      error(err) {
+        toast.message = 'Ha habido un error.';
+        toast.color = 'danger';
+        toast.present();
+      },
+    });
   }
 
-  async abrirModalZona(selectedZone: any) {
+  async abrirModalZona(selectedZone: IZone) {
     const modal = await this.modalCtrl.create({
       component: CheckZoneModalComponent,
       componentProps: {

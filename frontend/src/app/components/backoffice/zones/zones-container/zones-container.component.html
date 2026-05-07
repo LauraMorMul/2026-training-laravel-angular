@@ -1,1 +1,9 @@
-<app-zones-list></app-zones-list>
+<div class="backoffice-layout__container">
+	<div class="backoffice-layout__list">
+		<app-zones-list #zoneListRef></app-zones-list>
+	</div>
+
+	<div class="backoffice-layout__form">
+		<app-add-zone (userCreated)="refreshList()"></app-add-zone>
+	</div>
+</div>

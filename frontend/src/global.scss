@@ -35,3 +35,31 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 /* @import '@ionic/angular/css/palettes/dark.system.css'; */
+
+.backoffice-layout__container {
+	display: flex;
+	gap: 1.5rem;
+	margin: 20px;
+}
+
+.backoffice-layout__list {
+    flex: 3;
+	min-width: 0;
+}
+
+.backoffice-layout__form {
+    flex: 1;
+	min-width: 320px;
+}
+
+@media (max-width: 900px) {
+	.backoffice-layout__container {
+		flex-direction: column;
+	}
+
+	.backoffice-layout__list,
+	.backoffice-layout__form {
+		flex: 1 1 auto;
+		width: 100%;
+	}
+}

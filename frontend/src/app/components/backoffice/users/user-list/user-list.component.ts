@@ -1,24 +1,11 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import {
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonItem,
-  IonList,
-  IonAvatar,
-  IonLabel,
-  IonButton,
-  AlertController,
-  ToastController,
-  ModalController,
-  IonSearchbar,
-} from '@ionic/angular/standalone';
+import { Component, inject, OnInit } from '@angular/core';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonList, IonAvatar, IonLabel, IonButton, AlertController, ToastController, ModalController, IonSearchbar, IonSelect, IonSelectOption, IonGrid, IonCol, IonRow } from '@ionic/angular/standalone';
 import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { UserService } from 'src/app/services/entity/user-service';
 import { CheckUserModalComponent } from '../check-user-modal/check-user-modal.component';
 import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
 import { ModifyUserModalComponent } from '../modify-user-modal/modify-user-modal.component';
+import { IUsers } from 'src/app/models/user';
 
 @Component({
   selector: 'app-user-list',
@@ -36,8 +23,13 @@ import { ModifyUserModalComponent } from '../modify-user-modal/modify-user-modal
     IonButton,
     ImageFormatterPipePipe,
     RoleFormatterPipe,
-    IonSearchbar
-  ],
+    IonSearchbar,
+    IonSelect,
+    IonSelectOption,
+    IonGrid,
+    IonRow,
+    IonCol
+],
 })
 export class UserListComponent implements OnInit {
   private userService = inject(UserService);
@@ -45,17 +37,12 @@ export class UserListComponent implements OnInit {
   private toastController = inject(ToastController);
   private modalCtrl = inject(ModalController);
 
-  users: any[] = [];
+  users: IUsers = [];
   results = [...this.users];
   userID: string | null = '';
 
   ngOnInit() {
-    this.userService.getAll().subscribe({
-        next: (users) => {
-            this.users = users;
-            this.results = users;
-        }
-    });
+    this.getUsers()
   }
 
   public actionButtons = [
@@ -77,19 +64,26 @@ export class UserListComponent implements OnInit {
 
   getUsers() {
     this.userService.getAll().subscribe({
-      next: (response: any) => {
+      next: (response: IUsers) => {
         this.users = [...response];
+        this.results = [...response];
       },
       error(err) {
         console.log('Ni de coña jeje');
       },
     });
-  };
+  }; 
 
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     const query = target.value?.toLowerCase() || '';
     this.results = this.users.filter((d) => d.name.toLowerCase().includes(query));
+  }
+
+  handleChange(event: Event) {
+    const target = event.target as HTMLIonSelectElement;
+    const query = target.value?.toLowerCase() || '';
+    this.results = this.users.filter((d) => d.role.toLowerCase().includes(query));
   }
 
   async showDeleteAlert(id: string, name: string) {
@@ -129,8 +123,6 @@ export class UserListComponent implements OnInit {
     });
     this.userService.delete(id).subscribe({
       next: (response: any) => {
-        this.users = this.users.filter((user) => user.id !== id);
-        this.getUsers();
         toast.message = 'Usuario eliminado correctamente.';
         toast.color = 'success';
         toast.present();

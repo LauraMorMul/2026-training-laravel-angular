@@ -124,11 +124,13 @@
 
             <ion-button (click)="openFileDialog()">
               <ion-icon slot="start" name="image"></ion-icon>
-              Subir imagen
+              Seleccionar imagen
             </ion-button>
-            @if (selectedFile) {
-              <ion-label>{{ selectedFile.name }}</ion-label>
-            }
+            <ion-col>
+              @if (selectedFile) {
+                <ion-label>{{ selectedFile.name }}</ion-label>
+              }
+            </ion-col>
           </ion-col>
         </ion-row>
         <ion-row>
