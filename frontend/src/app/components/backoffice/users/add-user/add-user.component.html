@@ -96,15 +96,18 @@
             </ion-select>
           </ion-col>
           <ion-col>
-            <ion-label for="pin">Pin</ion-label>
+            <ion-label for="pin">Pin numérico</ion-label>
             <ion-input
-              type="text"
+            type="text"
+              inputmode="numeric"
               name="pin"
               id="pin"
               mode="md"
               fill="solid"
               aria-label="pin"
               formControlName="pin"
+              placeholder="1234"
+              maxlength="4"
             ></ion-input>
           </ion-col>
         </ion-row>

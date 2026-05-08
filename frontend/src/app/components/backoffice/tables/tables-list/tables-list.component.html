@@ -1,0 +1,27 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Listado de mesas</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      @for (table of tables; track table) {
+        <ion-item button (click)="abrirModalTable(table)">
+          <ion-label>
+            {{ table.name }}
+            <p>{{ getZoneName(table.zone_id) }}</p>
+          </ion-label>
+          <ion-button
+            (click)="$event.stopPropagation(); showDeleteAlert(table.id!, table.name)"
+            color="danger"
+            >Eliminar</ion-button
+          >
+          <ion-button
+            (click)="$event.stopPropagation(); abrirModalModificar(table)"
+            color="secondary"
+            >Modificar</ion-button
+          >
+        </ion-item>
+      }
+    </ion-list>
+  </ion-card-content>
+</ion-card>

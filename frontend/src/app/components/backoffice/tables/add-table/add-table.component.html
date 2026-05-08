@@ -1,0 +1,55 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Anadir una mesa</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <form [formGroup]="formulario">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label for="name">Nombre</ion-label>
+            <ion-input
+              type="text"
+              name="name"
+              id="name"
+              mode="md"
+              fill="solid"
+              aria-label="name"
+              formControlName="name"
+            ></ion-input>
+          </ion-col>
+          <ion-col>
+            <ion-label for="zona">Zona</ion-label>
+            <ion-select
+              aria-label="zona"
+              interface="popover"
+              mode="md"
+              fill="solid"
+              placeholder="Selecciona una zona o créala"
+              formControlName="zone"
+            >
+              @for (zone of zones; track zone) {
+                <ion-select-option [value]="zone.id"
+                  >{{ zone.name }}</ion-select-option
+                >
+              }
+              <ion-select-option><a (onClick)="showAddZoneAlert()">Crear zona</a></ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button
+              type="submit"
+              [disabled]="!formulario.valid"
+              (click)="addTable()"
+            >
+              Crear mesa
+            </ion-button>
+            <ion-button type="reset">Cancelar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-card-content>
+</ion-card>

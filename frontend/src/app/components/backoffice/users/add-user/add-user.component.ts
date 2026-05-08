@@ -114,7 +114,12 @@ export class AddUserComponent {
       password_confirmation: new FormControl('', Validators.required),
       role: new FormControl('', Validators.required),
       image: new FormControl<File | null>(null, Validators.required),
-      pin: new FormControl('', Validators.required),
+      pin: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(4),
+        Validators.pattern('^[0-9]*$'),
+      ]),
     },
     { validators: [this.passwordMatchValidator] },
   );

@@ -66,10 +66,8 @@ export abstract class BaseApiService {
     let options = {};
 
     if (params instanceof FormData) {
-      // Si es FormData, no modificamos el Content-Type
       options = {};
     } else {
-      // Si es objeto normal, serializamos a JSON
       options = {
         headers: { 'Content-Type': 'application/json' },
       };
@@ -88,10 +86,8 @@ export abstract class BaseApiService {
     let options = {};
 
     if (params instanceof FormData) {
-      // Si es FormData, no modificamos el Content-Type
       options = {};
     } else {
-      // Si es objeto normal, serializamos a JSON
       options = {
         headers: { 'Content-Type': 'application/json' },
       };
@@ -120,7 +116,6 @@ export abstract class BaseApiService {
 
     let options = {};
 
-    // Si es objeto normal, serializamos a JSON
     options = {
       headers: { 'Content-Type': 'application/json' },
     };
