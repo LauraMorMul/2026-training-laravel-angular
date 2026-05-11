@@ -21,7 +21,7 @@
             placeholder="Selecciona una zona"
             (ionChange)="handleChange($event)"
           >
-            @for (zone of zones; track zone) {
+            @for (zone of zones; track zone.id) {
               <ion-select-option [value]="zone.id">{{
                 zone.name
               }}</ion-select-option>
@@ -32,7 +32,7 @@
       </ion-row>
     </ion-grid>
     <ion-list>
-      @for (table of results; track table) {
+      @for (table of results; track table.id) {
         <ion-item button (click)="abrirModalTable(table)">
           <ion-label>
             {{ table.name }}

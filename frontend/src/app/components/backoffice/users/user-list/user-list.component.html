@@ -33,7 +33,7 @@
     
     
     <ion-list>
-      @for (user of results; track user) {
+      @for (user of results; track user.id) {
         <ion-item button (click)="abrirModalUsuario(user)">
           <ion-avatar aria-hidden="true" slot="start">
             <img

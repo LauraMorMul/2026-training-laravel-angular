@@ -63,6 +63,13 @@ export const routes: Routes = [
             (m) => m.TaxesContainerComponent,
           ),
       },
+      {
+        path: 'families',
+        loadComponent: () =>
+          import('./components/backoffice/families/families-container/families-container.component').then(
+            (m) => m.FamiliesContainerComponent,
+          ),
+      },
     ],
   },
   {

@@ -8,7 +8,7 @@
       placeholder="Buscar por nombre"
     ></ion-searchbar>
     <ion-list>
-      @for (zone of results; track zone) {
+      @for (zone of results; track zone.id) {
         <ion-item button (click)="abrirModalZona(zone)">
           <ion-label>{{ zone.name }}</ion-label>
           <ion-button

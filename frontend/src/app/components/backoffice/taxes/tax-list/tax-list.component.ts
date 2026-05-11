@@ -1,19 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {
   AlertController,
-  IonAvatar,
   IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonCol,
-  IonGrid,
   IonIcon,
   IonItem,
   IonLabel,
   IonList,
-  IonRow,
   IonSearchbar,
   ModalController,
   ToastController,
@@ -34,15 +30,12 @@ import { ModifyTaxComponentComponent } from '../modify-tax-component/modify-tax-
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonGrid,
-    IonRow,
-    IonCol,
     IonSearchbar,
     IonList,
     IonItem,
     IonLabel,
     IonButton,
-    IonIcon
+    IonIcon,
   ],
 })
 export class TaxListComponent implements OnInit {
@@ -160,5 +153,4 @@ export class TaxListComponent implements OnInit {
 
     await modal.present();
   }
-
 }
