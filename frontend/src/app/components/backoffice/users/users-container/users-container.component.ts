@@ -10,8 +10,4 @@ import { AddUserComponent } from '../add-user/add-user.component';
 })
 export class UsersContainerComponent {
   @ViewChild('userListRef') userListRef!: UserListComponent;
-
-  refreshList() {
-    this.userListRef.getUsers();
-  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -22,6 +22,7 @@ import {
   LoadingController,
   ToastController,
   ModalController,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
 import { ZoneService } from 'src/app/services/entity/zone-service';
@@ -43,9 +44,10 @@ import { ZoneService } from 'src/app/services/entity/zone-service';
     IonInput,
     IonButton,
     ReactiveFormsModule,
+    IonButtons,
   ],
 })
-export class ModifyZoneModalComponent {
+export class ModifyZoneModalComponent implements OnInit{
   @Input() zone!: any;
 
   private zoneService = inject(ZoneService);
@@ -56,6 +58,12 @@ export class ModifyZoneModalComponent {
   formulario = new FormGroup({
     name: new FormControl(''),
   });
+
+  ngOnInit() {
+    this.formulario.patchValue({
+      name: this.zone.name,
+    });
+  }
 
   async updateZone() {
     if (this.formulario.invalid) {

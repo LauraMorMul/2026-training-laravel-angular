@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button type="button" (click)="closeModal()">Cerrar</ion-button>
+    </ion-buttons>
     <ion-title>Modificar usuario</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -111,7 +114,11 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-img [src]="user?.imageSrc | imageFormatterPipe" [alt]="user.imageSrc"> </ion-img>
+          <ion-img
+            [src]="user.imageSrc | imageFormatterPipe"
+            [alt]="user.imageSrc"
+          >
+          </ion-img>
         </ion-col>
         <ion-col>
           <ion-label for="image">Foto</ion-label>
@@ -137,9 +144,10 @@
       </ion-row>
       <ion-row>
         <ion-col
-          ><ion-button type="submit">Actualizar usuario</ion-button
-          >
-          <ion-button type="button" (click)="closeModal()">Cancelar</ion-button></ion-col
+          ><ion-button type="submit">Actualizar usuario</ion-button>
+          <ion-button type="button" (click)="closeModal()"
+            >Cancelar</ion-button
+          ></ion-col
         >
       </ion-row>
     </ion-grid>

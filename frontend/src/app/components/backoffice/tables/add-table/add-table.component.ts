@@ -5,21 +5,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonCol,
-  IonGrid,
-  IonInput,
-  IonLabel,
-  IonRow,
-  IonSelectOption,
-  LoadingController,
-  ToastController,
-} from '@ionic/angular/standalone';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonGrid, IonInput, IonLabel, IonRow, IonSelect, IonSelectOption, LoadingController, ToastController, IonModal, IonHeader, IonToolbar, IonButtons, IonTitle, IonContent, IonItem } from '@ionic/angular/standalone';
+import { IonModalCustomEvent,OverlayEventDetail } from '@ionic/core';
 import { IZones } from 'src/app/models/zone';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
 import { TableService } from 'src/app/services/entity/table-service';
@@ -41,10 +28,27 @@ import { ZoneService } from 'src/app/services/entity/zone-service';
     IonInput,
     IonButton,
     ReactiveFormsModule,
-    IonSelectOption
-  ],
+    IonSelectOption,
+    IonSelect,
+    IonModal,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonTitle,
+    IonContent,
+    IonItem
+],
 })
 export class AddTableComponent implements OnInit{
+onWillDismiss($event: IonModalCustomEvent<OverlayEventDetail<any>>) {
+throw new Error('Method not implemented.');
+}
+cancel() {
+throw new Error('Method not implemented.');
+}
+confirm() {
+throw new Error('Method not implemented.');
+}
   @Output() userCreated = new EventEmitter<void>();
 
   private tableService = inject(TableService);
@@ -57,6 +61,7 @@ export class AddTableComponent implements OnInit{
     zone: new FormControl('', Validators.required),
   });
   zones: IZones = [];
+name: any;
 
   ngOnInit(): void {
     this.getZones()
@@ -72,6 +77,8 @@ export class AddTableComponent implements OnInit{
       },
     });
   }
+
+  
 
   async addTable() {
     if (this.formulario.invalid) {
@@ -92,6 +99,7 @@ export class AddTableComponent implements OnInit{
     const formData = new FormData();
     const valores = this.formulario.getRawValue();
     formData.append('name', valores.name!);
+    formData.append('zone_id', valores.zone!);
 
     this.tableService.add(formData).subscribe({
       next: (response: ApiResponse) => {
@@ -109,9 +117,5 @@ export class AddTableComponent implements OnInit{
         toast.present();
       },
     });
-  }
-
-  showAddZoneAlert() {
-    console.log('jeje')
   }
 }

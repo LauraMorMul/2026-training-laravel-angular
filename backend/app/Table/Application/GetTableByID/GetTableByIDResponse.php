@@ -31,13 +31,11 @@ final readonly class GetTableByIDResponse
     public function toArray(): array
     {
         return [
-            'table' => [
-                'id' => $this->tableId,
-                'zone_id' => $this->zoneId,
-                'name' => $this->tableName,
-                'created_at' => $this->tableCreatedAt,
-                'updated_at' => $this->tableUpdatedAt,
-            ],
+            'id' => $this->tableId,
+            'zone_id' => $this->zoneId,
+            'name' => $this->tableName,
+            'created_at' => $this->tableCreatedAt,
+            'updated_at' => $this->tableUpdatedAt,
         ];
     }
 }

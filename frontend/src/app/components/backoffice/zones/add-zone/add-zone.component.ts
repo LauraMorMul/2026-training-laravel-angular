@@ -41,7 +41,6 @@ import { ZoneService } from 'src/app/services/entity/zone-service';
   ],
 })
 export class AddZoneComponent {
-  @Output() userCreated = new EventEmitter<void>();
 
   private zoneService = inject(ZoneService);
   private loadingController = inject(LoadingController);
@@ -77,7 +76,6 @@ export class AddZoneComponent {
         toast.message = 'Zona creada';
         toast.color = 'success';
         toast.present();
-        this.userCreated.emit();
         this.formulario.reset();
       },
       error: () => {

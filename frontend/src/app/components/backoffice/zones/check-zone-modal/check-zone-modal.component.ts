@@ -1,12 +1,12 @@
 import { Component, Input, inject } from '@angular/core';
-import { IonContent, IonHeader, IonToolbar, IonTitle, IonButton, ModalController } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonTitle, IonButton, ModalController, IonButtons } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-check-zone-modal',
   templateUrl: './check-zone-modal.component.html',
   styleUrls: ['./check-zone-modal.component.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonToolbar, IonTitle, IonButton],
+  imports: [IonContent, IonHeader, IonToolbar, IonTitle, IonButton, IonButtons],
 })
 export class CheckZoneModalComponent {
   @Input() zone!: any;

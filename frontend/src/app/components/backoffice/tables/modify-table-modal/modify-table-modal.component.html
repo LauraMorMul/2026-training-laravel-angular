@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button type="button" (click)="closeModal()">Cerrar</ion-button>
+    </ion-buttons>
     <ion-title>Modificar mesa</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -25,9 +28,19 @@
       <ion-row>
         <ion-col>
           <ion-label for="zone">Zona</ion-label>
-          <ion-select formControlName="zone_id" interface="popover">
-            @for (zone of zones; track zone) {
-              <ion-select-option value={{ zone.id }}>{{ zone.name }}</ion-select-option>
+          <ion-select
+            aria-label="zone"
+            id="zone"
+            name="zone"
+            formControlName="zone_id"
+            interface="popover"
+            mode="md"
+            fill="solid"
+          >
+            @for (zone of zones; track zone.id) {
+              <ion-select-option [value]="zone.id" selected="table.zone_id">{{
+                zone.name
+              }}</ion-select-option>
             }
           </ion-select>
         </ion-col>

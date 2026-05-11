@@ -3,8 +3,12 @@
     <ion-card-title>Listado de zonas</ion-card-title>
   </ion-card-header>
   <ion-card-content>
+    <ion-searchbar
+      (ionInput)="handleInput($event)"
+      placeholder="Buscar por nombre"
+    ></ion-searchbar>
     <ion-list>
-      @for (zone of zones; track zone) {
+      @for (zone of results; track zone) {
         <ion-item button (click)="abrirModalZona(zone)">
           <ion-label>{{ zone.name }}</ion-label>
           <ion-button

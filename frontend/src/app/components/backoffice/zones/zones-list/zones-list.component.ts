@@ -1,22 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonItem,
-  IonList,
-  IonAvatar,
-  IonLabel,
-  IonButton,
-  AlertController,
-  ToastController,
-  ModalController,
-} from '@ionic/angular/standalone';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonList, IonAvatar, IonLabel, IonButton, AlertController, ToastController, ModalController, SearchbarInputEventDetail, IonSearchbar } from '@ionic/angular/standalone';
 import { CheckZoneModalComponent } from '../check-zone-modal/check-zone-modal.component';
-import { ModifyZoneModalComponent } from '../modify-zone-modal/modify-zone-modal.component';
 import { ZoneService } from 'src/app/services/entity/zone-service';
 import { IZone, IZones } from 'src/app/models/zone';
+import { ModifyZoneModalComponent } from '../modify-zone-modal/modify-zone-modal.component';
+import { IonSearchbarCustomEvent } from '@ionic/core';
 
 @Component({
   selector: 'app-zones-list',
@@ -30,8 +18,9 @@ import { IZone, IZones } from 'src/app/models/zone';
     IonList,
     IonItem,
     IonLabel,
-    IonButton
-  ],
+    IonButton,
+    IonSearchbar
+],
 })
 export class ZonesListComponent implements OnInit {
   private zoneService = inject(ZoneService);
@@ -41,6 +30,7 @@ export class ZonesListComponent implements OnInit {
 
   zones: IZones = [];
   zoneID: string | null = '';
+  results = [...this.zones];
 
   ngOnInit() {
     this.getZones();
@@ -67,11 +57,18 @@ export class ZonesListComponent implements OnInit {
     this.zoneService.getAll().subscribe({
       next: (response: IZones) => {
         this.zones = [...response];
+        this.results = [...response];
       },
       error(err) {
         console.log('Ni de coña jeje');
       },
     });
+  }
+
+  handleInput(event: Event) {
+    const target = event.target as HTMLIonSearchbarElement;
+    const query = target.value?.toLowerCase() || '';
+    this.results = this.zones.filter((d) => d.name.toLowerCase().includes(query));
   }
 
   async showDeleteAlert(id: string, name: string) {

@@ -6,11 +6,6 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  LoadingController,
-  ToastController,
-  ModalController,
-} from '@ionic/angular';
-import {
   IonButton,
   IonCol,
   IonContent,
@@ -23,11 +18,16 @@ import {
   IonToolbar,
   IonSelect,
   IonSelectOption,
+  LoadingController,
+  ToastController,
+  ModalController,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
 import { TableService } from 'src/app/services/entity/table-service';
 import { ZoneService } from 'src/app/services/entity/zone-service';
 import { IZone, IZones } from 'src/app/models/zone';
+import { ITable } from 'src/app/models/table';
 
 @Component({
   selector: 'app-modify-table-modal',
@@ -48,10 +48,11 @@ import { IZone, IZones } from 'src/app/models/zone';
     IonSelectOption,
     IonButton,
     ReactiveFormsModule,
+    IonButtons
   ],
 })
 export class ModifyTableModalComponent implements OnInit {
-  @Input() table!: any;
+  @Input() table!: ITable;
 
   zones: IZones = [];
 
@@ -77,7 +78,10 @@ export class ModifyTableModalComponent implements OnInit {
       next: (response: IZones) => {
         this.zones = [...response];
         if (this.table) {
-          this.formulario.patchValue({ name: this.table.name, zone_id: this.table.zone_id });
+          this.formulario.patchValue({
+            name: this.table.name,
+            zone_id: this.table.zone_id,
+          });
         }
       },
     });

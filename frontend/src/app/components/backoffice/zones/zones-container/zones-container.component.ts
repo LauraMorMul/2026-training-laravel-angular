@@ -10,9 +10,4 @@ import { AddZoneComponent } from '../add-zone/add-zone.component';
 })
 export class ZonesContainerComponent {
   @ViewChild('zoneListRef') zoneListRef!: ZonesListComponent;
-
-  refreshList() {
-    this.zoneListRef.getZones();
-  }
-
 }

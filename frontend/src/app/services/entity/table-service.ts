@@ -11,13 +11,13 @@ export class TableService extends BaseApiService{
   
     getAll(): Observable<ITables> {
       if (this.tables$.getValue().length === 0) {
-        this.loadZones();
+        this.loadTables();
       }
   
       return this.tables$.asObservable();
     }
   
-    private loadZones(): void {
+    private loadTables(): void {
       this.httpCall('/tables/restaurant', null, 'get').subscribe({
         next: (response: ApiResponse) => {
           const tables = response as unknown as ITables;
@@ -26,25 +26,25 @@ export class TableService extends BaseApiService{
       });
     }
   
-    refreshZones(): void {
-      this.loadZones();
+    refreshTables(): void {
+      this.loadTables();
     }
   
     add(formData: FormData): Observable<ApiResponse> {
       return this.httpCall('/tables', formData, 'post').pipe(
-        tap(() => this.refreshZones()),
+        tap(() => this.refreshTables()),
       );
     }
   
     delete(id: string): Observable<ApiResponse> {
       return this.httpCall(`/tables/${id}`, null, 'delete').pipe(
-        tap(() => this.refreshZones()),
+        tap(() => this.refreshTables()),
       );
     }
   
     update(id: string, formData: FormData): Observable<ApiResponse> {
       return this.httpCall(`/tables/${id}`, formData, 'patch').pipe(
-        tap(() => this.refreshZones()),
+        tap(() => this.refreshTables()),
       );
     }
 }

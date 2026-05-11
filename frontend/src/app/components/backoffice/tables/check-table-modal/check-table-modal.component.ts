@@ -1,22 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { IonContent, IonHeader, IonToolbar, IonTitle, IonButton } from '@ionic/angular/standalone';
+import { Component, inject, Input } from '@angular/core';
+import { IonContent, IonHeader, IonToolbar, IonTitle, IonButton, IonModal, ModalController, IonButtons } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-check-table-modal',
   templateUrl: './check-table-modal.component.html',
   styleUrls: ['./check-table-modal.component.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonToolbar, IonTitle, IonButton],
+  imports: [IonContent, IonHeader, IonToolbar, IonTitle, IonButton, IonButtons],
 })
-export class CheckTableModalComponent implements OnInit {
+export class CheckTableModalComponent {
   @Input() table!: any;
+  private modalCtrl = inject(ModalController);
 
-  constructor(private modalController: ModalController) {}
-
-  ngOnInit(): void {}
-
-  closeModal() {
-    this.modalController.dismiss();
+  closeModal(){
+    this.modalCtrl.dismiss();
   }
 }

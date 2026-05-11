@@ -3,8 +3,34 @@
     <ion-card-title>Listado de mesas</ion-card-title>
   </ion-card-header>
   <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-searchbar (ionInput)="handleInput($event)"
+      placeholder="Buscar por nombre"></ion-searchbar>
+        </ion-col>
+        <ion-col>
+          <ion-label for="zona">Zona</ion-label>
+            <ion-select
+              aria-label="zona"
+              interface="popover"
+              mode="md"
+              fill="solid"
+              placeholder="Selecciona una zona"
+              (ionChange)="handleChange($event)"
+            >
+              @for (zone of zones; track zone) {
+                <ion-select-option [value]="zone.id">{{
+                  zone.name
+                }}</ion-select-option>
+              }
+              <ion-select-option value="">Todas las zonas</ion-select-option>
+            </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-list>
-      @for (table of tables; track table) {
+      @for (table of results; track table) {
         <ion-item button (click)="abrirModalTable(table)">
           <ion-label>
             {{ table.name }}

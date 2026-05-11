@@ -6,6 +6,8 @@ import {
   IonHeader,
   IonToolbar,
   IonImg,
+  IonButtons,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
@@ -14,7 +16,7 @@ import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
   selector: 'app-check-user-modal',
   templateUrl: './check-user-modal.component.html',
   styleUrls: ['./check-user-modal.component.scss'],
-  imports: [IonContent, IonTitle, IonHeader, IonToolbar, IonImg, ImageFormatterPipePipe, RoleFormatterPipe],
+  imports: [IonContent, IonTitle, IonHeader, IonToolbar, IonImg, ImageFormatterPipePipe, RoleFormatterPipe, IonButtons, IonButton],
 })
 export class CheckUserModalComponent {
   private modalCtrl = inject(ModalController);
@@ -23,5 +25,9 @@ export class CheckUserModalComponent {
 
   confirm() {
     return this.modalCtrl.dismiss();
+  }
+
+  closeModal(){
+    this.modalCtrl.dismiss();
   }
 }
