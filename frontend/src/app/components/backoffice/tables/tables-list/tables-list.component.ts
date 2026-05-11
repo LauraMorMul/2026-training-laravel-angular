@@ -17,6 +17,7 @@ import {
   IonSearchbar,
   IonSelect,
   IonSelectOption,
+  IonIcon,
 } from '@ionic/angular/standalone';
 import { CheckTableModalComponent } from '../check-table-modal/check-table-modal.component';
 import { ModifyTableModalComponent } from '../modify-table-modal/modify-table-modal.component';
@@ -24,6 +25,8 @@ import { TableService } from 'src/app/services/entity/table-service';
 import { ZoneService } from 'src/app/services/entity/zone-service';
 import { ITable, ITables } from 'src/app/models/table';
 import { IZones } from 'src/app/models/zone';
+import { createOutline, trashOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
 
 @Component({
   selector: 'app-tables-list',
@@ -44,6 +47,7 @@ import { IZones } from 'src/app/models/zone';
     IonSearchbar,
     IonSelect,
     IonSelectOption,
+    IonIcon,
   ],
 })
 export class TablesListComponent implements OnInit {
@@ -61,6 +65,10 @@ export class TablesListComponent implements OnInit {
   ngOnInit() {
     this.getTables();
     this.getZones();
+  }
+
+  constructor() {
+    addIcons({ trashOutline, createOutline });
   }
 
   public actionButtons = [

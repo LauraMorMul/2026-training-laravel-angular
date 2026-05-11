@@ -1,11 +1,33 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonList, IonAvatar, IonLabel, IonButton, AlertController, ToastController, ModalController, IonSearchbar, IonSelect, IonSelectOption, IonGrid, IonCol, IonRow } from '@ionic/angular/standalone';
+import {
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonItem,
+  IonList,
+  IonAvatar,
+  IonLabel,
+  IonButton,
+  AlertController,
+  ToastController,
+  ModalController,
+  IonSearchbar,
+  IonSelect,
+  IonSelectOption,
+  IonGrid,
+  IonCol,
+  IonRow,
+  IonIcon,
+} from '@ionic/angular/standalone';
 import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { UserService } from 'src/app/services/entity/user-service';
 import { CheckUserModalComponent } from '../check-user-modal/check-user-modal.component';
 import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
 import { ModifyUserModalComponent } from '../modify-user-modal/modify-user-modal.component';
 import { IUsers } from 'src/app/models/user';
+import { addIcons } from 'ionicons';
+import { createOutline, trashBinOutline, trashOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-user-list',
@@ -28,8 +50,9 @@ import { IUsers } from 'src/app/models/user';
     IonSelectOption,
     IonGrid,
     IonRow,
-    IonCol
-],
+    IonCol,
+    IonIcon,
+  ],
 })
 export class UserListComponent implements OnInit {
   private userService = inject(UserService);
@@ -41,8 +64,12 @@ export class UserListComponent implements OnInit {
   results = [...this.users];
   userID: string | null = '';
 
+  constructor() {
+    addIcons({ trashOutline, createOutline });
+  }
+
   ngOnInit() {
-    this.getUsers()
+    this.getUsers();
   }
 
   public actionButtons = [
@@ -72,18 +99,22 @@ export class UserListComponent implements OnInit {
         console.log('Ni de coña jeje');
       },
     });
-  }; 
+  }
 
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     const query = target.value?.toLowerCase() || '';
-    this.results = this.users.filter((d) => d.name.toLowerCase().includes(query));
+    this.results = this.users.filter((d) =>
+      d.name.toLowerCase().includes(query),
+    );
   }
 
   handleChange(event: Event) {
     const target = event.target as HTMLIonSelectElement;
     const query = target.value?.toLowerCase() || '';
-    this.results = this.users.filter((d) => d.role.toLowerCase().includes(query));
+    this.results = this.users.filter((d) =>
+      d.role.toLowerCase().includes(query),
+    );
   }
 
   async showDeleteAlert(id: string, name: string) {

@@ -16,12 +16,12 @@
               $event.stopPropagation(); showDeleteAlert(zone.id!, zone.name)
             "
             color="danger"
-            >Eliminar</ion-button
+            ><ion-icon name="trash-outline"></ion-icon>Eliminar</ion-button
           >
           <ion-button
             (click)="$event.stopPropagation(); abrirModalModificar(zone)"
             color="secondary"
-            >Modificar</ion-button
+            ><ion-icon name="create-outline"></ion-icon>Modificar</ion-button
           >
         </ion-item>
       }

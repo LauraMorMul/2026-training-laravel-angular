@@ -56,6 +56,13 @@ export const routes: Routes = [
             (m) => m.ZonesContainerComponent,
           ),
       },
+      {
+        path: 'taxes',
+        loadComponent: () =>
+          import('./components/backoffice/taxes/taxes-container/taxes-container.component').then(
+            (m) => m.TaxesContainerComponent,
+          ),
+      },
     ],
   },
   {

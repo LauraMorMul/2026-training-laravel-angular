@@ -192,5 +192,11 @@ export class ModifyUserModalComponent implements OnInit {
       role: this.user.role,
       pin: this.user.pin,
     });
+    if(this.user.role === 'admin') {
+      this.formulario.get('email')?.disable();
+      this.formulario.get('password')?.disable();
+      this.formulario.get('password_confirmation')?.disable();
+      this.formulario.get('role')?.disable();
+    }
   }
 }

@@ -1,0 +1,38 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Listado de impuestos</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-searchbar
+            (ionInput)="handleInput($event)"
+            placeholder="Buscar por nombre"
+          ></ion-searchbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-list>
+      @for (tax of results; track tax) {
+        <ion-item button (click)="abrirModalTax(tax)">
+          <ion-label>{{ tax.name }}</ion-label>
+          <ion-label>{{ tax.percentage }}%</ion-label>
+          <ion-button
+            (click)="$event.stopPropagation(); showDeleteAlert(tax.id, tax.name)"
+            color="danger"
+          >
+            <ion-icon name="trash-outline"></ion-icon>Eliminar
+          </ion-button>
+          <ion-button
+            (click)="$event.stopPropagation(); abrirModalModificar(tax)"
+            color="secondary"
+          >
+            <ion-icon name="create-outline"></ion-icon>Modificar
+          </ion-button>
+        </ion-item>
+      }
+    </ion-list>
+  </ion-card-content>
+</ion-card>

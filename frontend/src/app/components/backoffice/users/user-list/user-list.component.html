@@ -50,12 +50,12 @@
             "
             [disabled]="user.role === 'admin'"
             color="danger"
-            >Eliminar</ion-button
+            ><ion-icon name="trash-outline"></ion-icon>Eliminar</ion-button
           >
           <ion-button
             (click)="$event.stopPropagation(); abrirModalModificar(user)"
             color="secondary"
-            >Modificar</ion-button
+            ><ion-icon name="create-outline"></ion-icon>Modificar</ion-button
           >
         </ion-item>
       }

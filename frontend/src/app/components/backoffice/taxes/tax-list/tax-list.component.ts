@@ -1,59 +1,66 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {
+  AlertController,
+  IonAvatar,
+  IonButton,
   IonCard,
+  IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonCardContent,
-  IonItem,
-  IonList,
-  IonLabel,
-  IonButton,
-  AlertController,
-  ToastController,
-  ModalController,
-  IonSearchbar,
+  IonCol,
+  IonGrid,
   IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonRow,
+  IonSearchbar,
+  ModalController,
+  ToastController,
 } from '@ionic/angular/standalone';
-import { CheckZoneModalComponent } from '../check-zone-modal/check-zone-modal.component';
-import { ZoneService } from 'src/app/services/entity/zone-service';
-import { IZone, IZones } from 'src/app/models/zone';
-import { ModifyZoneModalComponent } from '../modify-zone-modal/modify-zone-modal.component';
-import { createOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { createOutline, trashOutline } from 'ionicons/icons';
+import { ITaxes } from 'src/app/models/tax';
+import { TaxService } from 'src/app/services/entity/tax-service';
+import { CheckTaxModalComponent } from '../check-tax-modal/check-tax-modal.component';
+import { ModifyTaxComponentComponent } from '../modify-tax-component/modify-tax-component.component';
 
 @Component({
-  selector: 'app-zones-list',
-  templateUrl: './zones-list.component.html',
-  styleUrls: ['./zones-list.component.scss'],
+  selector: 'app-tax-list',
+  templateUrl: './tax-list.component.html',
+  styleUrls: ['./tax-list.component.scss'],
   imports: [
     IonCard,
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonSearchbar,
     IonList,
     IonItem,
     IonLabel,
     IonButton,
-    IonSearchbar,
-    IonIcon,
+    IonIcon
   ],
 })
-export class ZonesListComponent implements OnInit {
-  private zoneService = inject(ZoneService);
+export class TaxListComponent implements OnInit {
+  private taxService = inject(TaxService);
   private alertController = inject(AlertController);
   private toastController = inject(ToastController);
   private modalCtrl = inject(ModalController);
 
-  zones: IZones = [];
-  zoneID: string | null = '';
-  results = [...this.zones];
-
-  ngOnInit() {
-    this.getZones();
-  }
+  taxes: ITaxes = [];
+  results = [...this.taxes];
+  taxID: string | null = '';
 
   constructor() {
     addIcons({ trashOutline, createOutline });
+  }
+
+  ngOnInit() {
+    this.getTaxes();
   }
 
   public actionButtons = [
@@ -68,18 +75,18 @@ export class ZonesListComponent implements OnInit {
       text: 'OK',
       role: 'confirm',
       handler: () => {
-        this.deleteZone(this.zoneID!);
+        this.deleteTax(this.taxID!);
       },
     },
   ];
 
-  getZones() {
-    this.zoneService.getAll().subscribe({
-      next: (response: IZones) => {
-        this.zones = [...response];
+  getTaxes() {
+    this.taxService.getAll().subscribe({
+      next: (response: ITaxes) => {
+        this.taxes = [...response];
         this.results = [...response];
       },
-      error(err) {
+      error() {
         console.log('Ni de coña jeje');
       },
     });
@@ -88,29 +95,29 @@ export class ZonesListComponent implements OnInit {
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     const query = target.value?.toLowerCase() || '';
-    this.results = this.zones.filter((d) =>
-      d.name.toLowerCase().includes(query),
+    this.results = this.taxes.filter((tax) =>
+      tax.name.toLowerCase().includes(query),
     );
   }
 
   async showDeleteAlert(id: string, name: string) {
     const alert = await this.alertController.create({
-      header: 'Eliminar zona',
+      header: 'Eliminar impuesto',
       subHeader: 'Esta acción es irreversible.',
-      message: '¿Eliminar la zona ' + name + '?',
+      message: '¿Eliminar el impuesto ' + name + '?',
       buttons: this.actionButtons,
     });
 
     await alert.present();
 
-    this.zoneID = id;
+    this.taxID = id;
   }
 
-  async abrirModalModificar(selectedZone: IZone) {
+  async abrirModalModificar(selectedTax: object) {
     const modal = await this.modalCtrl.create({
-      component: ModifyZoneModalComponent,
+      component: ModifyTaxComponentComponent,
       componentProps: {
-        zone: selectedZone,
+        tax: selectedTax,
       },
     });
 
@@ -119,22 +126,23 @@ export class ZonesListComponent implements OnInit {
     const { data } = await modal.onDidDismiss();
 
     if (data?.updated) {
-      this.getZones();
+      this.getTaxes();
     }
   }
 
-  async deleteZone(id: string) {
+  async deleteTax(id: string) {
     const toast = await this.toastController.create({
       duration: 1500,
       position: 'bottom',
     });
-    this.zoneService.delete(id).subscribe({
-      next: (response: any) => {
-        toast.message = 'Zona eliminada correctamente.';
+
+    this.taxService.delete(id).subscribe({
+      next: () => {
+        toast.message = 'Impuesto eliminado correctamente.';
         toast.color = 'success';
         toast.present();
       },
-      error(err) {
+      error() {
         toast.message = 'Ha habido un error.';
         toast.color = 'danger';
         toast.present();
@@ -142,13 +150,15 @@ export class ZonesListComponent implements OnInit {
     });
   }
 
-  async abrirModalZona(selectedZone: IZone) {
+  async abrirModalTax(selectedTax: any) {
     const modal = await this.modalCtrl.create({
-      component: CheckZoneModalComponent,
+      component: CheckTaxModalComponent,
       componentProps: {
-        zone: selectedZone,
+        tax: selectedTax,
       },
     });
-    modal.present();
+
+    await modal.present();
   }
+
 }

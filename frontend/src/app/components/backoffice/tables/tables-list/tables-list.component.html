@@ -6,26 +6,28 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-searchbar (ionInput)="handleInput($event)"
-      placeholder="Buscar por nombre"></ion-searchbar>
+          <ion-searchbar
+            (ionInput)="handleInput($event)"
+            placeholder="Buscar por nombre"
+          ></ion-searchbar>
         </ion-col>
         <ion-col>
           <ion-label for="zona">Zona</ion-label>
-            <ion-select
-              aria-label="zona"
-              interface="popover"
-              mode="md"
-              fill="solid"
-              placeholder="Selecciona una zona"
-              (ionChange)="handleChange($event)"
-            >
-              @for (zone of zones; track zone) {
-                <ion-select-option [value]="zone.id">{{
-                  zone.name
-                }}</ion-select-option>
-              }
-              <ion-select-option value="">Todas las zonas</ion-select-option>
-            </ion-select>
+          <ion-select
+            aria-label="zona"
+            interface="popover"
+            mode="md"
+            fill="solid"
+            placeholder="Selecciona una zona"
+            (ionChange)="handleChange($event)"
+          >
+            @for (zone of zones; track zone) {
+              <ion-select-option [value]="zone.id">{{
+                zone.name
+              }}</ion-select-option>
+            }
+            <ion-select-option value="">Todas las zonas</ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -37,14 +39,16 @@
             <p>{{ getZoneName(table.zone_id) }}</p>
           </ion-label>
           <ion-button
-            (click)="$event.stopPropagation(); showDeleteAlert(table.id!, table.name)"
+            (click)="
+              $event.stopPropagation(); showDeleteAlert(table.id!, table.name)
+            "
             color="danger"
-            >Eliminar</ion-button
+            ><ion-icon name="trash-outline"></ion-icon>Eliminar</ion-button
           >
           <ion-button
             (click)="$event.stopPropagation(); abrirModalModificar(table)"
             color="secondary"
-            >Modificar</ion-button
+            ><ion-icon name="create-outline"></ion-icon>Modificar</ion-button
           >
         </ion-item>
       }
