@@ -1,5 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonList, IonLabel, IonButton, AlertController, ToastController, ModalController, IonModal, IonGrid, IonCol, IonRow, IonSearchbar, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import {
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonItem,
+  IonList,
+  IonLabel,
+  IonButton,
+  AlertController,
+  ToastController,
+  ModalController,
+  IonGrid,
+  IonCol,
+  IonRow,
+  IonSearchbar,
+  IonSelect,
+  IonSelectOption,
+} from '@ionic/angular/standalone';
 import { CheckTableModalComponent } from '../check-table-modal/check-table-modal.component';
 import { ModifyTableModalComponent } from '../modify-table-modal/modify-table-modal.component';
 import { TableService } from 'src/app/services/entity/table-service';
@@ -25,8 +43,8 @@ import { IZones } from 'src/app/models/zone';
     IonRow,
     IonSearchbar,
     IonSelect,
-    IonSelectOption
-],
+    IonSelectOption,
+  ],
 })
 export class TablesListComponent implements OnInit {
   private tableService = inject(TableService);
@@ -85,7 +103,9 @@ export class TablesListComponent implements OnInit {
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     const query = target.value?.toLowerCase() || '';
-    this.results = this.tables.filter((d) => d.name.toLowerCase().includes(query));
+    this.results = this.tables.filter((d) =>
+      d.name.toLowerCase().includes(query),
+    );
   }
 
   handleChange(event: Event) {
@@ -93,7 +113,6 @@ export class TablesListComponent implements OnInit {
     const query = target.value || '';
     this.results = this.tables.filter((d) => d.zone_id.includes(query));
   }
-  
 
   async showDeleteAlert(id: string, name: string) {
     const alert = await this.alertController.create({
