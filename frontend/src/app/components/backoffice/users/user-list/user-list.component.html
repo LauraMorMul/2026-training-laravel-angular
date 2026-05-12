@@ -7,31 +7,29 @@
       <ion-row>
         <ion-col size="9">
           <ion-searchbar
-      (ionInput)="handleInput($event)"
-      placeholder="Buscar por nombre"
-    ></ion-searchbar>
+            (ionInput)="handleInput($event)"
+            placeholder="Buscar por nombre"
+          ></ion-searchbar>
         </ion-col>
         <ion-col>
-<ion-label for="rol">Rol</ion-label>
-    <ion-select
-      aria-label="rol"
-      interface="popover"
-      mode="md"
-      fill="solid"
-      placeholder="Rol de usuario"
-      (ionChange)="handleChange($event)"
-    >
-    <ion-select-option value="admin">Administrador</ion-select-option>
-      <ion-select-option value="supervisor">Supervisor</ion-select-option>
-      <ion-select-option value="operator">Operador</ion-select-option>
-      <ion-select-option value="">Todos los roles</ion-select-option>
-      
-    </ion-select>
+          <ion-label for="rol">Rol</ion-label>
+          <ion-select
+            aria-label="rol"
+            interface="popover"
+            mode="md"
+            fill="solid"
+            placeholder="Rol de usuario"
+            (ionChange)="handleChange($event)"
+          >
+            <ion-select-option value="admin">Administrador</ion-select-option>
+            <ion-select-option value="supervisor">Supervisor</ion-select-option>
+            <ion-select-option value="operator">Operador</ion-select-option>
+            <ion-select-option value="">Todos los roles</ion-select-option>
+          </ion-select>
         </ion-col>
       </ion-row>
     </ion-grid>
-    
-    
+
     <ion-list>
       @for (user of results; track user.id) {
         <ion-item button (click)="abrirModalUsuario(user)">

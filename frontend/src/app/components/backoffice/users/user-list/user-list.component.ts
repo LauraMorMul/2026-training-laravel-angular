@@ -1,25 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonItem,
-  IonList,
-  IonAvatar,
-  IonLabel,
-  IonButton,
-  AlertController,
-  ToastController,
-  ModalController,
-  IonSearchbar,
-  IonSelect,
-  IonSelectOption,
-  IonGrid,
-  IonCol,
-  IonRow,
-  IonIcon,
-} from '@ionic/angular/standalone';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonList, IonAvatar, IonLabel, IonButton, AlertController, ToastController, ModalController, IonSearchbar, IonSelect, IonSelectOption, IonGrid, IonCol, IonRow, IonIcon, IonListHeader } from '@ionic/angular/standalone';
 import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { UserService } from 'src/app/services/entity/user-service';
 import { CheckUserModalComponent } from '../check-user-modal/check-user-modal.component';
@@ -52,7 +32,7 @@ import { createOutline, trashBinOutline, trashOutline } from 'ionicons/icons';
     IonRow,
     IonCol,
     IonIcon,
-  ],
+],
 })
 export class UserListComponent implements OnInit {
   private userService = inject(UserService);
