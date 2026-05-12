@@ -20,18 +20,18 @@ class DeleteFamilyByID
         $foundFamily = $this->familyRepository->findById($id);
         if ($foundFamily === null) {
             throw new EntityNotFoundException;
+        }
+
+        if ($foundFamily->restaurantID()->value() !== $restaurantID) {
+            throw new WrongRestaurantException;
+        }
+
+        $familyInternalID = $this->familyRepository->findIDbyUUID($id);
+        $productsInFamily = $this->productRepository->getByFamily($familyInternalID);
+        if (count($productsInFamily) > 0) {
+            throw new FamilyHasProductsException;
         } else {
-            if ($foundFamily->restaurantID()->value() !== $restaurantID) {
-                throw new WrongRestaurantException;
-            } else {
-                $familyInternalID = $this->familyRepository->findIDbyUUID($id);
-                $productsInFamily = $this->productRepository->getByFamily($familyInternalID);
-                if (count($productsInFamily) > 0) {
-                    throw new FamilyHasProductsException;
-                } else {
-                    $this->familyRepository->deleteByID($id);
-                }
-            }
+            $this->familyRepository->deleteByID($id);
         }
     }
 }

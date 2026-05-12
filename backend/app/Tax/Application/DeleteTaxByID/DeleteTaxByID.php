@@ -20,18 +20,18 @@ class DeleteTaxByID
         $foundTax = $this->taxRepository->findById($id);
         if ($foundTax === null) {
             throw new EntityNotFoundException;
+        }
+
+        if ($foundTax->restaurantID()->value() !== $restaurantID) {
+            throw new WrongRestaurantException;
+        }
+
+        $taxInternalID = $this->taxRepository->findIDbyUUID($id);
+        $productsWithTax = $this->productRepository->getByTax($taxInternalID);
+        if (count($productsWithTax) > 0) {
+            throw new TaxHasRelatedProductsException;
         } else {
-            if ($foundTax->restaurantID()->value() !== $restaurantID) {
-                throw new WrongRestaurantException;
-            } else {
-                $taxInternalID = $this->taxRepository->findIDbyUUID($id);
-                $productsWithTax = $this->productRepository->getByTax($taxInternalID);
-                if (count($productsWithTax) > 0) {
-                    throw new TaxHasRelatedProductsException;
-                } else {
-                    $this->taxRepository->deleteByID($id);
-                }
-            }
+            $this->taxRepository->deleteByID($id);
         }
     }
 }
