@@ -135,10 +135,30 @@ export class TaxListComponent implements OnInit {
         toast.color = 'success';
         toast.present();
       },
-      error() {
-        toast.message = 'Ha habido un error.';
-        toast.color = 'danger';
-        toast.present();
+      error: (err) => {
+        switch (err.status) {
+          case 500:
+            toast.message = 'No se encuentra el impuesto.';
+            toast.color = 'danger';
+            toast.present();
+            break;
+          case 401:
+            toast.message = 'No tienes permiso.';
+            toast.color = 'danger';
+            toast.present();
+            break;
+          case 403:
+            toast.message =
+              'No se puede eliminar el impuesto, tiene productos relacionados.';
+            toast.color = 'warning';
+            toast.present();
+            break;
+          default:
+            toast.message = 'Ha habido un error.';
+            toast.color = 'danger';
+            toast.present();
+            break;
+        }
       },
     });
   }

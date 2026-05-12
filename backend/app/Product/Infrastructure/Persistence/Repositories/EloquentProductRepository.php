@@ -85,6 +85,36 @@ class EloquentProductRepository implements ProductRepositoryInterface
     }
 
     #[Override]
+    public function getByTax(int $taxID): ?array
+    {
+        $models = $this->model->newQuery()->where('tax_id', $taxID)->get();
+        $products = [];
+
+        if ($models === null) {
+            return null;
+        }
+
+        foreach ($models as $model) {
+            $product = Product::fromPersistence(
+                $model->uuid,
+                $model->restaurant_id,
+                $model->family_id,
+                $model->tax_id,
+                $model->image_src,
+                $model->name,
+                $model->price,
+                $model->stock,
+                $model->active,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
+            );
+            array_push($products, $product);
+        }
+
+        return $products;
+    }
+
+    #[Override]
     public function getByFamily(int $familyID): ?array
     {
         $models = $this->model->newQuery()->where('family_id', $familyID)->get();
