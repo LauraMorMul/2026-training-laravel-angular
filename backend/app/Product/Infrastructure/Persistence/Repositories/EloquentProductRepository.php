@@ -5,6 +5,7 @@ namespace App\Product\Infrastructure\Persistence\Repositories;
 use App\Product\Domain\Entity\Product;
 use App\Product\Domain\Interfaces\ProductRepositoryInterface;
 use App\Product\Infrastructure\Persistence\Models\EloquentProduct;
+use Override;
 
 class EloquentProductRepository implements ProductRepositoryInterface
 {
@@ -57,6 +58,36 @@ class EloquentProductRepository implements ProductRepositoryInterface
     public function getByRestaurant(string $restaurantID): ?array
     {
         $models = $this->model->newQuery()->where('restaurant_id', $restaurantID)->get();
+        $products = [];
+
+        if ($models === null) {
+            return null;
+        }
+
+        foreach ($models as $model) {
+            $product = Product::fromPersistence(
+                $model->uuid,
+                $model->restaurant_id,
+                $model->family_id,
+                $model->tax_id,
+                $model->image_src,
+                $model->name,
+                $model->price,
+                $model->stock,
+                $model->active,
+                $model->created_at->toDateTimeImmutable(),
+                $model->updated_at->toDateTimeImmutable(),
+            );
+            array_push($products, $product);
+        }
+
+        return $products;
+    }
+
+    #[Override]
+    public function getByFamily(int $familyID): ?array
+    {
+        $models = $this->model->newQuery()->where('family_id', $familyID)->get();
         $products = [];
 
         if ($models === null) {

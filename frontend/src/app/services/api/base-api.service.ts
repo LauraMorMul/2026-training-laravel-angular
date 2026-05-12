@@ -151,11 +151,17 @@ export abstract class BaseApiService {
 
   /**
    * Manejar errores HTTP
-   *
+   * Comentado por sustitución
    */
-  private handleError(error: HttpErrorResponse): Observable<never> {
+  /* private handleError(error: HttpErrorResponse): Observable<never> {
     return throwError(() => new Error(error.message));
-  }
+  } */
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    const customError = new Error(error.message);
+    (customError as any).status = error.status;
+    return throwError(() => customError);
+}
 }
 
 export interface ApiResponse {

@@ -12,5 +12,7 @@ interface ProductRepositoryInterface
 
     public function getByRestaurant(string $restaurantID): ?array;
 
+    public function getByFamily(int $familyID): ?array;
+
     public function deleteByID(string $id): void;
 }

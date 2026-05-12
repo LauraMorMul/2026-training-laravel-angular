@@ -1,5 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonSearchbar, IonList, IonItem, IonLabel, IonButton, AlertController, ToastController, ModalController, IonIcon, IonToggle } from '@ionic/angular/standalone';
+import {
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonSearchbar,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonButton,
+  AlertController,
+  ToastController,
+  ModalController,
+  IonIcon,
+  IonToggle,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { FamilyService } from 'src/app/services/entity/family-service';
@@ -22,8 +40,8 @@ import { ModifyFamilyModalComponent } from '../modify-family-modal/modify-family
     IonLabel,
     IonButton,
     IonIcon,
-    IonToggle
-],
+    IonToggle,
+  ],
 })
 export class FamilyListComponent implements OnInit {
   private familyService = inject(FamilyService);
@@ -71,10 +89,9 @@ export class FamilyListComponent implements OnInit {
         target.disabled = false;
       },
       error() {
-        console.log("Cambiar esto por un toast, vaga")
-      }
-    })
-    
+        console.log('Cambiar esto por un toast, vaga');
+      },
+    });
   }
 
   getFamilies() {
@@ -138,10 +155,30 @@ export class FamilyListComponent implements OnInit {
         toast.color = 'success';
         toast.present();
       },
-      error() {
-        toast.message = 'Ha habido un error.';
-        toast.color = 'danger';
-        toast.present();
+      error: (err) => {
+        switch (err.status) {
+          case 500:
+            toast.message = 'No se encuentra la familia.';
+            toast.color = 'danger';
+            toast.present();
+            break;
+          case 401:
+            toast.message = 'No tienes permiso.';
+            toast.color = 'danger';
+            toast.present();
+            break;
+          case 403:
+            toast.message =
+              'No se puede eliminar la familia, esta tiene productos.';
+            toast.color = 'warning';
+            toast.present();
+            break;
+          default:
+            toast.message = 'Ha habido un error.';
+            toast.color = 'danger';
+            toast.present();
+            break;
+        }
       },
     });
   }
