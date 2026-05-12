@@ -1,6 +1,9 @@
 export interface ITable {
     id: string;
-    zone_id: string;
+    zone: {
+        id: string;
+        name: string;
+    };
     name: string;
     created_at: string;
     updated_at: string

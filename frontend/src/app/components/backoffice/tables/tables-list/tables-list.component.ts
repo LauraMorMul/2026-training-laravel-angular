@@ -119,7 +119,7 @@ export class TablesListComponent implements OnInit {
   handleChange(event: Event) {
     const target = event.target as HTMLIonSelectElement;
     const query = target.value || '';
-    this.results = this.tables.filter((d) => d.zone_id.includes(query));
+    this.results = this.tables.filter((d) => d.zone.id.includes(query));
   }
 
   async showDeleteAlert(id: string, name: string) {

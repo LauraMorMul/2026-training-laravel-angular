@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FamilyListComponent } from "../family-list/family-list.component";
 import { AddFamilyComponent } from "../add-family/add-family.component";
 
@@ -8,10 +8,6 @@ import { AddFamilyComponent } from "../add-family/add-family.component";
   styleUrls: ['./families-container.component.scss'],
   imports: [FamilyListComponent, AddFamilyComponent],
 })
-export class FamiliesContainerComponent  implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {}
+export class FamiliesContainerComponent {
 
 }

@@ -20,6 +20,8 @@ import { IZone, IZones } from 'src/app/models/zone';
 import { ModifyZoneModalComponent } from '../modify-zone-modal/modify-zone-modal.component';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { TableService } from 'src/app/services/entity/table-service';
+import { ITables } from 'src/app/models/table';
 
 @Component({
   selector: 'app-zones-list',
@@ -43,13 +45,17 @@ export class ZonesListComponent implements OnInit {
   private alertController = inject(AlertController);
   private toastController = inject(ToastController);
   private modalCtrl = inject(ModalController);
+  private tableService = inject(TableService);
 
   zones: IZones = [];
+  tables: ITables = [];
+  numeroMesas: number = 0;
   zoneID: string | null = '';
   results = [...this.zones];
 
   ngOnInit() {
     this.getZones();
+    this.getTables();
   }
 
   constructor() {
@@ -83,6 +89,22 @@ export class ZonesListComponent implements OnInit {
         console.log('Ni de coña jeje');
       },
     });
+  }
+
+  getTables() {
+    this.tableService.getAll().subscribe({
+      next: (response: ITables) => {
+        this.tables = [...response];
+      },
+      error(err) {
+        console.log("No hay mesas, te jodes")
+      },
+    })
+  }
+
+  countTables(zoneID: string | null): number {
+    let numberOfTables = this.tables.filter((table) => table.zone.id === zoneID).length;
+    return numberOfTables;
   }
 
   handleInput(event: Event) {

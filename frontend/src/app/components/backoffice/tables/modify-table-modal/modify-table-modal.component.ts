@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -52,6 +52,12 @@ import { ITable } from 'src/app/models/table';
   ],
 })
 export class ModifyTableModalComponent implements OnInit {
+  private tableService = inject(TableService);
+  private zoneService = inject(ZoneService);
+  private loadingController = inject(LoadingController);
+  private toastController = inject(ToastController);
+  private modalController = inject(ModalController);
+
   @Input() table!: ITable;
 
   zones: IZones = [];
@@ -60,14 +66,6 @@ export class ModifyTableModalComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     zone_id: new FormControl('', [Validators.required]),
   });
-
-  constructor(
-    private tableService: TableService,
-    private zoneService: ZoneService,
-    private loadingController: LoadingController,
-    private toastController: ToastController,
-    private modalController: ModalController,
-  ) {}
 
   ngOnInit(): void {
     this.loadZones();
@@ -80,7 +78,7 @@ export class ModifyTableModalComponent implements OnInit {
         if (this.table) {
           this.formulario.patchValue({
             name: this.table.name,
-            zone_id: this.table.zone_id,
+            zone_id: this.table.zone.id,
           });
         }
       },

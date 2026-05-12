@@ -36,7 +36,7 @@
         <ion-item button (click)="abrirModalTable(table)">
           <ion-label>
             {{ table.name }}
-            <p>{{ getZoneName(table.zone_id) }}</p>
+            <p>{{ table.zone.name }}</p>
           </ion-label>
           <ion-button
             (click)="

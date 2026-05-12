@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AddTaxComponent } from "../add-tax/add-tax.component";
 import { TaxListComponent } from "../tax-list/tax-list.component";
 
@@ -8,10 +8,5 @@ import { TaxListComponent } from "../tax-list/tax-list.component";
   styleUrls: ['./taxes-container.component.scss'],
   imports: [AddTaxComponent, TaxListComponent],
 })
-export class TaxesContainerComponent  implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {}
-
+export class TaxesContainerComponent{
 }

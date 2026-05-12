@@ -11,6 +11,7 @@
       @for (zone of results; track zone.id) {
         <ion-item button (click)="abrirModalZona(zone)">
           <ion-label>{{ zone.name }}</ion-label>
+          <ion-label>{{ countTables(zone.id) }}</ion-label>
           <ion-button
             (click)="
               $event.stopPropagation(); showDeleteAlert(zone.id!, zone.name)

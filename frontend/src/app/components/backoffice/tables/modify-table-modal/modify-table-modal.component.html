@@ -38,7 +38,7 @@
             fill="solid"
           >
             @for (zone of zones; track zone.id) {
-              <ion-select-option [value]="zone.id" selected="table.zone_id">{{
+              <ion-select-option [value]="zone.id" selected="table.zone.id">{{
                 zone.name
               }}</ion-select-option>
             }

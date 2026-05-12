@@ -3,23 +3,36 @@
     <ion-card-title>Listado de familias</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="9">
-          <ion-searchbar (ionInput)="handleInput($event)" placeholder="Buscar por nombre"></ion-searchbar>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-searchbar
+      (ionInput)="handleInput($event)"
+      placeholder="Buscar por nombre"
+    ></ion-searchbar>
 
     <ion-list>
       @for (family of results; track family.id) {
         <ion-item button (click)="abrirModalFamily(family)">
           <ion-label>{{ family.name }}</ion-label>
-          <ion-toggle name="active" id="active" aria-label="active" [enableOnOffLabels]="true" [checked]="family.active" (click)="$event.stopPropagation();" (ionChange)="changeActive($event, family)"></ion-toggle>
-          <ion-button (click)="$event.stopPropagation(); showDeleteAlert(family.id, family.name)" color="danger">
+          <ion-toggle
+            name="active"
+            id="active"
+            aria-label="active"
+            [enableOnOffLabels]="true"
+            [checked]="family.active"
+            (click)="$event.stopPropagation()"
+            (ionChange)="changeActive($event, family)"
+          ></ion-toggle>
+          <ion-button
+            (click)="
+              $event.stopPropagation(); showDeleteAlert(family.id, family.name)
+            "
+            color="danger"
+          >
             <ion-icon name="trash-outline"></ion-icon>Eliminar
           </ion-button>
-          <ion-button (click)="$event.stopPropagation(); abrirModalModificar(family)" color="secondary">
+          <ion-button
+            (click)="$event.stopPropagation(); abrirModalModificar(family)"
+            color="secondary"
+          >
             <ion-icon name="create-outline"></ion-icon>Modificar
           </ion-button>
         </ion-item>

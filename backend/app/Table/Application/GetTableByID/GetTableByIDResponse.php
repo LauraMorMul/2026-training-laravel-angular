@@ -13,7 +13,8 @@ final readonly class GetTableByIDResponse
         private string $tableName,
         private string $tableCreatedAt,
         private string $tableUpdatedAt,
-        private string $zoneId
+        private string $zoneId,
+        private string $zoneName,
     ) {}
 
     public static function create(Table $table, Zone $zone): self
@@ -25,14 +26,18 @@ final readonly class GetTableByIDResponse
             tableCreatedAt: $table->createdAt()->format(\DateTimeInterface::ATOM),
             tableUpdatedAt: $table->updatedAt()->format(\DateTimeInterface::ATOM),
             zoneId: $zone->id()->value(),
+            zoneName: $zone->name()->value(),
         );
     }
 
     public function toArray(): array
     {
         return [
+            'zone' => [
+                'id' => $this->zoneId,
+                'name' => $this->zoneName,
+            ],
             'id' => $this->tableId,
-            'zone_id' => $this->zoneId,
             'name' => $this->tableName,
             'created_at' => $this->tableCreatedAt,
             'updated_at' => $this->tableUpdatedAt,
