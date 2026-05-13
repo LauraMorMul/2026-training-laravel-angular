@@ -16,7 +16,7 @@ import {
   ToastController,
 } from '@ionic/angular/standalone';
 import { ITax } from 'src/app/models/tax';
-import { TaxService } from 'src/app/services/entity/tax-service';
+import { TaxService } from 'src/app/services/HTTPRequests/tax-service';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
 
 @Component({

@@ -21,8 +21,8 @@ import {
 } from '@ionic/angular/standalone';
 import { CheckTableModalComponent } from '../check-table-modal/check-table-modal.component';
 import { ModifyTableModalComponent } from '../modify-table-modal/modify-table-modal.component';
-import { TableService } from 'src/app/services/entity/table-service';
-import { ZoneService } from 'src/app/services/entity/zone-service';
+import { TableService } from 'src/app/services/HTTPRequests/table-service';
+import { ZoneService } from 'src/app/services/HTTPRequests/zone-service';
 import { ITable, ITables } from 'src/app/models/table';
 import { IZones } from 'src/app/models/zone';
 import { createOutline, trashOutline } from 'ionicons/icons';

@@ -1,0 +1,98 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Listado de productos</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col
+          ><ion-searchbar
+            (ionInput)="handleInput($event)"
+            placeholder="Buscar por nombre"
+          ></ion-searchbar
+        ></ion-col>
+        <ion-col>
+          <ion-label for="family">Familia</ion-label>
+          <ion-select
+            aria-label="family"
+            interface="popover"
+            mode="md"
+            fill="solid"
+            placeholder="Familia"
+            (ionChange)="handleChangeFamily($event)"
+          >
+            @for (family of families; track family.id) {
+              <ion-select-option [value]="family.id">{{
+                family.name
+              }}</ion-select-option>
+            }
+            <ion-select-option value="">Todas las familias</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col>
+          <ion-label for="tax">Impuesto</ion-label>
+          <ion-select
+            aria-label="tax"
+            interface="popover"
+            mode="md"
+            fill="solid"
+            placeholder="Impuesto"
+            (ionChange)="handleChangeTax($event)"
+          >
+            @for (tax of taxes; track tax.id) {
+              <ion-select-option [value]="tax.id"
+                >{{ tax.name }} ({{ tax.percentage }}%)</ion-select-option
+              >
+            }
+            <ion-select-option value="">Todos los impuestos</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list>
+      @for (product of results; track product.id) {
+        <ion-item button (click)="abrirModalProducto(product)">
+          <ion-thumbnail aria-hidden="true" slot="start">
+            <img
+              alt="{{ product.name }}"
+              [src]="product.image_src | imageFormatterPipe"
+            />
+          </ion-thumbnail>
+          <ion-label>{{ product.name }}</ion-label>
+          <ion-label>{{
+            calculatePriceWithDecimals(product.price) | currency: "EUR"
+          }}</ion-label>
+          <ion-label>{{ product.stock }} unidades</ion-label>
+          <ion-toggle
+            name="active"
+            id="active"
+            aria-label="active"
+            [enableOnOffLabels]="true"
+            [checked]="product.active"
+            (click)="$event.stopPropagation()"
+            (ionChange)="changeActive($event, product)"
+          ></ion-toggle>
+          <ion-label>{{ product.family.name }}</ion-label>
+          <ion-label
+            >{{ product.tax.name }} ({{ product.tax.percentage }}%)</ion-label
+          >
+          <ion-button
+            (click)="
+              $event.stopPropagation();
+              showDeleteAlert(product.id, product.name)
+            "
+            color="danger"
+          >
+            <ion-icon name="trash-outline"></ion-icon>Eliminar
+          </ion-button>
+          <ion-button
+            (click)="$event.stopPropagation(); abrirModalModificar(product)"
+            color="secondary"
+          >
+            <ion-icon name="create-outline"></ion-icon>Modificar
+          </ion-button>
+        </ion-item>
+      }
+    </ion-list>
+  </ion-card-content>
+</ion-card>

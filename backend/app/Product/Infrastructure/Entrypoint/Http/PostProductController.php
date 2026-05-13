@@ -20,17 +20,31 @@ class PostProductController
         $validated = $request->validate([
             'family_id' => ['required', 'string', 'exists:families,uuid'],
             'tax_id' => ['required', 'string', 'exists:taxes,uuid'],
-            'image_src' => ['required', 'string', 'max:255'],
+            'image' => ['required', 'image', 'mimes:jpeg,jpg,png,gif,webp,avif,svg'],
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'integer'],
             'stock' => ['required', 'integer'],
             'active' => ['required', 'boolean'],
         ]);
+
+        if ($restaurantId === null) {
+            return new JsonResponse('Unknown user', 403);
+        }
+
+        $imageContent = null;
+        $imageName = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageContent = file_get_contents($image->getRealPath());
+            $imageName = $image->hashName();
+        }
+
         try {
             $response = ($this->createProduct)(
+                $imageContent,
+                $imageName,
                 $validated['family_id'],
                 $validated['tax_id'],
-                $validated['image_src'],
                 $validated['name'],
                 $validated['price'],
                 $validated['stock'],

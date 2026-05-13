@@ -15,12 +15,12 @@ import {
   IonIcon,
 } from '@ionic/angular/standalone';
 import { CheckZoneModalComponent } from '../check-zone-modal/check-zone-modal.component';
-import { ZoneService } from 'src/app/services/entity/zone-service';
+import { ZoneService } from 'src/app/services/HTTPRequests/zone-service';
 import { IZone, IZones } from 'src/app/models/zone';
 import { ModifyZoneModalComponent } from '../modify-zone-modal/modify-zone-modal.component';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { TableService } from 'src/app/services/entity/table-service';
+import { TableService } from 'src/app/services/HTTPRequests/table-service';
 import { ITables } from 'src/app/models/table';
 
 @Component({

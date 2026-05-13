@@ -8,6 +8,7 @@ use App\Product\Domain\Interfaces\ProductRepositoryInterface;
 use App\Product\Domain\ValueObject\FamilyID;
 use App\Product\Domain\ValueObject\Stock;
 use App\Product\Domain\ValueObject\TaxID;
+use App\Shared\Domain\Interfaces\ImageManagerInterface;
 use App\Shared\Domain\ValueObject\ImageSrc;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Price;
@@ -20,10 +21,11 @@ class CreateProduct
     public function __construct(
         private ProductRepositoryInterface $productRepository,
         private FamilyRepositoryInterface $familyRepository,
-        private TaxRepositoryInterface $taxesRepository
+        private TaxRepositoryInterface $taxesRepository,
+        private ImageManagerInterface $imageManager,
     ) {}
 
-    public function __invoke(string $familyUUID, string $taxUUID, string $imageSrc, string $name, int $price, int $stock, bool $active, int $restaurantID): CreateProductResponse
+    public function __invoke(string $imageContent, string $imageName, string $familyUUID, string $taxUUID, string $name, int $price, int $stock, bool $active, int $restaurantID): CreateProductResponse
     {
         $restaurantFamily = $this->familyRepository->findById($familyUUID)->restaurantID()->value();
         $restaurantTax = $this->taxesRepository->findById($taxUUID)->restaurantID()->value();
@@ -35,6 +37,7 @@ class CreateProduct
             $taxID = $this->taxesRepository->findIDbyUUID($taxUUID);
         }
 
+        $imageSrc = $this->imageManager->store($imageContent, $imageName, 'products');
         $restaurantIDVO = RestaurantID::create($restaurantID);
         $familyIDVO = FamilyID::create($familyID);
         $taxIDVO = TaxID::create($taxID);

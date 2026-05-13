@@ -25,7 +25,7 @@ import {
   IonButtons,
 } from '@ionic/angular/standalone';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
-import { ZoneService } from 'src/app/services/entity/zone-service';
+import { ZoneService } from 'src/app/services/HTTPRequests/zone-service';
 
 @Component({
   selector: 'app-modify-zone-modal',

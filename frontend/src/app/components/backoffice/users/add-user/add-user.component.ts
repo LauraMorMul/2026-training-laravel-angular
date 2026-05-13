@@ -34,7 +34,7 @@ import {
   IonCol,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { UserService } from 'src/app/services/entity/user-service';
+import { UserService } from 'src/app/services/HTTPRequests/user-service';
 import { image } from 'ionicons/icons';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
 

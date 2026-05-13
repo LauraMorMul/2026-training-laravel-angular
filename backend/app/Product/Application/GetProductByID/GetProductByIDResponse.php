@@ -20,6 +20,9 @@ final readonly class GetProductByIDResponse
         private string $taxName,
         private int $taxPercentage,
         private string $taxUuid,
+        private string $familyUuid,
+        private string $familyName,
+        private bool $familyState,
         private string $createdAt,
         private string $updatedAt,
     ) {}
@@ -38,6 +41,9 @@ final readonly class GetProductByIDResponse
             taxName: $tax->name()->value(),
             taxPercentage: $tax->percentage()->value(),
             taxUuid: $tax->id()->value(),
+            familyUuid: $family->id()->value(),
+            familyName: $family->name()->value(),
+            familyState: $family->active(),
             createdAt: $product->createdAt()->format(\DateTimeInterface::ATOM),
             updatedAt: $product->updatedAt()->format(\DateTimeInterface::ATOM),
         );
@@ -47,12 +53,16 @@ final readonly class GetProductByIDResponse
     {
         return [
             'id' => $this->id,
-            'family_id' => $this->familyID,
             'image_src' => $this->imageSrc,
             'name' => $this->name,
             'price' => $this->price,
             'stock' => $this->stock,
             'active' => $this->active,
+            'family' => [
+                'uuid' => $this->familyID,
+                'name' => $this->familyName,
+                'active' => $this->familyState,
+            ],
             'tax' => [
                 'uuid' => $this->taxUuid,
                 'name' => $this->taxName,

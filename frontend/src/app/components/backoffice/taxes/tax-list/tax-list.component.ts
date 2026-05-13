@@ -17,7 +17,7 @@ import {
 import { addIcons } from 'ionicons';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { ITaxes } from 'src/app/models/tax';
-import { TaxService } from 'src/app/services/entity/tax-service';
+import { TaxService } from 'src/app/services/HTTPRequests/tax-service';
 import { CheckTaxModalComponent } from '../check-tax-modal/check-tax-modal.component';
 import { ModifyTaxComponentComponent } from '../modify-tax-component/modify-tax-component.component';
 

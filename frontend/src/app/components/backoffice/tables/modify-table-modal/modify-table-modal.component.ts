@@ -24,8 +24,8 @@ import {
   IonButtons,
 } from '@ionic/angular/standalone';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
-import { TableService } from 'src/app/services/entity/table-service';
-import { ZoneService } from 'src/app/services/entity/zone-service';
+import { TableService } from 'src/app/services/HTTPRequests/table-service';
+import { ZoneService } from 'src/app/services/HTTPRequests/zone-service';
 import { IZone, IZones } from 'src/app/models/zone';
 import { ITable } from 'src/app/models/table';
 

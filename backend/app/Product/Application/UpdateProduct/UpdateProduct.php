@@ -7,6 +7,7 @@ use App\Product\Domain\Interfaces\ProductRepositoryInterface;
 use App\Product\Domain\ValueObject\FamilyID;
 use App\Product\Domain\ValueObject\Stock;
 use App\Product\Domain\ValueObject\TaxID;
+use App\Shared\Domain\Interfaces\ImageManagerInterface;
 use App\Shared\Domain\ValueObject\ImageSrc;
 use App\Shared\Domain\ValueObject\Name;
 use App\Shared\Domain\ValueObject\Price;
@@ -17,19 +18,30 @@ class UpdateProduct
     public function __construct(
         private ProductRepositoryInterface $productRepository,
         private FamilyRepositoryInterface $familyRepository,
-        private TaxRepositoryInterface $taxesRepository
+        private TaxRepositoryInterface $taxesRepository,
+        private ImageManagerInterface $imageManager,
     ) {}
 
-    public function __invoke(string $uuid, ?string $familyUUID, ?string $taxUUID, ?string $imageSrc, ?string $name, ?int $price, ?int $stock, ?bool $active, int $restaurantID)
+    public function __invoke(string $uuid, ?string $imageContent, ?string $imageName, ?string $familyUUID, ?string $taxUUID, ?string $name, ?int $price, ?int $stock, ?bool $active, int $restaurantID)
     {
         $product = $this->productRepository->findById($uuid);
+        $imageSrc = null;
 
         if ($product == null || $product->restaurantID()->value() !== $restaurantID) {
             return null;
         }
 
-        $restaurantFamily = $this->familyRepository->findById($familyUUID)->restaurantID()->value();
-        $restaurantTax = $this->taxesRepository->findById($taxUUID)->restaurantID()->value();
+        if ($familyUUID) {
+            $restaurantFamily = $this->familyRepository->findById($familyUUID)->restaurantID()->value();
+        } else {
+            $restaurantFamily = $this->familyRepository->findByInternalID($product->familyID()->value())->restaurantID()->value();
+        }
+
+        if ($taxUUID) {
+            $restaurantTax = $this->taxesRepository->findById($taxUUID)->restaurantID()->value();
+        } else {
+            $restaurantTax = $this->taxesRepository->findByInternalID($product->taxID()->value())->restaurantID()->value();
+        }
 
         if ($restaurantFamily != $restaurantID || $restaurantTax != $restaurantID) {
             return null;
@@ -47,6 +59,10 @@ class UpdateProduct
         } else {
             $taxID = $this->taxesRepository->findIDbyUUID($taxUUID);
             $taxIDVO = TaxID::create($taxID);
+        }
+
+        if ($imageContent && $imageName) {
+            $imageSrc = $this->imageManager->store($imageContent, $imageName, 'products');
         }
 
         if ($imageSrc === null) {

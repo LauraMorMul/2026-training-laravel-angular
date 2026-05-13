@@ -16,7 +16,7 @@ import {
   ToastController,
 } from '@ionic/angular/standalone';
 import { IFamily } from 'src/app/models/family';
-import { FamilyService } from 'src/app/services/entity/family-service';
+import { FamilyService } from 'src/app/services/HTTPRequests/family-service';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
 
 @Component({

@@ -1,0 +1,129 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Añadir producto</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <form [formGroup]="formulario">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label for="name">Nombre</ion-label>
+            <ion-input
+              type="text"
+              name="name"
+              id="name"
+              mode="md"
+              fill="solid"
+              aria-label="name"
+              formControlName="name"
+            ></ion-input>
+          </ion-col>
+          <ion-col>
+            <ion-label for="family_id">Familia</ion-label>
+            <ion-select
+              aria-label="family_id"
+              interface="popover"
+              mode="md"
+              fill="solid"
+              placeholder="Familia del producto"
+              formControlName="family_id"
+            >
+              @for (family of families; track family.id) {
+                <ion-select-option [value]="family.id">{{ family.name }}</ion-select-option>
+              }
+            </ion-select>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label for="tax_id">Impuesto</ion-label>
+            <ion-select
+              aria-label="tax_id"
+              interface="popover"
+              mode="md"
+              fill="solid"
+              placeholder="Impuesto del producto"
+              formControlName="tax_id"
+            >
+              @for (tax of taxes; track tax.id) {
+                <ion-select-option [value]="tax.id">{{ tax.name }} ({{ tax.percentage }}%)</ion-select-option>
+              }
+            </ion-select>
+          </ion-col>
+          <ion-col>
+            <ion-label for="price">Precio</ion-label>
+            <ion-input
+              type="numeric"
+              inputmode="decimal"
+              step="0.01"
+              name="price"
+              id="price"
+              mode="md"
+              fill="solid"
+              aria-label="price"
+              formControlName="price"
+              placeholder="10,5"
+            ></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label for="stock">Stock</ion-label>
+            <ion-input
+              type="text"
+              inputmode="numeric"
+              name="stock"
+              id="stock"
+              mode="md"
+              fill="solid"
+              aria-label="stock"
+              formControlName="stock"
+              placeholder="0"
+            ></ion-input>
+          </ion-col>
+          <ion-col>
+            <ion-toggle
+              name="active"
+              id="active"
+              aria-label="active"
+              formControlName="active"
+              [enableOnOffLabels]="true"
+              helperText="Los productos activos serán visibles en el TPV."
+              >Activo</ion-toggle
+            >
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label for="image">Imagen</ion-label>
+            <br />
+            <input
+              type="file"
+              id="image"
+              formControlName="image"
+              #fileUpload
+              style="display: none"
+              (change)="setImage($event)"
+              accept=".jpeg, .jpg, .png, .gif, .webp, .avif, .svg"
+            />
+
+            <ion-button (click)="openFileDialog()">
+              <ion-icon slot="start" name="image"></ion-icon>
+              Seleccionar imagen
+            </ion-button>
+
+            @if (selectedFile) {
+              <ion-label>{{ selectedFile.name }}</ion-label>
+            }
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit" [disabled]="!formulario.valid" (click)="addProduct()">Crear producto</ion-button>
+            <ion-button type="reset">Cancelar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-card-content>
+</ion-card>

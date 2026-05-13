@@ -41,7 +41,7 @@ import { image } from 'ionicons/icons';
 import { IUser } from 'src/app/models/user';
 import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
-import { UserService } from 'src/app/services/entity/user-service';
+import { UserService } from 'src/app/services/HTTPRequests/user-service';
 
 @Component({
   selector: 'app-modify-user-modal',

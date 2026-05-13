@@ -70,6 +70,13 @@ export const routes: Routes = [
             (m) => m.FamiliesContainerComponent,
           ),
       },
+      {
+        path: 'products',
+        loadComponent: () =>
+          import('./components/backoffice/products/products-container/products-container.component').then(
+            (m) => m.ProductsContainerComponent,
+          ),
+      },
     ],
   },
   {

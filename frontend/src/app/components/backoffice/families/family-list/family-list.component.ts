@@ -20,7 +20,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { createOutline, trashOutline } from 'ionicons/icons';
-import { FamilyService } from 'src/app/services/entity/family-service';
+import { FamilyService } from 'src/app/services/HTTPRequests/family-service';
 import { IFamilies, IFamily } from 'src/app/models/family';
 import { CheckFamilyModalComponent } from '../check-family-modal/check-family-modal.component';
 import { ModifyFamilyModalComponent } from '../modify-family-modal/modify-family-modal.component';
@@ -83,7 +83,6 @@ export class FamilyListComponent implements OnInit {
     target.disabled = true;
     const formData = new FormData();
     formData.append('active', target.checked ? '1' : '0');
-    formData.append('name', family.name);
     this.familyService.update(family.id, formData).subscribe({
       next: () => {
         target.disabled = false;

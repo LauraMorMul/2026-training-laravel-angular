@@ -24,8 +24,8 @@ import {
 } from '@ionic/angular/standalone';
 import { IZones } from 'src/app/models/zone';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
-import { TableService } from 'src/app/services/entity/table-service';
-import { ZoneService } from 'src/app/services/entity/zone-service';
+import { TableService } from 'src/app/services/HTTPRequests/table-service';
+import { ZoneService } from 'src/app/services/HTTPRequests/zone-service';
 
 @Component({
   selector: 'app-add-table',

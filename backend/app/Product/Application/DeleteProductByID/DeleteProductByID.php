@@ -3,11 +3,13 @@
 namespace App\Product\Application\DeleteProductByID;
 
 use App\Product\Domain\Interfaces\ProductRepositoryInterface;
+use App\Shared\Domain\Interfaces\ImageManagerInterface;
 
 class DeleteProductByID
 {
     public function __construct(
         private ProductRepositoryInterface $productRepository,
+        private ImageManagerInterface $imageManager
     ) {}
 
     public function __invoke(string $id, int $restaurantID): bool
@@ -16,7 +18,8 @@ class DeleteProductByID
         if ($exists === null || $exists->restaurantID()->value() !== $restaurantID) {
             return false;
         } else {
-            $deleted = $this->productRepository->deleteByID($id);
+            $this->imageManager->delete($exists->imageSrc()->value());
+            $this->productRepository->deleteByID($id);
 
             return true;
         }
