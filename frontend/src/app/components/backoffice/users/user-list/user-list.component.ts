@@ -27,7 +27,7 @@ import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
 import { ModifyUserModalComponent } from '../modify-user-modal/modify-user-modal.component';
 import { IUsers } from 'src/app/models/user';
 import { addIcons } from 'ionicons';
-import { createOutline, trashOutline } from 'ionicons/icons';
+import { createOutline, eyeOutline, trashOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-user-list',
@@ -38,8 +38,6 @@ import { createOutline, trashOutline } from 'ionicons/icons';
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonList,
-    IonItem,
     IonAvatar,
     IonLabel,
     IonButton,
@@ -65,7 +63,7 @@ export class UserListComponent implements OnInit {
   userID: string | null = '';
 
   constructor() {
-    addIcons({ trashOutline, createOutline });
+    addIcons({ trashOutline, createOutline, eyeOutline });
   }
 
   ngOnInit() {

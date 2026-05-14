@@ -28,35 +28,49 @@
           </ion-select>
         </ion-col>
       </ion-row>
-    </ion-grid>
-
-    <ion-list>
+      <ion-row class="ion-align-items-center" color="primary">
+        <ion-col>Foto</ion-col>
+        <ion-col>Nombre</ion-col>
+        <ion-col>Email</ion-col>
+        <ion-col>Rol</ion-col>
+        <ion-col>Acciones</ion-col>
+      </ion-row>
       @for (user of results; track user.id) {
-        <ion-item button (click)="abrirModalUsuario(user)">
-          <ion-avatar aria-hidden="true" slot="start">
-            <img
-              alt="{{ user.name }}"
-              [src]="user?.imageSrc | imageFormatterPipe"
-            />
-          </ion-avatar>
-          <ion-label>{{ user.name }}</ion-label>
-          <ion-label>{{ user.email }}</ion-label>
-          <ion-label>{{ user.role | roleFormatter }}</ion-label>
-          <ion-button
-            (click)="
-              $event.stopPropagation(); showDeleteAlert(user.id, user.name)
-            "
-            [disabled]="user.role === 'admin'"
-            color="danger"
-            ><ion-icon name="trash-outline"></ion-icon>Eliminar</ion-button
-          >
-          <ion-button
-            (click)="$event.stopPropagation(); abrirModalModificar(user)"
-            color="secondary"
-            ><ion-icon name="create-outline"></ion-icon>Modificar</ion-button
-          >
-        </ion-item>
+        <ion-row class="ion-justify-content-center">
+          <ion-col
+            ><ion-avatar aria-hidden="true">
+              <img
+                alt="{{ user.name }}"
+                [src]="user?.imageSrc | imageFormatterPipe"
+              /> </ion-avatar
+          ></ion-col>
+          <ion-col>
+            {{ user.name }}
+          </ion-col>
+          <ion-col>
+            {{ user.email }}
+          </ion-col>
+          <ion-col>
+            {{ user.role | roleFormatter }}
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="abrirModalUsuario(user)" color="tertiary">
+              <ion-icon name="eye-outline"></ion-icon>
+            </ion-button>
+            <ion-button
+              (click)="$event.stopPropagation(); abrirModalModificar(user)"
+              color="secondary"
+              ><ion-icon name="create-outline"></ion-icon
+            ></ion-button>
+            <ion-button
+              (click)="showDeleteAlert(user.id, user.name)"
+              [disabled]="user.role === 'admin'"
+              color="danger"
+              ><ion-icon name="trash-outline"></ion-icon
+            ></ion-button>
+          </ion-col>
+        </ion-row>
       }
-    </ion-list>
+    </ion-grid>
   </ion-card-content>
 </ion-card>
