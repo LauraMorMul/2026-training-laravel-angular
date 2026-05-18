@@ -41,7 +41,7 @@
             ><ion-avatar aria-hidden="true">
               <img
                 alt="{{ user.name }}"
-                [src]="user?.imageSrc | imageFormatterPipe"
+                [src] = imageService.formatImageSrc(user.imageSrc)
               /> </ion-avatar
           ></ion-col>
           <ion-col>

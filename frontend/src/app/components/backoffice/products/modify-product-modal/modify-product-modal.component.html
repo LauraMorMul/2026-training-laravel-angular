@@ -34,7 +34,9 @@
             formControlName="family_id"
           >
             @for (family of families; track family.id) {
-              <ion-select-option [value]="family.id">{{ family.name }}</ion-select-option>
+              <ion-select-option [value]="family.id">{{
+                family.name
+              }}</ion-select-option>
             }
           </ion-select>
         </ion-col>
@@ -51,7 +53,9 @@
             formControlName="tax_id"
           >
             @for (tax of taxes; track tax.id) {
-              <ion-select-option [value]="tax.id">{{ tax.name }} ({{ tax.percentage }}%)</ion-select-option>
+              <ion-select-option [value]="tax.id"
+                >{{ tax.name }} ({{ tax.percentage }}%)</ion-select-option
+              >
             }
           </ion-select>
         </ion-col>
@@ -99,7 +103,10 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-img [src]="product.image_src | imageFormatterPipe" [alt]="product.name"></ion-img>
+          <ion-img
+            [src]="imageService.formatImageSrc(product.image_src)"
+            [alt]="product.name"
+          ></ion-img>
         </ion-col>
         <ion-col>
           <ion-label for="image">Imagen</ion-label>

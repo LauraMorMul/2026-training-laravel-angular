@@ -7,9 +7,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-img [src]="user?.imageSrc | imageFormatterPipe">
-  </ion-img>
-  <p>Email: {{user.email}}</p>
-  <p>Pin: {{user.pin}}</p>
-  <p>Rol: {{user.role | roleFormatter}}</p>
+  <ion-img [src]="imageService.formatImageSrc(user.imageSrc)"> </ion-img>
+  <p>Email: {{ user.email }}</p>
+  <p>Pin: {{ user.pin }}</p>
+  <p>Rol: {{ user.role | roleFormatter }}</p>
 </ion-content>

@@ -116,7 +116,7 @@
       <ion-row>
         <ion-col>
           <ion-img
-            [src]="user.imageSrc | imageFormatterPipe"
+            [src]="imageService.formatImageSrc(user.imageSrc)"
             [alt]="user.imageSrc"
           >
           </ion-img>

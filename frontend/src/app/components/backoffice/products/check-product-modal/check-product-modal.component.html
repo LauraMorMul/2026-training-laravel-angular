@@ -7,11 +7,16 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-img [src]="product.image_src | imageFormatterPipe" [alt]="product.name">
+  <ion-img
+    [src]="imageService.formatImageSrc(product.image_src)"
+    [alt]="product.name"
+  >
   </ion-img>
   <p>Familia: {{ product.family.name }}</p>
-  <p>Precio: {{ calculatePriceWithDecimals(product.price) | currency:'EUR' }}</p>
+  <p>
+    Precio: {{ calculatePriceWithDecimals(product.price) | currency: "EUR" }}
+  </p>
   <p>Stock: {{ product.stock }} unidades</p>
-  <p>Estado: {{ product.active | productStatus}}</p>
+  <p>Estado: {{ product.active | productStatus }}</p>
   <p>Impuesto: {{ product.tax.name }} ({{ product.tax.percentage }}%)</p>
 </ion-content>

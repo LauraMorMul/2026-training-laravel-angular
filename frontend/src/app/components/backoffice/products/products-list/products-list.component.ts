@@ -24,7 +24,6 @@ import {
 import { addIcons } from 'ionicons';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { IProduct, IProducts } from 'src/app/models/product';
-import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { ProductService } from 'src/app/services/HTTPRequests/product-service';
 import { CheckProductModalComponent } from '../check-product-modal/check-product-modal.component';
 import { ModifyProductModalComponent } from '../modify-product-modal/modify-product-modal.component';
@@ -33,6 +32,7 @@ import { FamilyService } from 'src/app/services/HTTPRequests/family-service';
 import { TaxService } from 'src/app/services/HTTPRequests/tax-service';
 import { ITaxes } from 'src/app/models/tax';
 import { IFamilies } from 'src/app/models/family';
+import { ImageFormatter } from 'src/app/services/helper/image-formatter';
 
 @Component({
   selector: 'app-products-list',
@@ -49,7 +49,6 @@ import { IFamilies } from 'src/app/models/family';
     IonLabel,
     IonButton,
     IonIcon,
-    ImageFormatterPipePipe,
     CurrencyPipe,
     IonToggle,
     IonThumbnail,
@@ -67,6 +66,7 @@ export class ProductsListComponent implements OnInit {
   private modalCtrl = inject(ModalController);
   private familyService = inject(FamilyService);
   private taxService = inject(TaxService);
+  public imageService = inject(ImageFormatter);
 
   products: IProducts = [];
   results = [...this.products];

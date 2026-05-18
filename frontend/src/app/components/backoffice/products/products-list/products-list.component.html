@@ -55,7 +55,7 @@
           <ion-thumbnail aria-hidden="true" slot="start">
             <img
               alt="{{ product.name }}"
-              [src]="product.image_src | imageFormatterPipe"
+              [src]="imageService.formatImageSrc(product.image_src)"
             />
           </ion-thumbnail>
           <ion-label>{{ product.name }}</ion-label>

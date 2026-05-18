@@ -11,8 +11,8 @@ import {
   ModalController,
 } from '@ionic/angular/standalone';
 import { IProduct } from 'src/app/models/product';
-import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { ProductStatusPipe } from 'src/app/pipes/product-status-pipe';
+import { ImageFormatter } from 'src/app/services/helper/image-formatter';
 
 @Component({
   selector: 'app-check-product-modal',
@@ -26,13 +26,13 @@ import { ProductStatusPipe } from 'src/app/pipes/product-status-pipe';
     IonButtons,
     IonButton,
     IonImg,
-    ImageFormatterPipePipe,
     ProductStatusPipe,
     CurrencyPipe
   ],
 })
 export class CheckProductModalComponent {
   private modalCtrl = inject(ModalController);
+  public imageService = inject(ImageFormatter);
 
   calculatePriceWithDecimals(price: number) {
     return price/100;

@@ -26,8 +26,8 @@ import { image } from 'ionicons/icons';
 import { IFamilies } from 'src/app/models/family';
 import { IProduct } from 'src/app/models/product';
 import { ITaxes } from 'src/app/models/tax';
-import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
+import { ImageFormatter } from 'src/app/services/helper/image-formatter';
 import { FamilyService } from 'src/app/services/HTTPRequests/family-service';
 import { ProductService } from 'src/app/services/HTTPRequests/product-service';
 import { TaxService } from 'src/app/services/HTTPRequests/tax-service';
@@ -54,7 +54,6 @@ import { TaxService } from 'src/app/services/HTTPRequests/tax-service';
     ReactiveFormsModule,
     IonIcon,
     IonImg,
-    ImageFormatterPipePipe,
     IonButtons,
   ],
 })
@@ -68,6 +67,7 @@ export class ModifyProductModalComponent implements OnInit {
   private loadingController = inject(LoadingController);
   private toastController = inject(ToastController);
   private modalController = inject(ModalController);
+  public imageService = inject(ImageFormatter);
 
   families: IFamilies = [];
   taxes: ITaxes = [];

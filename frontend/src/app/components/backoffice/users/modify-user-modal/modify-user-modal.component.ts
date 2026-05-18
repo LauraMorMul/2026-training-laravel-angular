@@ -39,8 +39,8 @@ import {
 import { addIcons } from 'ionicons';
 import { image } from 'ionicons/icons';
 import { IUser } from 'src/app/models/user';
-import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
+import { ImageFormatter } from 'src/app/services/helper/image-formatter';
 import { UserService } from 'src/app/services/HTTPRequests/user-service';
 
 @Component({
@@ -65,7 +65,6 @@ import { UserService } from 'src/app/services/HTTPRequests/user-service';
     ReactiveFormsModule,
     IonIcon,
     IonImg,
-    ImageFormatterPipePipe,
     IonButtons
   ],
 })
@@ -77,6 +76,7 @@ export class ModifyUserModalComponent implements OnInit {
   private loadingController = inject(LoadingController);
   private toastController = inject(ToastController);
   private modalController = inject(ModalController);
+  public imageService = inject(ImageFormatter);
 
   selectedFile: File | null = null;
 

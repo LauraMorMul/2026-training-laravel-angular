@@ -20,7 +20,6 @@ import {
   IonRow,
   IonIcon,
 } from '@ionic/angular/standalone';
-import { ImageFormatterPipePipe } from 'src/app/pipes/image-formatter-pipe-pipe';
 import { UserService } from 'src/app/services/HTTPRequests/user-service';
 import { CheckUserModalComponent } from '../check-user-modal/check-user-modal.component';
 import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
@@ -28,6 +27,7 @@ import { ModifyUserModalComponent } from '../modify-user-modal/modify-user-modal
 import { IUsers } from 'src/app/models/user';
 import { addIcons } from 'ionicons';
 import { createOutline, eyeOutline, trashOutline } from 'ionicons/icons';
+import { ImageFormatter } from 'src/app/services/helper/image-formatter';
 
 @Component({
   selector: 'app-user-list',
@@ -41,7 +41,6 @@ import { createOutline, eyeOutline, trashOutline } from 'ionicons/icons';
     IonAvatar,
     IonLabel,
     IonButton,
-    ImageFormatterPipePipe,
     RoleFormatterPipe,
     IonSearchbar,
     IonSelect,
@@ -57,6 +56,7 @@ export class UserListComponent implements OnInit {
   private alertController = inject(AlertController);
   private toastController = inject(ToastController);
   private modalCtrl = inject(ModalController);
+  public imageService = inject(ImageFormatter);
 
   users: IUsers = [];
   results = [...this.users];
@@ -98,6 +98,8 @@ export class UserListComponent implements OnInit {
       },
     });
   }
+
+  
 
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
