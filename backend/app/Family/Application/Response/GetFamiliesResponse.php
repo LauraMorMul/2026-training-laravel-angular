@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Family\Application\GetFamiliesByRestaurant;
+namespace App\Family\Application\Response;
 
-use App\Family\Application\GetFamilyByID\GetFamilyByIDResponse;
 use App\Family\Domain\Entity\Family;
 
-final readonly class GetFamiliesByRestaurantResponse
+final readonly class GetFamiliesResponse
 {
     private function __construct(
         private array $allFamilies,
@@ -15,7 +14,7 @@ final readonly class GetFamiliesByRestaurantResponse
     {
         return new self(
             allFamilies: array_map(
-                fn (Family $family) => GetFamilyByIDResponse::create($family),
+                fn (Family $family) => FamilyItemResponse::create($family),
                 $families
             )
         );
@@ -24,7 +23,7 @@ final readonly class GetFamiliesByRestaurantResponse
     public function toArray(): array
     {
         return array_map(
-            fn (GetFamilyByIDResponse $family) => $family->toArray(),
+            fn (FamilyItemResponse $family) => $family->toArray(),
             $this->allFamilies
         );
     }

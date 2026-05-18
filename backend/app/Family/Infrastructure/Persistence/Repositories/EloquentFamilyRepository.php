@@ -26,9 +26,9 @@ class EloquentFamilyRepository implements FamilyRepositoryInterface
         );
     }
 
-    public function findById(string $id): ?Family
+    public function findById(string $id, int $restaurantId): ?Family
     {
-        $model = $this->model->newQuery()->where('uuid', $id)->first();
+        $model = $this->model->newQuery()->where('uuid', $id)->where('restaurant_id', $restaurantId)->first();
 
         if ($model === null) {
             return null;
@@ -73,10 +73,10 @@ class EloquentFamilyRepository implements FamilyRepositoryInterface
         return $model;
     }
 
-    public function getByRestaurant(int $restaurantID): ?array
+    public function getByRestaurant(int $restaurantId): ?array
     {
 
-        $models = $this->model->newQuery()->where('restaurant_id', $restaurantID)->get();
+        $models = $this->model->newQuery()->where('restaurant_id', $restaurantId)->get();
         $families = [];
 
         if ($models === null) {
@@ -98,14 +98,41 @@ class EloquentFamilyRepository implements FamilyRepositoryInterface
         return $families;
     }
 
-    public function deleteByID(string $id): void
+    public function deleteByID(string $id, int $restaurantId): void
     {
-        $familyModel = $this->model->newQuery()->where('uuid', $id)->first();
+        $familyModel = $this->model->newQuery()->where('uuid', $id)->where('restaurant_id', $restaurantId)->first();
 
         if ($familyModel === null) {
             return;
         }
 
         $familyModel->delete();
+    }
+
+    public function findFamilyWithProductsByUuid(string $id, int $restaurantId): ?Family
+    {
+        $model = $this->model
+            ->where('uuid', $id)
+            ->where('restaurant_id', $restaurantId)
+            ->whereIn('id', function ($query) {
+                $query->select('family_id')
+                    ->from('products')
+                    ->whereNotNull('family_id')
+                    ->whereNull('deleted_at');
+            })
+            ->first();
+
+        if ($model === null) {
+            return null;
+        }
+
+        return Family::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->name,
+            $model->active,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
     }
 }

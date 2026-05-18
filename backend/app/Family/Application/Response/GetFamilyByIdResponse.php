@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Family\Application\GetFamilyByID;
+namespace App\Family\Application\Response;
 
 use App\Family\Domain\Entity\Family;
 
-final readonly class GetFamilyByIDResponse
+final readonly class GetFamilyByIdResponse
 {
     private function __construct(
         private string $id,
-        private int $restaurantID,
         private string $name,
         private bool $active,
         private string $createdAt,
@@ -19,7 +18,6 @@ final readonly class GetFamilyByIDResponse
     {
         return new self(
             id: $family->id()->value(),
-            restaurantID: $family->restaurantID()->value(),
             name: $family->name()->value(),
             active: $family->active(),
             createdAt: $family->createdAt()->format(\DateTimeInterface::ATOM),

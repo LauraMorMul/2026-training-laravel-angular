@@ -2,14 +2,16 @@
 
 namespace App\Family\Infrastructure\Entrypoint\Http;
 
-use App\Family\Application\CreateFamily\CreateFamily;
+use App\Family\Application\Command\CreateFamilyCommand;
+use App\Family\Application\Handler\CreateFamilyHandler;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PostFamilyController
 {
     public function __construct(
-        private CreateFamily $createFamily,
+        private CreateFamilyHandler $createHandler,
     ) {}
 
     public function __invoke(Request $request): JsonResponse
@@ -21,12 +23,18 @@ class PostFamilyController
 
         $restaurantId = auth('user')->user()->restaurant_id;
 
-        $response = ($this->createFamily)(
-            $validated['name'],
-            $validated['active'],
-            $restaurantId,
-        );
+        try {
+            $command = new CreateFamilyCommand(
+                $validated['name'],
+                $validated['active'],
+                $restaurantId,
+            );
 
-        return new JsonResponse($response->toArray(), 201);
+            ($this->createHandler)($command);
+        } catch (Exception $e) {
+            return new JsonResponse($e->getMessage(), 500);
+        }
+
+        return new JsonResponse(null, 201);
     }
 }

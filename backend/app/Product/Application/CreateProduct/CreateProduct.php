@@ -27,7 +27,7 @@ class CreateProduct
 
     public function __invoke(string $imageContent, string $imageName, string $familyUUID, string $taxUUID, string $name, int $price, int $stock, bool $active, int $restaurantID): CreateProductResponse
     {
-        $restaurantFamily = $this->familyRepository->findById($familyUUID)->restaurantID()->value();
+        $restaurantFamily = $this->familyRepository->findById($familyUUID, $restaurantID)->restaurantID()->value();
         $restaurantTax = $this->taxesRepository->findById($taxUUID)->restaurantID()->value();
 
         if ($restaurantFamily != $restaurantID || $restaurantTax != $restaurantID) {
