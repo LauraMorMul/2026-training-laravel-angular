@@ -1,5 +1,17 @@
-import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import {
   IonButton,
   IonButtons,
@@ -31,6 +43,7 @@ import { ImageFormatter } from 'src/app/services/helper/image-formatter';
 import { FamilyService } from 'src/app/services/HTTPRequests/family-service';
 import { ProductService } from 'src/app/services/HTTPRequests/product-service';
 import { TaxService } from 'src/app/services/HTTPRequests/tax-service';
+import { numberFormatter } from 'src/app/shared/utils/number-formatter';
 
 @Component({
   selector: 'app-modify-product-modal',
@@ -81,7 +94,9 @@ export class ModifyProductModalComponent implements OnInit {
     name: new FormControl(''),
     family_id: new FormControl(''),
     tax_id: new FormControl(''),
-    price: new FormControl('', [Validators.pattern('^[0-9]+([.][0-9]+)?$')]),
+    price: new FormControl('', [
+      Validators.pattern('^[0-9]+([,][0-9]{0,2})?$'),
+    ]),
     stock: new FormControl('', [Validators.pattern('^[0-9]*$')]),
     active: new FormControl(true),
     image: new FormControl<File | null>(null),
@@ -122,7 +137,11 @@ export class ModifyProductModalComponent implements OnInit {
     if (valores.name) formData.append('name', valores.name);
     if (valores.family_id) formData.append('family_id', valores.family_id);
     if (valores.tax_id) formData.append('tax_id', valores.tax_id);
-    if (valores.price) formData.append('price', valores.price);
+    if (valores.price)
+      formData.append(
+        'price',
+        numberFormatter.calculatePriceInInteger(valores.price!).toString(),
+      );
     if (valores.stock) formData.append('stock', valores.stock);
     formData.append('active', valores.active ? '1' : '0');
     if (valores.image) formData.append('image', valores.image);
@@ -153,7 +172,9 @@ export class ModifyProductModalComponent implements OnInit {
       name: this.product.name,
       family_id: this.product.family.uuid,
       tax_id: this.product.tax.uuid,
-      price: String(this.product.price),
+      price: String(
+        numberFormatter.calculatePriceWithDecimals(this.product.price).toString().replace('.', ','),
+      ),
       stock: String(this.product.stock),
       active: this.product.active,
     });
@@ -170,5 +191,4 @@ export class ModifyProductModalComponent implements OnInit {
       },
     });
   }
-
 }

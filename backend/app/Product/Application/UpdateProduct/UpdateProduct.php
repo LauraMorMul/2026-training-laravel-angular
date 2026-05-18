@@ -32,7 +32,7 @@ class UpdateProduct
         }
 
         if ($familyUUID) {
-            $restaurantFamily = $this->familyRepository->findById($familyUUID)->restaurantID()->value();
+            $restaurantFamily = $this->familyRepository->findById($familyUUID, $restaurantID)->restaurantID()->value();
         } else {
             $restaurantFamily = $this->familyRepository->findByInternalID($product->familyID()->value())->restaurantID()->value();
         }

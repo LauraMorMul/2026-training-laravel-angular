@@ -27,12 +27,18 @@ import { IProduct, IProducts } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/HTTPRequests/product-service';
 import { CheckProductModalComponent } from '../check-product-modal/check-product-modal.component';
 import { ModifyProductModalComponent } from '../modify-product-modal/modify-product-modal.component';
-import { CurrencyPipe } from '@angular/common';
 import { FamilyService } from 'src/app/services/HTTPRequests/family-service';
 import { TaxService } from 'src/app/services/HTTPRequests/tax-service';
 import { ITaxes } from 'src/app/models/tax';
 import { IFamilies } from 'src/app/models/family';
 import { ImageFormatter } from 'src/app/services/helper/image-formatter';
+import { MoneyFormatterPipe } from 'src/app/pipes/money-formatter-pipe';
+import { CurrencyPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FilterByTaxPipe } from 'src/app/pipes/product/filter-by-tax-pipe';
+import { FilterBySearchBarPipe } from 'src/app/pipes/shared/filter-by-search-bar-pipe';
+import { FilterByStatePipe } from 'src/app/pipes/shared/filter-by-state-pipe';
+import { FilterProductByFamilyPipe } from 'src/app/pipes/product/filter-by-family-pipe';
 
 @Component({
   selector: 'app-products-list',
@@ -49,7 +55,6 @@ import { ImageFormatter } from 'src/app/services/helper/image-formatter';
     IonLabel,
     IonButton,
     IonIcon,
-    CurrencyPipe,
     IonToggle,
     IonThumbnail,
     IonCol,
@@ -57,6 +62,13 @@ import { ImageFormatter } from 'src/app/services/helper/image-formatter';
     IonGrid,
     IonSelect,
     IonSelectOption,
+    MoneyFormatterPipe,
+    CurrencyPipe,
+    FilterProductByFamilyPipe,
+    FormsModule,
+    FilterByTaxPipe,
+    FilterBySearchBarPipe,
+    FilterByStatePipe,
   ],
 })
 export class ProductsListComponent implements OnInit {
@@ -73,6 +85,10 @@ export class ProductsListComponent implements OnInit {
   productID: string | null = '';
   families: IFamilies = [];
   taxes: ITaxes = [];
+  familyUuid: string = '';
+  taxUuid: string = '';
+  nameFilter: string = '';
+  state: string | undefined = undefined;
 
   constructor() {
     addIcons({ trashOutline, createOutline });
@@ -100,10 +116,6 @@ export class ProductsListComponent implements OnInit {
       },
     },
   ];
-
-  calculatePriceWithDecimals(price: number) {
-    return price / 100;
-  }
 
   async changeActive(event: Event, product: IProduct) {
     const target = event?.target as HTMLIonToggleElement;
@@ -146,26 +158,6 @@ export class ProductsListComponent implements OnInit {
         this.taxes = [...response];
       },
     });
-  }
-
-  handleChangeTax(event: Event) {
-    const target = event.target as HTMLIonSelectElement;
-    const query = target.value?.toLowerCase() || '';
-    this.results = this.products.filter((d) => d.tax.uuid.includes(query));
-  }
-
-  handleChangeFamily(event: Event) {
-    const target = event.target as HTMLIonSelectElement;
-    const query = target.value?.toLowerCase() || '';
-    this.results = this.products.filter((d) => d.family.uuid.includes(query));
-  }
-
-  handleInput(event: Event) {
-    const target = event.target as HTMLIonSearchbarElement;
-    const query = target.value?.toLowerCase() || '';
-    this.results = this.products.filter((product) =>
-      product.name.toLowerCase().includes(query),
-    );
   }
 
   async showDeleteAlert(id: string, name: string) {

@@ -39,6 +39,7 @@ import { ApiResponse } from 'src/app/services/api/base-api.service';
 import { FamilyService } from 'src/app/services/HTTPRequests/family-service';
 import { ProductService } from 'src/app/services/HTTPRequests/product-service';
 import { TaxService } from 'src/app/services/HTTPRequests/tax-service';
+import { numberFormatter } from 'src/app/shared/utils/number-formatter';
 
 @Component({
   selector: 'app-add-product',
@@ -62,7 +63,7 @@ import { TaxService } from 'src/app/services/HTTPRequests/tax-service';
     ReactiveFormsModule,
   ],
 })
-export class AddProductComponent implements OnInit{
+export class AddProductComponent implements OnInit {
   @Output() productCreated = new EventEmitter<void>();
   @ViewChild('fileUpload') fileUpload!: ElementRef<HTMLInputElement>;
 
@@ -110,11 +111,6 @@ export class AddProductComponent implements OnInit{
     });
   }
 
-  calculatePriceInInteger(startingPrice: string) {
-    const priceWithDot = Number(startingPrice.replace(',', '.'));
-    return priceWithDot * 100;
-  }
-
   async addProduct() {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
@@ -139,7 +135,7 @@ export class AddProductComponent implements OnInit{
     formData.append('tax_id', valores.tax_id!);
     formData.append(
       'price',
-      this.calculatePriceInInteger(valores.price!).toString(),
+      numberFormatter.calculatePriceInInteger(valores.price!).toString(),
     );
     formData.append('stock', valores.stock!);
     formData.append('active', valores.active ? '1' : '0');

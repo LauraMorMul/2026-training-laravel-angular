@@ -7,19 +7,20 @@
       <ion-row>
         <ion-col
           ><ion-searchbar
-            (ionInput)="handleInput($event)"
+            [(ngModel)]="nameFilter"
             placeholder="Buscar por nombre"
           ></ion-searchbar
         ></ion-col>
+      </ion-row>
+      <ion-row>
         <ion-col>
-          <ion-label for="family">Familia</ion-label>
           <ion-select
             aria-label="family"
             interface="popover"
             mode="md"
             fill="solid"
             placeholder="Familia"
-            (ionChange)="handleChangeFamily($event)"
+            [(ngModel)]="familyUuid"
           >
             @for (family of families; track family.id) {
               <ion-select-option [value]="family.id">{{
@@ -30,14 +31,14 @@
           </ion-select>
         </ion-col>
         <ion-col>
-          <ion-label for="tax">Impuesto</ion-label>
           <ion-select
             aria-label="tax"
             interface="popover"
             mode="md"
             fill="solid"
             placeholder="Impuesto"
-            (ionChange)="handleChangeTax($event)"
+            [(ngModel)]="taxUuid"
+            ;
           >
             @for (tax of taxes; track tax.id) {
               <ion-select-option [value]="tax.id"
@@ -47,10 +48,31 @@
             <ion-select-option value="">Todos los impuestos</ion-select-option>
           </ion-select>
         </ion-col>
+        <ion-col>
+          <ion-select
+            aria-label="active"
+            interface="popover"
+            mode="md"
+            fill="solid"
+            placeholder="Estado"
+            [(ngModel)]="state"
+          >
+            <ion-select-option value="true">Activos</ion-select-option>
+            <ion-select-option value="false">Inactivos</ion-select-option>
+            <ion-select-option value="undefined">Todos los estados</ion-select-option>
+          </ion-select>
+        </ion-col>
       </ion-row>
     </ion-grid>
     <ion-list>
-      @for (product of results; track product.id) {
+      @for (
+        product of results
+          | filterProductByFamily: familyUuid
+          | filterByTax: taxUuid
+          | filterBySearchBar: "name" : nameFilter
+          | filterByState:state;
+        track product.id
+      ) {
         <ion-item button (click)="abrirModalProducto(product)">
           <ion-thumbnail aria-hidden="true" slot="start">
             <img
@@ -59,9 +81,9 @@
             />
           </ion-thumbnail>
           <ion-label>{{ product.name }}</ion-label>
-          <ion-label>{{
-            calculatePriceWithDecimals(product.price) | currency: "EUR"
-          }}</ion-label>
+          <ion-label
+            >{{ product.price | moneyFormatter | currency: "EUR" }}
+          </ion-label>
           <ion-label>{{ product.stock }} unidades</ion-label>
           <ion-toggle
             name="active"
