@@ -4,9 +4,6 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonItem,
-  IonList,
-  IonLabel,
   IonButton,
   AlertController,
   ToastController,
@@ -25,8 +22,11 @@ import { TableService } from 'src/app/services/HTTPRequests/table-service';
 import { ZoneService } from 'src/app/services/HTTPRequests/zone-service';
 import { ITable, ITables } from 'src/app/models/table';
 import { IZones } from 'src/app/models/zone';
-import { createOutline, trashOutline } from 'ionicons/icons';
+import { createOutline, eyeOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { FormsModule } from '@angular/forms';
+import { FilterByZonePipe } from 'src/app/pipes/table/filter-by-zone-pipe';
+import { FilterBySearchBarPipe } from 'src/app/pipes/shared/filter-by-search-bar-pipe';
 
 @Component({
   selector: 'app-tables-list',
@@ -37,9 +37,6 @@ import { addIcons } from 'ionicons';
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonList,
-    IonItem,
-    IonLabel,
     IonButton,
     IonGrid,
     IonCol,
@@ -48,6 +45,9 @@ import { addIcons } from 'ionicons';
     IonSelect,
     IonSelectOption,
     IonIcon,
+    FormsModule,
+    FilterByZonePipe,
+    FilterBySearchBarPipe,
   ],
 })
 export class TablesListComponent implements OnInit {
@@ -60,7 +60,8 @@ export class TablesListComponent implements OnInit {
   tables: ITables = [];
   zones: IZones = [];
   tableID: string | null = '';
-  results = [...this.tables];
+  nameFilter: string = '';
+  zoneFilter: string = '';
 
   ngOnInit() {
     this.getTables();
@@ -68,7 +69,7 @@ export class TablesListComponent implements OnInit {
   }
 
   constructor() {
-    addIcons({ trashOutline, createOutline });
+    addIcons({ trashOutline, createOutline, eyeOutline });
   }
 
   public actionButtons = [
@@ -92,7 +93,6 @@ export class TablesListComponent implements OnInit {
     this.tableService.getAll().subscribe({
       next: (response: ITables) => {
         this.tables = [...response];
-        this.results = [...response];
       },
       error(err) {
         console.log('Error fetching tables', err);
@@ -106,20 +106,6 @@ export class TablesListComponent implements OnInit {
         this.zones = [...response];
       },
     });
-  }
-
-  handleInput(event: Event) {
-    const target = event.target as HTMLIonSearchbarElement;
-    const query = target.value?.toLowerCase() || '';
-    this.results = this.tables.filter((d) =>
-      d.name.toLowerCase().includes(query),
-    );
-  }
-
-  handleChange(event: Event) {
-    const target = event.target as HTMLIonSelectElement;
-    const query = target.value || '';
-    this.results = this.tables.filter((d) => d.zone.id.includes(query));
   }
 
   async showDeleteAlert(id: string, name: string) {

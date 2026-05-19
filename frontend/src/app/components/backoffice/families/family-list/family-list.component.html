@@ -3,40 +3,79 @@
     <ion-card-title>Listado de familias</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-searchbar
-      (ionInput)="handleInput($event)"
-      placeholder="Buscar por nombre"
-    ></ion-searchbar>
-
-    <ion-list>
-      @for (family of results; track family.id) {
-        <ion-item button (click)="abrirModalFamily(family)">
-          <ion-label>{{ family.name }}</ion-label>
-          <ion-toggle
-            name="active"
-            id="active"
+    <ion-grid>
+      <ion-row class="table-list__header-filters">
+        <ion-col size="9"
+          ><ion-searchbar
+            [(ngModel)]="nameFilter"
+            placeholder="Buscar por nombre"
+          ></ion-searchbar
+        ></ion-col>
+        <ion-col
+          ><ion-select
             aria-label="active"
-            [enableOnOffLabels]="true"
-            [checked]="family.active"
-            (click)="$event.stopPropagation()"
-            (ionChange)="changeActive($event, family)"
-          ></ion-toggle>
-          <ion-button
-            (click)="
-              $event.stopPropagation(); showDeleteAlert(family.id, family.name)
-            "
-            color="danger"
+            interface="popover"
+            mode="md"
+            fill="solid"
+            placeholder="Estado"
+            [(ngModel)]="state"
           >
-            <ion-icon name="trash-outline"></ion-icon>Eliminar
-          </ion-button>
-          <ion-button
-            (click)="$event.stopPropagation(); abrirModalModificar(family)"
-            color="secondary"
-          >
-            <ion-icon name="create-outline"></ion-icon>Modificar
-          </ion-button>
-        </ion-item>
+            <ion-select-option value="true">Activos</ion-select-option>
+            <ion-select-option value="false">Inactivos</ion-select-option>
+            <ion-select-option value="undefined"
+              >Todos los estados</ion-select-option
+            >
+          </ion-select></ion-col
+        >
+      </ion-row>
+
+      <ion-row class="table-list__header">
+        <ion-col>Nombre</ion-col>
+        <ion-col>Estado</ion-col>
+        <ion-col>Acciones</ion-col>
+      </ion-row>
+      @for (
+        family of families
+          | filterBySearchBar: "name" : nameFilter
+          | filterByState: state;
+        track family.id
+      ) {
+        <ion-row>
+          <ion-col>{{ family.name }}</ion-col>
+          <ion-col
+            ><ion-toggle
+              name="active"
+              id="active"
+              aria-label="active"
+              [enableOnOffLabels]="true"
+              [checked]="family.active"
+              (click)="$event.stopPropagation()"
+              (ionChange)="changeActive($event, family)"
+            ></ion-toggle
+          ></ion-col>
+          <ion-col class="table-list__content-actions">
+            <ion-button
+              (click)="abrirModalFamily(family)"
+              color="tertiary"
+              size="small"
+            >
+              <ion-icon name="eye-outline"></ion-icon>
+            </ion-button>
+            <ion-button
+              (click)="$event.stopPropagation(); abrirModalModificar(family)"
+              color="secondary"
+              size="small"
+              ><ion-icon name="create-outline"></ion-icon
+            ></ion-button>
+            <ion-button
+              (click)="showDeleteAlert(family.id, family.name)"
+              color="danger"
+              size="small"
+              ><ion-icon name="trash-outline"></ion-icon
+            ></ion-button>
+          </ion-col>
+        </ion-row>
       }
-    </ion-list>
+    </ion-grid>
   </ion-card-content>
 </ion-card>

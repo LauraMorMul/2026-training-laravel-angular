@@ -1,10 +1,10 @@
 export interface IZone {
-  id: string | null;
+  id: string;
   restaurant_id: number;
   name: string;
-  created_at: string | null;
-  updated_at: string | null;
-  deleted_at: string | null;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string;
 }
 
 export type IZones = IZone[];

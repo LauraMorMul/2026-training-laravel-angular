@@ -4,22 +4,21 @@
   </ion-card-header>
   <ion-card-content>
     <ion-grid>
-      <ion-row>
+      <ion-row class="table-list__header-filters">
         <ion-col size="9">
           <ion-searchbar
-            (ionInput)="handleInput($event)"
+            [(ngModel)]="nameFilter"
             placeholder="Buscar por nombre"
           ></ion-searchbar>
         </ion-col>
         <ion-col>
-          <ion-label for="zona">Zona</ion-label>
           <ion-select
             aria-label="zona"
             interface="popover"
             mode="md"
             fill="solid"
             placeholder="Selecciona una zona"
-            (ionChange)="handleChange($event)"
+            [(ngModel)]="zoneFilter"
           >
             @for (zone of zones; track zone.id) {
               <ion-select-option [value]="zone.id">{{
@@ -30,28 +29,38 @@
           </ion-select>
         </ion-col>
       </ion-row>
-    </ion-grid>
-    <ion-list>
-      @for (table of results; track table.id) {
-        <ion-item button (click)="abrirModalTable(table)">
-          <ion-label>
-            {{ table.name }}
-            <p>{{ table.zone.name }}</p>
-          </ion-label>
-          <ion-button
-            (click)="
-              $event.stopPropagation(); showDeleteAlert(table.id!, table.name)
-            "
-            color="danger"
-            ><ion-icon name="trash-outline"></ion-icon>Eliminar</ion-button
-          >
-          <ion-button
-            (click)="$event.stopPropagation(); abrirModalModificar(table)"
-            color="secondary"
-            ><ion-icon name="create-outline"></ion-icon>Modificar</ion-button
-          >
-        </ion-item>
+      <ion-row class="table-list__header">
+        <ion-col>Nombre</ion-col>
+        <ion-col>Zona</ion-col>
+        <ion-col>Acciones</ion-col>
+      </ion-row>
+      @for (table of tables | filterByZone:zoneFilter | filterBySearchBar:"name":nameFilter; track table.id) {
+        <ion-row>
+          <ion-col>{{ table.name }}</ion-col>
+          <ion-col>{{ table.zone.name }}</ion-col>
+          <ion-col>
+            <ion-button
+              (click)="abrirModalTable(table)"
+              color="tertiary"
+              size="small"
+            >
+              <ion-icon name="eye-outline"></ion-icon>
+            </ion-button>
+            <ion-button
+              (click)="$event.stopPropagation(); abrirModalModificar(table)"
+              color="secondary"
+              size="small"
+              ><ion-icon name="create-outline"></ion-icon
+            ></ion-button>
+            <ion-button
+              (click)="showDeleteAlert(table.id, table.name)"
+              color="danger"
+              size="small"
+              ><ion-icon name="trash-outline"></ion-icon
+            ></ion-button>
+          </ion-col>
+        </ion-row>
       }
-    </ion-list>
+    </ion-grid>
   </ion-card-content>
 </ion-card>

@@ -24,6 +24,23 @@
           ></ion-input>
         </ion-col>
         <ion-col>
+          <ion-label for="price">Precio</ion-label>
+          <ion-input
+            type="numeric"
+            inputmode="decimal"
+            step="0.01"
+            name="price"
+            id="price"
+            mode="md"
+            fill="solid"
+            aria-label="price"
+            formControlName="price"
+            [placeholder]="product.price.toString()"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10">
           <ion-label for="family_id">Familia</ion-label>
           <ion-select
             aria-label="family_id"
@@ -40,9 +57,14 @@
             }
           </ion-select>
         </ion-col>
+        <ion-col>
+          <ion-button (click)="openCreateFamilyAlert()"
+            ><ion-icon name="add-circle-outline"></ion-icon
+          ></ion-button>
+        </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col>
+        <ion-col size="10">
           <ion-label for="tax_id">Impuesto</ion-label>
           <ion-select
             aria-label="tax_id"
@@ -60,20 +82,8 @@
           </ion-select>
         </ion-col>
         <ion-col>
-          <ion-label for="price">Precio</ion-label>
-          <ion-input
-            type="numeric"
-            inputmode="decimal"
-            step="0.01"
-            name="price"
-            id="price"
-            mode="md"
-            fill="solid"
-            aria-label="price"
-            formControlName="price"
-            [placeholder]="product.price.toString()"
-          ></ion-input>
-        </ion-col>
+            <ion-button (click)="openCreateTaxAlert()"><ion-icon name="add-circle-outline"></ion-icon></ion-button>
+          </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>

@@ -3,32 +3,49 @@
     <ion-card-title>Listado de impuestos</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-searchbar
-      (ionInput)="handleInput($event)"
-      placeholder="Buscar por nombre"
-    ></ion-searchbar>
+    <ion-grid>
+      <ion-row class="table-list__header-filters">
+        <ion-col>
+          <ion-searchbar
+            [(ngModel)]="nameFilter"
+            placeholder="Buscar por nombre"
+          ></ion-searchbar>
+        </ion-col>
+      </ion-row>
 
-    <ion-list>
-      @for (tax of results; track tax) {
-        <ion-item button (click)="abrirModalTax(tax)">
-          <ion-label>{{ tax.name }}</ion-label>
-          <ion-label>{{ tax.percentage }}%</ion-label>
-          <ion-button
-            (click)="
-              $event.stopPropagation(); showDeleteAlert(tax.id, tax.name)
-            "
-            color="danger"
-          >
-            <ion-icon name="trash-outline"></ion-icon>Eliminar
-          </ion-button>
-          <ion-button
-            (click)="$event.stopPropagation(); abrirModalModificar(tax)"
-            color="secondary"
-          >
-            <ion-icon name="create-outline"></ion-icon>Modificar
-          </ion-button>
-        </ion-item>
+      <ion-row class="table-list__header">
+        <ion-col>Nombre</ion-col>
+        <ion-col>Porcentaje</ion-col>
+        <ion-col>Acciones</ion-col>
+      </ion-row>
+
+      @for (tax of taxes | filterBySearchBar: "name" : nameFilter; track tax) {
+        <ion-row>
+          <ion-col>{{ tax.name }}</ion-col>
+          <ion-col>{{ tax.percentage }}%</ion-col>
+          <ion-col>
+            <ion-button
+              (click)="abrirModalTax(tax)"
+              color="tertiary"
+              size="small"
+            >
+              <ion-icon name="eye-outline"></ion-icon>
+            </ion-button>
+            <ion-button
+              (click)="$event.stopPropagation(); abrirModalModificar(tax)"
+              color="secondary"
+              size="small"
+              ><ion-icon name="create-outline"></ion-icon
+            ></ion-button>
+            <ion-button
+              (click)="showDeleteAlert(tax.id, tax.name)"
+              color="danger"
+              size="small"
+              ><ion-icon name="trash-outline"></ion-icon
+            ></ion-button>
+          </ion-col>
+        </ion-row>
       }
-    </ion-list>
+    </ion-grid>
   </ion-card-content>
 </ion-card>

@@ -7,19 +7,21 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
   IonSearchbar,
   ModalController,
   ToastController,
+  IonCol,
+  IonRow,
+  IonGrid,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { createOutline, trashOutline } from 'ionicons/icons';
+import { createOutline, eyeOutline, trashOutline } from 'ionicons/icons';
 import { ITaxes } from 'src/app/models/tax';
 import { TaxService } from 'src/app/services/HTTPRequests/tax-service';
 import { CheckTaxModalComponent } from '../check-tax-modal/check-tax-modal.component';
 import { ModifyTaxComponentComponent } from '../modify-tax-component/modify-tax-component.component';
+import { FormsModule } from '@angular/forms';
+import { FilterBySearchBarPipe } from 'src/app/pipes/shared/filter-by-search-bar-pipe';
 
 @Component({
   selector: 'app-tax-list',
@@ -31,11 +33,13 @@ import { ModifyTaxComponentComponent } from '../modify-tax-component/modify-tax-
     IonCardTitle,
     IonCardContent,
     IonSearchbar,
-    IonList,
-    IonItem,
-    IonLabel,
     IonButton,
     IonIcon,
+    IonCol,
+    IonRow,
+    IonGrid,
+    FormsModule,
+    FilterBySearchBarPipe,
   ],
 })
 export class TaxListComponent implements OnInit {
@@ -45,11 +49,11 @@ export class TaxListComponent implements OnInit {
   private modalCtrl = inject(ModalController);
 
   taxes: ITaxes = [];
-  results = [...this.taxes];
   taxID: string | null = '';
+  nameFilter: string = '';
 
   constructor() {
-    addIcons({ trashOutline, createOutline });
+    addIcons({ trashOutline, createOutline, eyeOutline });
   }
 
   ngOnInit() {
@@ -77,20 +81,11 @@ export class TaxListComponent implements OnInit {
     this.taxService.getAll().subscribe({
       next: (response: ITaxes) => {
         this.taxes = [...response];
-        this.results = [...response];
       },
       error() {
         console.log('Ni de coña jeje');
       },
     });
-  }
-
-  handleInput(event: Event) {
-    const target = event.target as HTMLIonSearchbarElement;
-    const query = target.value?.toLowerCase() || '';
-    this.results = this.taxes.filter((tax) =>
-      tax.name.toLowerCase().includes(query),
-    );
   }
 
   async showDeleteAlert(id: string, name: string) {

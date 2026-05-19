@@ -5,23 +5,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  AlertController,
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonCol,
-  IonGrid,
-  IonInput,
-  IonLabel,
-  IonRow,
-  IonSelect,
-  IonSelectOption,
-  LoadingController,
-  ToastController,
-} from '@ionic/angular/standalone';
+import { AlertController, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonGrid, IonInput, IonLabel, IonRow, IonSelect, IonSelectOption, LoadingController, ToastController, IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { addCircleOutline } from 'ionicons/icons';
 import { IZones } from 'src/app/models/zone';
 import { ApiResponse } from 'src/app/services/api/base-api.service';
 import { TableService } from 'src/app/services/HTTPRequests/table-service';
@@ -45,7 +31,8 @@ import { ZoneService } from 'src/app/services/HTTPRequests/zone-service';
     ReactiveFormsModule,
     IonSelectOption,
     IonSelect,
-  ],
+    IonIcon
+],
 })
 export class AddTableComponent implements OnInit {
   private tableService = inject(TableService);
@@ -53,6 +40,10 @@ export class AddTableComponent implements OnInit {
   private toastController = inject(ToastController);
   private zoneService = inject(ZoneService);
   private alertController = inject(AlertController);
+
+  constructor() {
+      addIcons({ addCircleOutline });
+    }
 
   formulario = new FormGroup({
     name: new FormControl('', [Validators.required]),

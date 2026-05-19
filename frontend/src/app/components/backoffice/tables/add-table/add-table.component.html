@@ -18,6 +18,8 @@
               formControlName="name"
             ></ion-input>
           </ion-col>
+        </ion-row>
+        <ion-row>
           <ion-col>
             <ion-label for="zona">Zona</ion-label>
             <ion-select
@@ -34,9 +36,11 @@
                 }}</ion-select-option>
               }
             </ion-select>
-            <ion-col>
-              <ion-button (click)="openCreateZoneAlert()">Crear zona</ion-button>
-            </ion-col>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="openCreateZoneAlert()"
+              ><ion-icon name="add-circle-outline"></ion-icon
+            ></ion-button>
           </ion-col>
         </ion-row>
         <ion-row>

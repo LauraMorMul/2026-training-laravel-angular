@@ -7,9 +7,6 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
   IonSearchbar,
   ModalController,
   ToastController,
@@ -22,7 +19,12 @@ import {
   IonSelectOption,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { createOutline, trashOutline } from 'ionicons/icons';
+import {
+  addCircleOutline,
+  createOutline,
+  eyeOutline,
+  trashOutline,
+} from 'ionicons/icons';
 import { IProduct, IProducts } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/HTTPRequests/product-service';
 import { CheckProductModalComponent } from '../check-product-modal/check-product-modal.component';
@@ -50,9 +52,6 @@ import { FilterProductByFamilyPipe } from 'src/app/pipes/product/filter-by-famil
     IonCardTitle,
     IonCardContent,
     IonSearchbar,
-    IonList,
-    IonItem,
-    IonLabel,
     IonButton,
     IonIcon,
     IonToggle,
@@ -81,7 +80,6 @@ export class ProductsListComponent implements OnInit {
   public imageService = inject(ImageFormatter);
 
   products: IProducts = [];
-  results = [...this.products];
   productID: string | null = '';
   families: IFamilies = [];
   taxes: ITaxes = [];
@@ -91,7 +89,7 @@ export class ProductsListComponent implements OnInit {
   state: string | undefined = undefined;
 
   constructor() {
-    addIcons({ trashOutline, createOutline });
+    addIcons({ trashOutline, createOutline, eyeOutline, addCircleOutline });
   }
 
   ngOnInit() {
@@ -136,7 +134,6 @@ export class ProductsListComponent implements OnInit {
     this.productService.getAll().subscribe({
       next: (response: IProducts) => {
         this.products = [...response];
-        this.results = [...response];
       },
       error() {
         console.log('Ni de coña jeje');

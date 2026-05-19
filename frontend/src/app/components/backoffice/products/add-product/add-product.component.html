@@ -19,38 +19,6 @@
             ></ion-input>
           </ion-col>
           <ion-col>
-            <ion-label for="family_id">Familia</ion-label>
-            <ion-select
-              aria-label="family_id"
-              interface="popover"
-              mode="md"
-              fill="solid"
-              placeholder="Familia del producto"
-              formControlName="family_id"
-            >
-              @for (family of families; track family.id) {
-                <ion-select-option [value]="family.id">{{ family.name }}</ion-select-option>
-              }
-            </ion-select>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-label for="tax_id">Impuesto</ion-label>
-            <ion-select
-              aria-label="tax_id"
-              interface="popover"
-              mode="md"
-              fill="solid"
-              placeholder="Impuesto del producto"
-              formControlName="tax_id"
-            >
-              @for (tax of taxes; track tax.id) {
-                <ion-select-option [value]="tax.id">{{ tax.name }} ({{ tax.percentage }}%)</ion-select-option>
-              }
-            </ion-select>
-          </ion-col>
-          <ion-col>
             <ion-label for="price">Precio</ion-label>
             <ion-input
               type="numeric"
@@ -64,6 +32,50 @@
               formControlName="price"
               placeholder="10,5"
             ></ion-input>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="10">
+            <ion-label for="family_id">Familia</ion-label>
+            <ion-select
+              aria-label="family_id"
+              interface="popover"
+              mode="md"
+              fill="solid"
+              placeholder="Familia del producto"
+              formControlName="family_id"
+            >
+              @for (family of families; track family.id) {
+                <ion-select-option [value]="family.id">{{
+                  family.name
+                }}</ion-select-option>
+              }
+            </ion-select>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="openCreateFamilyAlert()"><ion-icon name="add-circle-outline"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="10">
+            <ion-label for="tax_id">Impuesto</ion-label>
+            <ion-select
+              aria-label="tax_id"
+              interface="popover"
+              mode="md"
+              fill="solid"
+              placeholder="Impuesto del producto"
+              formControlName="tax_id"
+            >
+              @for (tax of taxes; track tax.id) {
+                <ion-select-option [value]="tax.id"
+                  >{{ tax.name }} ({{ tax.percentage }}%)</ion-select-option
+                >
+              }
+            </ion-select>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="openCreateTaxAlert()"><ion-icon name="add-circle-outline"></ion-icon></ion-button>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -119,7 +131,12 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button type="submit" [disabled]="!formulario.valid" (click)="addProduct()">Crear producto</ion-button>
+            <ion-button
+              type="submit"
+              [disabled]="!formulario.valid"
+              (click)="addProduct()"
+              >Crear producto</ion-button
+            >
             <ion-button type="reset">Cancelar</ion-button>
           </ion-col>
         </ion-row>

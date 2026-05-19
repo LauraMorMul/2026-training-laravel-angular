@@ -14,6 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import {
+  AlertController,
   IonButton,
   IonCard,
   IonCardContent,
@@ -72,6 +73,7 @@ export class AddProductComponent implements OnInit {
   private taxService = inject(TaxService);
   private loadingController = inject(LoadingController);
   private toastController = inject(ToastController);
+  private alertController = inject(AlertController);
 
   families: IFamilies = [];
   taxes: ITaxes = [];
@@ -109,6 +111,87 @@ export class AddProductComponent implements OnInit {
         this.taxes = [...response];
       },
     });
+  }
+
+  public familyAlertInputs = [
+    {
+      name: 'name',
+      placeholder: 'Nombre de la zona',
+    },
+  ];
+
+  public familyAlertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      //No tengo ni idea de que tipo de dato es este
+      handler: (alertData: any) => {
+        this.createFamily(alertData.name);
+      },
+    },
+  ];
+
+  public taxAlertInputs = [
+    {
+      name: 'name',
+      placeholder: 'Nombre del impuesto',
+    },
+    {
+      name: 'percentage',
+      placeholder: 'Porcentaje',
+    },
+  ];
+
+  public taxAlertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      //No tengo ni idea de que tipo de dato es este
+      handler: (alertData: any) => {
+        this.createTax(alertData.name, alertData.percentage);
+      },
+    },
+  ];
+
+  async openCreateFamilyAlert() {
+    const alert = await this.alertController.create({
+      header: 'Crear familia',
+      subHeader: 'Activa por defecto',
+      inputs: this.familyAlertInputs,
+      buttons: this.familyAlertButtons,
+    });
+    await alert.present();
+  }
+
+  async openCreateTaxAlert() {
+    const alert = await this.alertController.create({
+      header: 'Crear impuesto',
+      inputs: this.taxAlertInputs,
+      buttons: this.taxAlertButtons,
+    });
+    await alert.present();
+  }
+
+  async createFamily(name: string) {
+    const familyForm = new FormData();
+    familyForm.append('name', name);
+    familyForm.append('active', '1');
+    this.familyService.add(familyForm).subscribe({});
+  }
+
+  async createTax(name: string, percentage: number) {
+    const taxForm = new FormData();
+    taxForm.append('name', name);
+    taxForm.append('percentage', percentage.toString());
+    this.taxService.add(taxForm).subscribe({});
   }
 
   async addProduct() {

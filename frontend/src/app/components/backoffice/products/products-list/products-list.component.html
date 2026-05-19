@@ -4,7 +4,7 @@
   </ion-card-header>
   <ion-card-content>
     <ion-grid>
-      <ion-row>
+      <ion-row class="table-list__header-filters">
         <ion-col
           ><ion-searchbar
             [(ngModel)]="nameFilter"
@@ -12,7 +12,7 @@
           ></ion-searchbar
         ></ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="table-list__header-filters">
         <ion-col>
           <ion-select
             aria-label="family"
@@ -59,62 +59,81 @@
           >
             <ion-select-option value="true">Activos</ion-select-option>
             <ion-select-option value="false">Inactivos</ion-select-option>
-            <ion-select-option value="undefined">Todos los estados</ion-select-option>
+            <ion-select-option value="undefined"
+              >Todos los estados</ion-select-option
+            >
           </ion-select>
         </ion-col>
       </ion-row>
-    </ion-grid>
-    <ion-list>
+      <ion-row class="table-list__header">
+        <ion-col>Foto</ion-col>
+        <ion-col>Nombre</ion-col>
+        <ion-col>Precio unitario</ion-col>
+        <ion-col>Stock</ion-col>
+        <ion-col>Estado</ion-col>
+        <ion-col>Familia</ion-col>
+        <ion-col>Impuesto</ion-col>
+        <ion-col>Acciones</ion-col>
+      </ion-row>
       @for (
-        product of results
+        product of products
           | filterProductByFamily: familyUuid
           | filterByTax: taxUuid
           | filterBySearchBar: "name" : nameFilter
-          | filterByState:state;
+          | filterByState: state;
         track product.id
       ) {
-        <ion-item button (click)="abrirModalProducto(product)">
-          <ion-thumbnail aria-hidden="true" slot="start">
-            <img
-              alt="{{ product.name }}"
-              [src]="imageService.formatImageSrc(product.image_src)"
-            />
-          </ion-thumbnail>
-          <ion-label>{{ product.name }}</ion-label>
-          <ion-label
-            >{{ product.price | moneyFormatter | currency: "EUR" }}
-          </ion-label>
-          <ion-label>{{ product.stock }} unidades</ion-label>
-          <ion-toggle
-            name="active"
-            id="active"
-            aria-label="active"
-            [enableOnOffLabels]="true"
-            [checked]="product.active"
-            (click)="$event.stopPropagation()"
-            (ionChange)="changeActive($event, product)"
-          ></ion-toggle>
-          <ion-label>{{ product.family.name }}</ion-label>
-          <ion-label
-            >{{ product.tax.name }} ({{ product.tax.percentage }}%)</ion-label
+        <ion-row>
+          <ion-col
+            ><ion-thumbnail aria-hidden="true">
+              <img
+                alt="{{ product.name }}"
+                [src]="imageService.formatImageSrc(product.image_src)"
+              /> </ion-thumbnail
+          ></ion-col>
+          <ion-col>{{ product.name }}</ion-col>
+          <ion-col>{{
+            product.price | moneyFormatter | currency: "EUR"
+          }}</ion-col>
+          <ion-col>{{ product.stock }} unidades</ion-col>
+          <ion-col
+            ><ion-toggle
+              name="active"
+              id="active"
+              aria-label="active"
+              [enableOnOffLabels]="true"
+              [checked]="product.active"
+              (click)="$event.stopPropagation()"
+              (ionChange)="changeActive($event, product)"
+            ></ion-toggle
+          ></ion-col>
+          <ion-col>{{ product.family.name }}</ion-col>
+          <ion-col
+            >{{ product.tax.name }} ({{ product.tax.percentage }}%)</ion-col
           >
-          <ion-button
-            (click)="
-              $event.stopPropagation();
-              showDeleteAlert(product.id, product.name)
-            "
-            color="danger"
-          >
-            <ion-icon name="trash-outline"></ion-icon>Eliminar
-          </ion-button>
-          <ion-button
-            (click)="$event.stopPropagation(); abrirModalModificar(product)"
-            color="secondary"
-          >
-            <ion-icon name="create-outline"></ion-icon>Modificar
-          </ion-button>
-        </ion-item>
+          <ion-col class="table-list__content-actions">
+            <ion-button
+              (click)="abrirModalProducto(product)"
+              color="tertiary"
+              size="small"
+            >
+              <ion-icon name="eye-outline"></ion-icon>
+            </ion-button>
+            <ion-button
+              (click)="$event.stopPropagation(); abrirModalModificar(product)"
+              color="secondary"
+              size="small"
+              ><ion-icon name="create-outline"></ion-icon
+            ></ion-button>
+            <ion-button
+              (click)="showDeleteAlert(product.id, product.name)"
+              color="danger"
+              size="small"
+              ><ion-icon name="trash-outline"></ion-icon
+            ></ion-button>
+          </ion-col>
+        </ion-row>
       }
-    </ion-list>
+    </ion-grid>
   </ion-card-content>
 </ion-card>

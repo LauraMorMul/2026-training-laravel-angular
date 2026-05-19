@@ -4,24 +4,26 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonItem,
-  IonList,
-  IonLabel,
   IonButton,
   AlertController,
   ToastController,
   ModalController,
   IonSearchbar,
   IonIcon,
+  IonGrid,
+  IonCol,
+  IonRow,
 } from '@ionic/angular/standalone';
 import { CheckZoneModalComponent } from '../check-zone-modal/check-zone-modal.component';
 import { ZoneService } from 'src/app/services/HTTPRequests/zone-service';
 import { IZone, IZones } from 'src/app/models/zone';
 import { ModifyZoneModalComponent } from '../modify-zone-modal/modify-zone-modal.component';
-import { createOutline, trashOutline } from 'ionicons/icons';
+import { createOutline, eyeOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { TableService } from 'src/app/services/HTTPRequests/table-service';
 import { ITables } from 'src/app/models/table';
+import { FilterBySearchBarPipe } from 'src/app/pipes/shared/filter-by-search-bar-pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-zones-list',
@@ -32,12 +34,14 @@ import { ITables } from 'src/app/models/table';
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonList,
-    IonItem,
-    IonLabel,
     IonButton,
     IonSearchbar,
     IonIcon,
+    IonGrid,
+    IonCol,
+    IonRow,
+    FilterBySearchBarPipe,
+    FormsModule,
   ],
 })
 export class ZonesListComponent implements OnInit {
@@ -51,7 +55,7 @@ export class ZonesListComponent implements OnInit {
   tables: ITables = [];
   numeroMesas: number = 0;
   zoneID: string | null = '';
-  results = [...this.zones];
+  nameFilter: string = '';
 
   ngOnInit() {
     this.getZones();
@@ -59,7 +63,7 @@ export class ZonesListComponent implements OnInit {
   }
 
   constructor() {
-    addIcons({ trashOutline, createOutline });
+    addIcons({ trashOutline, createOutline, eyeOutline });
   }
 
   public actionButtons = [
@@ -83,7 +87,6 @@ export class ZonesListComponent implements OnInit {
     this.zoneService.getAll().subscribe({
       next: (response: IZones) => {
         this.zones = [...response];
-        this.results = [...response];
       },
       error(err) {
         console.log('Ni de coña jeje');
@@ -97,22 +100,16 @@ export class ZonesListComponent implements OnInit {
         this.tables = [...response];
       },
       error(err) {
-        console.log("No hay mesas, te jodes")
+        console.log('No hay mesas, te jodes');
       },
-    })
+    });
   }
 
   countTables(zoneID: string | null): number {
-    let numberOfTables = this.tables.filter((table) => table.zone.id === zoneID).length;
+    let numberOfTables = this.tables.filter(
+      (table) => table.zone.id === zoneID,
+    ).length;
     return numberOfTables;
-  }
-
-  handleInput(event: Event) {
-    const target = event.target as HTMLIonSearchbarElement;
-    const query = target.value?.toLowerCase() || '';
-    this.results = this.zones.filter((d) =>
-      d.name.toLowerCase().includes(query),
-    );
   }
 
   async showDeleteAlert(id: string, name: string) {

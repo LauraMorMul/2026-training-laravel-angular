@@ -4,22 +4,21 @@
   </ion-card-header>
   <ion-card-content>
     <ion-grid>
-      <ion-row>
+      <ion-row class="table-list__header-filters">
         <ion-col size="9">
           <ion-searchbar
-            (ionInput)="handleInput($event)"
+          [(ngModel)]="nameFilter"
             placeholder="Buscar por nombre"
           ></ion-searchbar>
         </ion-col>
         <ion-col>
-          <ion-label for="rol">Rol</ion-label>
           <ion-select
             aria-label="rol"
             interface="popover"
             mode="md"
             fill="solid"
             placeholder="Rol de usuario"
-            (ionChange)="handleChange($event)"
+            [(ngModel)] = "selectedRole"
           >
             <ion-select-option value="admin">Administrador</ion-select-option>
             <ion-select-option value="supervisor">Supervisor</ion-select-option>
@@ -28,21 +27,21 @@
           </ion-select>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-align-items-center" color="primary">
+      <ion-row class="table-list__header">
         <ion-col>Foto</ion-col>
         <ion-col>Nombre</ion-col>
         <ion-col>Email</ion-col>
         <ion-col>Rol</ion-col>
         <ion-col>Acciones</ion-col>
       </ion-row>
-      @for (user of results; track user.id) {
-        <ion-row class="ion-justify-content-center">
+      @for (user of users |filterBySearchBar:'name': nameFilter | filterByRole:selectedRole; track user.id) {
+        <ion-row>
           <ion-col
-            ><ion-avatar aria-hidden="true">
+            ><ion-thumbnail aria-hidden="true">
               <img
                 alt="{{ user.name }}"
                 [src] = imageService.formatImageSrc(user.imageSrc)
-              /> </ion-avatar
+              /> </ion-thumbnail
           ></ion-col>
           <ion-col>
             {{ user.name }}
@@ -53,19 +52,21 @@
           <ion-col>
             {{ user.role | roleFormatter }}
           </ion-col>
-          <ion-col>
-            <ion-button (click)="abrirModalUsuario(user)" color="tertiary">
+          <ion-col class="table-list__content-actions">
+            <ion-button (click)="abrirModalUsuario(user)" color="tertiary" size="small">
               <ion-icon name="eye-outline"></ion-icon>
             </ion-button>
             <ion-button
               (click)="$event.stopPropagation(); abrirModalModificar(user)"
               color="secondary"
+              size="small"
               ><ion-icon name="create-outline"></ion-icon
             ></ion-button>
             <ion-button
               (click)="showDeleteAlert(user.id, user.name)"
               [disabled]="user.role === 'admin'"
               color="danger"
+              size="small"
               ><ion-icon name="trash-outline"></ion-icon
             ></ion-button>
           </ion-col>

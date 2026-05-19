@@ -8,22 +8,24 @@ import {
   IonRow,
   IonCol,
   IonSearchbar,
-  IonList,
-  IonItem,
-  IonLabel,
   IonButton,
   AlertController,
   ToastController,
   ModalController,
   IonIcon,
   IonToggle,
+  IonSelect,
+  IonSelectOption,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { createOutline, trashOutline } from 'ionicons/icons';
+import { createOutline, eyeOutline, trashOutline } from 'ionicons/icons';
 import { FamilyService } from 'src/app/services/HTTPRequests/family-service';
 import { IFamilies, IFamily } from 'src/app/models/family';
 import { CheckFamilyModalComponent } from '../check-family-modal/check-family-modal.component';
 import { ModifyFamilyModalComponent } from '../modify-family-modal/modify-family-modal.component';
+import { FormsModule } from '@angular/forms';
+import { FilterByStatePipe } from 'src/app/pipes/shared/filter-by-state-pipe';
+import { FilterBySearchBarPipe } from 'src/app/pipes/shared/filter-by-search-bar-pipe';
 
 @Component({
   selector: 'app-family-list',
@@ -35,12 +37,17 @@ import { ModifyFamilyModalComponent } from '../modify-family-modal/modify-family
     IonCardTitle,
     IonCardContent,
     IonSearchbar,
-    IonList,
-    IonItem,
-    IonLabel,
     IonButton,
     IonIcon,
     IonToggle,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonSelect,
+    IonSelectOption,
+    FormsModule,
+    FilterByStatePipe,
+    FilterBySearchBarPipe,
   ],
 })
 export class FamilyListComponent implements OnInit {
@@ -52,9 +59,11 @@ export class FamilyListComponent implements OnInit {
   families: IFamilies = [];
   results = [...this.families];
   familyID: string | null = '';
+  nameFilter: string = '';
+  state: string | undefined = undefined;
 
   constructor() {
-    addIcons({ trashOutline, createOutline });
+    addIcons({ trashOutline, createOutline, eyeOutline });
   }
 
   ngOnInit() {
@@ -103,14 +112,6 @@ export class FamilyListComponent implements OnInit {
         console.log('Error loading families');
       },
     });
-  }
-
-  handleInput(event: Event) {
-    const target = event.target as HTMLIonSearchbarElement;
-    const query = target.value?.toLowerCase() || '';
-    this.results = this.families.filter((d) =>
-      d.name.toLowerCase().includes(query),
-    );
   }
 
   async showDeleteAlert(id: string, name: string) {
