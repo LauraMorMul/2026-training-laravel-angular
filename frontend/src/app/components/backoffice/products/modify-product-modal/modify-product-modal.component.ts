@@ -12,28 +12,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  IonButton,
-  IonButtons,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonIcon,
-  IonImg,
-  IonInput,
-  IonLabel,
-  IonRow,
-  IonSelect,
-  IonSelectOption,
-  IonToggle,
-  IonTitle,
-  IonToolbar,
-  LoadingController,
-  ModalController,
-  ToastController,
-  AlertController,
-} from '@ionic/angular/standalone';
+import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonInput, IonLabel, IonRow, IonSelect, IonSelectOption, IonToggle, IonTitle, IonToolbar, LoadingController, ModalController, ToastController, AlertController, IonThumbnail } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { image } from 'ionicons/icons';
 import { IFamilies } from 'src/app/models/family';
@@ -69,7 +48,8 @@ import { numberFormatter } from 'src/app/shared/utils/number-formatter';
     IonIcon,
     IonImg,
     IonButtons,
-  ],
+    IonThumbnail
+],
 })
 export class ModifyProductModalComponent implements OnInit {
   @Input() product!: IProduct;

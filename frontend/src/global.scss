@@ -38,29 +38,64 @@
 
 /*Customizaciones del backoffice*/
 .backoffice-layout__container {
-	display: flex;
-	gap: 1.5rem;
-	margin: 20px;
+  display: flex;
+  gap: 1.5rem;
+  margin: 20px;
 }
 
 .backoffice-layout__list {
-    flex: 3;
-	min-width: 0;
+  flex: 3;
+  min-width: 0;
 }
 
 .backoffice-layout__form {
-    flex: 1;
-	min-width: 320px;
+  flex: 1;
+  min-width: 320px;
 }
 
 @media (max-width: 900px) {
-	.backoffice-layout__container {
-		flex-direction: column;
-	}
+  .backoffice-layout__container {
+    flex-direction: column;
+  }
 
-	.backoffice-layout__list,
-	.backoffice-layout__form {
-		flex: 1 1 auto;
-		width: 100%;
-	}
+  .backoffice-layout__list,
+  .backoffice-layout__form {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+.modal-check__user {
+  --height: 315px;
+  @media (max-width: 768px) {
+        --height: 100%;
+        --width: 100%;
+        --border-radius: 0;
+    }
+}
+
+.modal-modify__user {
+  --height: 640px;
+  @media (max-width: 768px) {
+        --height: 100%;
+        --width: 100%;
+        --border-radius: 0;
+    }
+}
+
+.modal-check__product {
+  --height: 315px;
+  @media (max-width: 768px) {
+        --height: 100%;
+        --width: 100%;
+        --border-radius: 0;
+    }
+}
+
+.modal-modify__product {
+  --height: 730px;
+  @media (max-width: 768px) {
+        --height: 100%;
+        --width: 100%;
+        --border-radius: 0;
+    }
 }

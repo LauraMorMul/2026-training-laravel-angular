@@ -1,15 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import {
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonImg,
-  IonTitle,
-  IonToolbar,
-  ModalController,
-} from '@ionic/angular/standalone';
+import { IonButton, IonButtons, IonContent, IonHeader, IonImg, IonTitle, IonToolbar, ModalController, IonThumbnail } from '@ionic/angular/standalone';
 import { IProduct } from 'src/app/models/product';
 import { ProductStatusPipe } from 'src/app/pipes/product-status-pipe';
 import { ImageFormatter } from 'src/app/services/helper/image-formatter';
@@ -27,8 +18,9 @@ import { ImageFormatter } from 'src/app/services/helper/image-formatter';
     IonButton,
     IonImg,
     ProductStatusPipe,
-    CurrencyPipe
-  ],
+    CurrencyPipe,
+    IonThumbnail
+],
 })
 export class CheckProductModalComponent {
   private modalCtrl = inject(ModalController);

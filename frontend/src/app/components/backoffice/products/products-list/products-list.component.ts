@@ -176,6 +176,7 @@ export class ProductsListComponent implements OnInit {
       componentProps: {
         product: selectedProduct,
       },
+      cssClass: 'modal-modify__product'
     });
 
     await modal.present();
@@ -233,6 +234,7 @@ export class ProductsListComponent implements OnInit {
       componentProps: {
         product: selectedProduct,
       },
+      cssClass: 'modal-check__product'
     });
 
     await modal.present();

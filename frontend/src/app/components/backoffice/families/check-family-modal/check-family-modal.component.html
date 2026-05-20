@@ -7,5 +7,31 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <p>Activa: {{ family.active ? 'Sí' : 'No' }}</p>
+  <h3>Estado de la familia: </h3>
+<p>{{ family.active }}</p>
+  <ion-list [inset]="true" lines="none">
+    <ion-list-header class="ion-list__header">
+      <ion-label>Productos</ion-label>
+    </ion-list-header>
+    @for (
+      product of products | filterProductByFamily: family.id;
+      track product.id
+    ) {
+      <ion-item>
+        <ion-thumbnail>
+          <img
+            alt="{{ product.name }}"
+            [src]="imageService.formatImageSrc(product.image_src)"
+          />
+        </ion-thumbnail>
+        <ion-label>
+          {{ product.name }}
+        </ion-label>
+        <ion-label>
+          {{ product.price | moneyFormatter | currency: "EUR" }}
+        </ion-label>
+        <ion-label> {{ product.stock }} unidades </ion-label>
+      </ion-item>
+    }
+  </ion-list>
 </ion-content>

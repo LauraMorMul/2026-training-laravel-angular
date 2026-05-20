@@ -15,27 +15,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import {
-  IonButton,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonIcon,
-  IonImg,
-  IonInput,
-  IonInputPasswordToggle,
-  IonLabel,
-  IonRow,
-  IonSelect,
-  IonSelectOption,
-  IonTitle,
-  IonToolbar,
-  ModalController,
-  LoadingController,
-  ToastController,
-  IonButtons
-} from '@ionic/angular/standalone';
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonInput, IonInputPasswordToggle, IonLabel, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar, ModalController, LoadingController, ToastController, IonButtons, IonThumbnail } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { image } from 'ionicons/icons';
 import { IUser } from 'src/app/models/user';
@@ -65,8 +45,9 @@ import { UserService } from 'src/app/services/HTTPRequests/user-service';
     ReactiveFormsModule,
     IonIcon,
     IonImg,
-    IonButtons
-  ],
+    IonButtons,
+    IonThumbnail
+],
 })
 export class ModifyUserModalComponent implements OnInit {
   @Input() user!: IUser;

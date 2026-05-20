@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="modal-header__toolbar">
     <ion-buttons slot="start">
       <ion-button type="button" (click)="closeModal()">Cerrar</ion-button>
     </ion-buttons>
@@ -7,8 +7,20 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-img [src]="imageService.formatImageSrc(user.imageSrc)"> </ion-img>
-  <p>Email: {{ user.email }}</p>
-  <p>Pin: {{ user.pin }}</p>
-  <p>Rol: {{ user.role | roleFormatter }}</p>
+  <div class="modal-content__body">
+    <div>
+      <ion-thumbnail>
+        <ion-img [src]="imageService.formatImageSrc(user.imageSrc)"> </ion-img>
+      </ion-thumbnail>
+      
+    </div>
+    <div class="modal-content__data">
+      <h3>Email:</h3>
+      <p>{{ user.email }}</p>
+      <h3>Pin:</h3>
+      <p>{{ user.pin }}</p>
+      <h3>Rol:</h3>
+      <p>{{ user.role | roleFormatter }}</p>
+    </div>
+  </div>
 </ion-content>

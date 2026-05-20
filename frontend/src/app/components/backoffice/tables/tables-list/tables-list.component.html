@@ -39,13 +39,13 @@
           <ion-col>{{ table.name }}</ion-col>
           <ion-col>{{ table.zone.name }}</ion-col>
           <ion-col>
-            <ion-button
+            <!-- <ion-button
               (click)="abrirModalTable(table)"
               color="tertiary"
               size="small"
             >
               <ion-icon name="eye-outline"></ion-icon>
-            </ion-button>
+            </ion-button> -->
             <ion-button
               (click)="$event.stopPropagation(); abrirModalModificar(table)"
               color="secondary"

@@ -3,9 +3,20 @@
     <ion-buttons slot="start">
       <ion-button type="button" (click)="closeModal()">Cerrar</ion-button>
     </ion-buttons>
-    <ion-title>Detalles de la zona</ion-title>
+    <ion-title>{{ zone.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <p>{{ zone.name }}</p>
+  <ion-list [inset]="true" lines="none">
+    <ion-list-header class="ion-list__header">
+      <ion-label>Mesas</ion-label>
+    </ion-list-header>
+    @for (table of tables | filterByZone: zone.id; track table.id) {
+      <ion-item>
+        <ion-label>
+          {{ table.name }}
+        </ion-label>
+      </ion-item>
+    }
+  </ion-list>
 </ion-content>

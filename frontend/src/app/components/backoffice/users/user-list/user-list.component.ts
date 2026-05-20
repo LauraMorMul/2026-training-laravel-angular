@@ -103,6 +103,7 @@ export class UserListComponent implements OnInit {
       componentProps: {
         user: selectedUser,
       },
+      cssClass: "modal-modify__user",
     });
 
     await modal.present();
@@ -139,6 +140,7 @@ export class UserListComponent implements OnInit {
       componentProps: {
         user: selectedUser,
       },
+      cssClass: "modal-check__user",
     });
     modal.present();
   }

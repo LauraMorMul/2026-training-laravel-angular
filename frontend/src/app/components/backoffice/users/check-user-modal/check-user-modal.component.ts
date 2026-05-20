@@ -1,14 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  ModalController,
-  IonContent,
-  IonTitle,
-  IonHeader,
-  IonToolbar,
-  IonImg,
-  IonButtons,
-  IonButton,
-} from '@ionic/angular/standalone';
+import { ModalController, IonContent, IonTitle, IonHeader, IonToolbar, IonImg, IonButtons, IonButton, IonThumbnail, IonLabel } from '@ionic/angular/standalone';
 import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
 import { ImageFormatter } from 'src/app/services/helper/image-formatter';
 
@@ -25,7 +16,9 @@ import { ImageFormatter } from 'src/app/services/helper/image-formatter';
     RoleFormatterPipe,
     IonButtons,
     IonButton,
-  ],
+    IonThumbnail,
+    IonLabel
+],
 })
 export class CheckUserModalComponent {
   private modalCtrl = inject(ModalController);

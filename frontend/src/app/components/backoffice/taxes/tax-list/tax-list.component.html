@@ -24,13 +24,13 @@
           <ion-col>{{ tax.name }}</ion-col>
           <ion-col>{{ tax.percentage }}%</ion-col>
           <ion-col>
-            <ion-button
+            <!-- <ion-button
               (click)="abrirModalTax(tax)"
               color="tertiary"
               size="small"
             >
               <ion-icon name="eye-outline"></ion-icon>
-            </ion-button>
+            </ion-button> -->
             <ion-button
               (click)="$event.stopPropagation(); abrirModalModificar(tax)"
               color="secondary"

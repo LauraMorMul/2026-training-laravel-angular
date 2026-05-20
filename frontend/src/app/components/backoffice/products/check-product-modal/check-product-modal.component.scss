@@ -1,0 +1,35 @@
+.modal-content__body {
+  display: flex;
+  div {
+    margin: 10px;
+  }
+}
+
+.modal-content__data {
+  border-radius: 40px;
+  border-left: 4px solid var(--ion-color-primary);
+  width: 100%;
+  padding-left: 10px;
+}
+
+ion-thumbnail {
+  --size: 250px;
+  --border-radius: 40px;
+  border: 4px solid var(--ion-color-primary);
+  img {
+    --border-radius: 36px;
+  }
+}
+
+.modal-header__toolbar {
+    --background: rgba(var(--ion-color-primary-rgb), 0.25);
+    --border-color: var(--ion-color-primary)
+}
+
+span {
+    font-weight: bold;
+}
+
+ion-content {
+  --background: rgba(var(--ion-color-primary-rgb), 0.15);
+}
