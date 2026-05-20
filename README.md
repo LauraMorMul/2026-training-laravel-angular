@@ -1,12 +1,28 @@
-# 2026 Training: Laravel + Angular Starter Kit
+# TPV en prácticas
 
-Este repositorio sirve como proyecto base para prácticas de desarrollo backend y frontend, con **Laravel 12** en el backend y **Angular + Ionic** en el frontend.
+ 
+> **Autor:** Laura Mora
+
+> **Periodo de desarrollo:** Marzo - Junio 2026  
+
+> **Actualizado a fecha de :** 20 de Mayo 2026  
+
+
+
+En este repositorio podemos encontrar un TPV desarrollado de forma específica para la restauración. Está compuesto de dos zonas claramente diferenciadas:
+* Panel de configuración: Gestión de los elementos necesarios para tener un TPV, incluyendo, pero no limitado a, gestión de usuarios, creación de productos y manejo de zonas y mesas.
+* TPV: Creación de pedidos relacionados con su mesa, gestión del estado de estos y manejo de tickets.
+
+Se ha desarrollado empleando las siguientes tecnologías:
+*  Backend: Laravel 12
+* Frontend: Angular 20 e Ionic 8
 
 
 ---
 
 ## Índice
-
+- [Roadmap y alcances](#roadmap-y-alcances)
+  - [Desglose por hitos](#desglose-por-hitos-completados)
 - [Prerrequisitos](#prerrequisitos)
 - [Cómo empezar](#cómo-empezar)
 - [Estructura del proyecto](#estructura-del-proyecto)
@@ -18,6 +34,36 @@ Este repositorio sirve como proyecto base para prácticas de desarrollo backend 
 - [Estilo de código](#estilo-de-código)
 
 ---
+## Roadmap y alcances
+|  Hito | Estado  | Nombre  | Descripción  |
+| :------------: | ------------ | ------------ | ------------ |
+|  1 |  Completado | Modelo de datos  | Creación de migraciones y datos |
+|  2 | Completado   |API REST Backoffice   | Endpoints para la gestión de datos  |
+|  3 |  Completado | Interfaz: Backoffice  | Pantalla de gestión del TPV   |
+|  4 |  En proceso | Front de venta  | Diseño de interfaz de venta y desarrollo de lógica  |
+|  5 | Sin empezar (opcional)   | Informes  | Implementación de ceración y consulta de histórico  |
+| 6  | En proceso (opcional)  |  Mejoras | Modificaciones de mejora a la aplicación  |
+
+### Desglose por hitos completados
+#### Hito 1 - Modelo de datos
+* Creación de migraciones tanto de creación de tablas como de modificación de estas
+* Populación de la base de datos implementando uso de factories y seeders
+* Creación de modelos eloquent con sus respectivas relaciones y soft-deletes implementados
+
+#### Hito 2 - API REST: Backoffice
+* Autenticación de usuarios mediante implementación de API Token
+* CRUD de entidades relevantes al backoffice
+* Validaciones en las diferentes capas y errores relevantes
+
+#### Hito 3 - Interfaz: Backoffice
+* Diseño de pantallas sencillas pero funcionales
+* Vistas para gestionar las entidades en un solo panel
+
+#### Hito 6 - Mejoras
+* Funcionales
+ * Roles de usuario aplicados como *ability* mediante *middleware*
+* Técnicas
+ * Autenticación basada en tokens
 
 ## Prerrequisitos
 
@@ -27,7 +73,7 @@ Para seguir esta guía necesitas tener instalado en tu máquina:
 - **Make** (GNU Make), para usar los objetivos del `Makefile` (`make start`, `make install`, `make db-migrate`, etc.).
 - **Git**, para clonar el repositorio.
 
----
+
 
 ## Cómo empezar
 
@@ -67,7 +113,7 @@ Tras seguir estos pasos tendrás:
 - **Frontend (Angular):** [http://localhost:4200](http://localhost:4200)
 - **DbGate (MySQL):** [http://localhost:9051](http://localhost:9051) (conexión **Training MySQL** preconfigurada)
 
----
+
 
 ## Estructura del proyecto
 
@@ -120,7 +166,7 @@ El interceptor HTTP (`providers/interceptor.ts`) prefija automáticamente la URL
 
 Interfaz web para explorar y consultar la base MySQL. La conexión **Training MySQL** queda preconfigurada y apunta a la base `training` del servicio `db`.
 
----
+
 
 ## Objetivos de aprendizaje
 
@@ -130,7 +176,7 @@ Interfaz web para explorar y consultar la base MySQL. La conexión **Training My
 - Exponer la lógica de negocio a través de **HTTP entrypoints** y mantener el dominio independiente del framework.
 - Familiarizarse con **Docker**, **Composer** y **Node** en un flujo de desarrollo profesional.
 
----
+
 
 ## Buenas prácticas
 
@@ -139,7 +185,7 @@ Interfaz web para explorar y consultar la base MySQL. La conexión **Training My
 - Mantener los dominios **autocontenidos**, siguiendo la convención: `App/<Dominio>/{Domain, Application, Infrastructure}`.
 - Escribir **tests** que dependan de la interfaz del dominio, no de la implementación concreta.
 
----
+
 
 ## Estilo de código
 
