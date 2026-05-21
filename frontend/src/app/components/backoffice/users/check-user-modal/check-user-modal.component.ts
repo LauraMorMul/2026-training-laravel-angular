@@ -17,7 +17,6 @@ import { ImageFormatter } from 'src/app/services/helper/image-formatter';
     IonButtons,
     IonButton,
     IonThumbnail,
-    IonLabel
 ],
 })
 export class CheckUserModalComponent {

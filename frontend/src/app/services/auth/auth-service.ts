@@ -10,6 +10,10 @@ export class AuthService extends BaseApiService {
     return this.httpCall('/login', { email, password }, 'post');
   }
 
+  loginPin(email: string, pin: string): Observable<ApiResponse> {
+    return this.httpCall('/login-pin', { email, pin }, 'post');
+  }
+
   context(email: string, password: string): Observable<ApiResponse> {
     return this.httpCall('/context', { email, password }, 'post');
   }

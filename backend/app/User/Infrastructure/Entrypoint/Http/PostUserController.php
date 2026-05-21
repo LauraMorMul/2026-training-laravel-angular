@@ -25,7 +25,7 @@ class PostUserController
 
         ]);
 
-        $restaurantId = auth('user')->user()->restaurant_id;
+        $restaurantId = auth('restaurant')->user()->restaurant_id;
 
         if ($restaurantId === null) {
             return new JsonResponse('Unknown user', 403);

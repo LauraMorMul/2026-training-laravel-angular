@@ -5,6 +5,7 @@ import { IonButton, IonCard, IonCardContent, IonCardTitle, IonContent, IonInput,
 import { LocalStorageService } from 'src/app/services/storage/local-storage-service';
 import { AuthService } from 'src/app/services/auth/auth-service';
 import { Router } from '@angular/router';
+import { AdminSelectorComponent } from "src/app/components/login/admin-selector/admin-selector.component";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     IonCard,
     IonCardContent,
-    IonCardTitle,],
+    IonCardTitle, AdminSelectorComponent],
 })
 export class LoginPage implements OnInit {
   private authService = inject(AuthService);

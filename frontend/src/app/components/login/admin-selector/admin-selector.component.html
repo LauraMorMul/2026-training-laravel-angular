@@ -1,0 +1,19 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title> Iniciar sesión </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    @for (user of users | filterByRole:['admin', 'supervisor']; track user.id) {
+      <div class="user_selector__card" (click)="openPinModal(user.email)">
+        <ion-thumbnail>
+          <img
+            alt="{{ user.name }}"
+            [src]="imageService.formatImageSrc(user.imageSrc)"
+          />
+        </ion-thumbnail>
+        <h3>{{ user.name }}</h3>
+        <p>{{ user.role | roleFormatter}}</p>
+      </div>
+    }
+  </ion-card-content>
+</ion-card>

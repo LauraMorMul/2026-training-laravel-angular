@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Introduce el pin</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="numpad-body__input">
+    <h3>@if(pin.length === 0) {
+      ----
+      } @else {
+        @for (number of pin; track $index) {*}
+      }
+      </h3>
+  </div>
+  <div class="numpad-body__buttons">
+    @for (number of ['1','2','3','4','5','6','7','8','9','<-', '0', 'x']; track $index) {
+      <ion-button (click)="handleInput(number)">{{ number }}</ion-button>
+    }
+  </div>
+</ion-content>

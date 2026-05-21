@@ -18,7 +18,7 @@ export class UserService extends BaseApiService {
   }
 
   private loadUsers(): void {
-    this.httpCall('/users/restaurant', null, 'get').subscribe({
+    this.httpCall('/users/backoffice', null, 'get').subscribe({
       next: (response: any) => {
         const users = response as unknown as IUsers;
         this.users$.next(users);

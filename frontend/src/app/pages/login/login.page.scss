@@ -1,4 +1,4 @@
-ion-card {
+/* ion-card {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -27,4 +27,16 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+} */
+
+ion-content {
+    --padding-top: 0;
+    --padding-bottom: 0;
+
+    &::part(scroll) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
 }
