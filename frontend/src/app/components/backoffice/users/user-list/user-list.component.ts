@@ -46,7 +46,7 @@ export class UserListComponent implements OnInit {
   users: IUsers = [];
   userID: string | null = '';
   nameFilter: string | undefined = undefined;
-  selectedRole: string | undefined = undefined;
+  selectedRole: string[] = [];
 
   constructor() {
     addIcons({ trashOutline, createOutline, eyeOutline });
@@ -54,6 +54,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+    
   }
 
   public actionButtons = [
