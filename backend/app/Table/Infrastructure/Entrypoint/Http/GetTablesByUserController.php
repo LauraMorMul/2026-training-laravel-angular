@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Table\Infrastructure\Entrypoint\Http;
-
 use App\Table\Application\GetTablesByRestaurant\GetTablesByRestaurant;
 use Illuminate\Http\JsonResponse;
 
-class GetTablesByRestaurantController
+class GetTablesByUserController
 {
     public function __construct(
         private GetTablesByRestaurant $getTablesByRestaurant
@@ -13,7 +12,7 @@ class GetTablesByRestaurantController
 
     public function __invoke()
     {
-        $restaurantID = auth('restaurant')->user()->id;
+        $restaurantID = auth('user')->user()->restaurant_id;
         $response = ($this->getTablesByRestaurant)($restaurantID);
 
         if ($response == null) {

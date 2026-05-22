@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton } from '@ionic/angular/standalone';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/storage/local-storage-service';
 
 @Component({
   selector: 'app-tpv',
@@ -20,12 +17,17 @@ import {
     IonToolbar,
     CommonModule,
     FormsModule,
-  ],
+    IonButtons,
+    IonButton,
+    RouterOutlet,
+    RouterLink
+],
 })
 export class TpvPage implements OnInit {
+  private localService = inject(LocalStorageService);
   constructor() {}
 
   ngOnInit() {
-    console.log('Iniciado tpv');
+    this.localService.removeUserToken();
   }
 }

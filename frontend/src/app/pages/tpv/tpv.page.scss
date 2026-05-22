@@ -1,0 +1,19 @@
+ion-content {
+    --padding: 0;
+}
+
+.caja {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.side-menu__wrapper {
+    background-color: var(--ion-color-secondary);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 50px;
+    min-width: fit-content;
+}

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   IonHeader,
@@ -20,15 +20,18 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage-serv
   imports: [IonHeader, IonContent, IonToolbar, IonTitle, IonButton],
 })
 export class PinPadUserComponent {
+  @Input() email!: string;
+  @Input() tableId!: string;
+  @Output() success = new EventEmitter<string>();
+  @Output() back = new EventEmitter<void>();
   private modalCtrl = inject(ModalController);
   private loadingController = inject(LoadingController);
   private toastController = inject(ToastController);
   private authService = inject(AuthService);
   private localService = inject(LocalStorageService);
   private router = inject(Router);
-  @Input()
-  email!: string;
 
+  origin: string | undefined;
   pin: string = '';
 
   handleInput(pin: string) {
@@ -70,16 +73,12 @@ export class PinPadUserComponent {
         loading.remove();
         this.localService.setUserToken(response.token);
         this.localService.setUserName(response.user.name);
-        if (response.user.role === 'admin') {
-          this.router.navigate(['/backoffice']);
-        } else {
-          this.router.navigate(['/tpv']);
-        }
-        this.modalCtrl.dismiss();
+        this.modalCtrl.dismiss({ success: true, role: response.user.role });
       },
       error: (err) => {
         toast.present();
         loading.remove();
+        this.pin = '';
       },
     });
   }

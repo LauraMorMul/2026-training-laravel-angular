@@ -1,4 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { IUsers } from 'src/app/models/user';
 import {
   IonCard,
@@ -10,15 +17,13 @@ import {
 } from '@ionic/angular/standalone';
 import { ImageFormatter } from 'src/app/services/helper/image-formatter';
 import { RoleFormatterPipe } from 'src/app/pipes/role-formatter-pipe';
-import { FilterByRolePipe } from 'src/app/pipes/user/filter-by-role-pipe';
-import { PinPadUserComponent } from '../pin-pad-user/pin-pad-user.component';
 import { GetUsers } from 'src/app/services/auth/get-users';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-selector',
-  templateUrl: './admin-selector.component.html',
-  styleUrls: ['./admin-selector.component.scss'],
+  selector: 'app-user-selector',
+  templateUrl: './user-selector.component.html',
+  styleUrls: ['./user-selector.component.scss'],
   imports: [
     IonCard,
     IonThumbnail,
@@ -26,10 +31,11 @@ import { Router } from '@angular/router';
     IonCardTitle,
     IonCardContent,
     RoleFormatterPipe,
-    FilterByRolePipe,
   ],
 })
-export class AdminSelectorComponent implements OnInit {
+export class UserSelectorComponent implements OnInit {
+  @Input() tableId!: string;
+  @Output() userSelected = new EventEmitter<string>();
   private userService = inject(GetUsers);
   public imageService = inject(ImageFormatter);
   private modalCtrl = inject(ModalController);
@@ -54,19 +60,7 @@ export class AdminSelectorComponent implements OnInit {
     });
   }
 
-  async openPinModal(email: string) {
-    const modal = await this.modalCtrl.create({
-      component: PinPadUserComponent,
-      componentProps: { email: email, origin: 'admin-selector' },
-    });
-    await modal.present();
-    const { data } = await modal.onDidDismiss();
-    if (data?.success) {
-      if (data.role === 'admin' || data.role === 'supervisor') {
-        this.router.navigate(['/backoffice']);
-      } else {
-        this.router.navigate(['/tpv']);
-      }
-    }
+  openPinModal(email: string) {
+    this.userSelected.emit(email);
   }
 }

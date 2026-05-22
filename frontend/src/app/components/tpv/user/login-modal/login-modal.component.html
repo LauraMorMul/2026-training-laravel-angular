@@ -1,0 +1,15 @@
+<ion-content>
+  @if (state === "user-selector") {
+    <app-user-selector [tableId]="tableId" (userSelected)="selectUser($event)">
+    </app-user-selector>
+  }
+  @if (state === "pinpad") {
+    <app-pin-pad-user
+      [email]="selectedUserEmail"
+      [tableId]="tableId"
+      (success)="onPinSuccess($event)"
+      (back)="goBack()"
+    >
+    </app-pin-pad-user>
+  }
+</ion-content>
