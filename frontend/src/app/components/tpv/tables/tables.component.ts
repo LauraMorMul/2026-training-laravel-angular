@@ -36,7 +36,6 @@ export class TablesComponent implements OnInit {
     if (this.localService.isThereUserToken()) {
       this.tablesUserService.getAll().subscribe({
         next: (response: ITables) => {
-          console.log('Soy usuario');
           this.tables = [...response];
         },
         error(err) {
@@ -46,7 +45,6 @@ export class TablesComponent implements OnInit {
     } else {
       this.tablesRestaurantService.getAll().subscribe({
         next: (response: ITables) => {
-          console.log('Soy restaurante');
           this.tables = [...response];
         },
         error(err) {

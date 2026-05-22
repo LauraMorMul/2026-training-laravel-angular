@@ -1,20 +1,33 @@
 <ion-header>
   <ion-toolbar>
+    
+    @if (userName !== null) {
+      <ion-chip slot="start" color="secondary">
+      <ion-avatar>
+        <img
+          [alt]="userName"
+          [src] = imageService.formatImageSrc(userImg)
+        />
+      </ion-avatar>
+      <ion-label>{{ userName }}</ion-label>
+    </ion-chip>
+    }
     <ion-title>tpv</ion-title>
+    <ion-label slot="end">Restaurant name</ion-label>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="caja">
     <div class="side-menu__wrapper">
-    <p>TPV</p>
-    <nav>
-      <ion-buttons>
-        <ion-button [routerLink]="['/tpv/tables']">Mesas</ion-button>
-      </ion-buttons>
-    </nav>
-    <ion-button>Salir</ion-button>
-  </div>
-  <router-outlet></router-outlet>
+      <p>TPV</p>
+      <nav>
+        <ion-buttons>
+          <ion-button [routerLink]="['/tpv/tables']">Mesas</ion-button>
+        </ion-buttons>
+      </nav>
+      <ion-button (click)="cerrarSesion()">Salir</ion-button>
+    </div>
+    <router-outlet></router-outlet>
   </div>
 </ion-content>

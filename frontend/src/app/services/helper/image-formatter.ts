@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ImageFormatter {
   formatImageSrc(value: string | null | undefined): string {
-    if(!value) return "https://ionicframework.com/docs/img/demos/avatar.svg";
+    if(!value || value === 'null') return "https://ionicframework.com/docs/img/demos/avatar.svg";
         return `${environment.apiUrl.replace('/api', '')}/storage/${value}`;
   }
 }
