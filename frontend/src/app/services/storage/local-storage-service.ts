@@ -10,8 +10,16 @@ export class LocalStorageService {
     localStorage.setItem('user_token', value);
   }
 
+  setUserImg(value: string): void {
+    localStorage.setItem('user_img', value);
+  }
+
   getUserToken(): string | null {
     return localStorage.getItem('user_token');
+  }
+
+  getUserImg(): string | null {
+    return localStorage.getItem('user_img');
   }
 
   isThereUserToken(): boolean {
@@ -20,6 +28,10 @@ export class LocalStorageService {
 
   removeUserToken(): void {
     localStorage.removeItem('user_token');
+  }
+
+  removeUserImg(): void {
+    return localStorage.removeItem('user_img');
   }
 
   setRestaurantToken(value: string): void {

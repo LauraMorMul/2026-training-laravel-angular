@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/services/auth/auth-service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage-service';
@@ -23,7 +23,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
     ReactiveFormsModule
 ],
 })
-export class RestaurantLoginPage {
+export class RestaurantLoginPage implements OnInit{
   private authService = inject(AuthService);
   private localService = inject(LocalStorageService);
   private router = inject(Router);
@@ -34,6 +34,12 @@ export class RestaurantLoginPage {
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
+
+  ngOnInit(): void {
+    if(this.localService.isThereRestToken()) {
+      this.router.navigate(['/login']);
+    }
+  }
 
   respuesta: any | null;
 
