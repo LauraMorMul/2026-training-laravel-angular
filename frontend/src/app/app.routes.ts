@@ -33,7 +33,7 @@ export const routes: Routes = [
       {
         path: '',
         redirectTo: 'users',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'users',
@@ -82,5 +82,26 @@ export const routes: Routes = [
   {
     path: 'tpv',
     loadComponent: () => import('./pages/tpv/tpv.page').then((m) => m.TpvPage),
+    children: [
+      {
+        path: '',
+        redirectTo: 'tables',
+        pathMatch: 'full'
+      },
+      {
+        path: 'tables',
+        loadComponent: () =>
+          import('./components/tpv/tables/tables.component').then(
+            (m) => m.TablesComponent,
+          ),
+      },
+      {
+        path: 'products/:tableId',
+        loadComponent: () =>
+          import('./components/tpv/products/product-container/product-container.component').then(
+            (m) => m.ProductContainerComponent,
+          ),
+      },
+    ],
   },
 ];

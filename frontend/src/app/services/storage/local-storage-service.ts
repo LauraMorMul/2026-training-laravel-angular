@@ -14,6 +14,10 @@ export class LocalStorageService {
     return localStorage.getItem('user_token');
   }
 
+  isThereUserToken(): boolean {
+    return localStorage.getItem('user_token') !== null;
+  }
+
   removeUserToken(): void {
     localStorage.removeItem('user_token');
   }
@@ -24,6 +28,10 @@ export class LocalStorageService {
 
   getRestaurantToken(): string | null{
     return localStorage.getItem('restaurant_token');
+  }
+
+  isThereRestToken(): boolean {
+    return localStorage.getItem('restaurant_token') !== null;
   }
 
   removeRestaurantToken(): void {

@@ -1,13 +1,20 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>tpv</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">tpv</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="caja">
+    <div class="side-menu__wrapper">
+    <p>TPV</p>
+    <nav>
+      <ion-buttons>
+        <ion-button [routerLink]="['/tpv/tables']">Mesas</ion-button>
+      </ion-buttons>
+    </nav>
+    <ion-button>Salir</ion-button>
+  </div>
+  <router-outlet></router-outlet>
+  </div>
 </ion-content>
