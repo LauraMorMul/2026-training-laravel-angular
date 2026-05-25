@@ -63,7 +63,7 @@ Se ha desarrollado empleando las siguientes tecnologías:
 * Funcionales
  * Roles de usuario aplicados como *ability* mediante *middleware*
 * Técnicas
- * Autenticación basada en tokens
+ * Autenticación basada en tokens para entidad restaurante y usuario
 
 ## Prerrequisitos
 
