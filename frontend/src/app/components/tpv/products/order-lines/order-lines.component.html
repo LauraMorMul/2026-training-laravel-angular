@@ -1,3 +1,6 @@
-<p>
-  order-lines works!
-</p>
+@for (line of orderLines; track $index) {
+  <div>
+    {{ line.product_id }} - {{ line.quantity }}
+    <button (click)="removeLine($index)">Eliminar</button>
+  </div>
+}
