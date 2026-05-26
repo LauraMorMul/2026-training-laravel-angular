@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { IProducts } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/HTTPRequests/product-service';
 import { IonCard, IonCardContent, IonThumbnail, IonLabel } from "@ionic/angular/standalone";
@@ -14,28 +14,11 @@ import { IOrderLine } from 'src/app/models/order_line';
   styleUrls: ['./product-list.component.scss'],
   imports: [IonCard, IonCardContent, IonThumbnail, IonLabel, CurrencyPipe, MoneyFormatterPipe],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent {
   private productService = inject(ProductService);
   public imageService = inject(ImageFormatter);
   private orderLineManager = inject(OrderLineManagerService);
-
-  products: IProducts = [];
-
-
-  ngOnInit() {
-    this.getProducts();
-  }
-
-  getProducts() {
-    this.productService.getAll().subscribe({
-      next: (response: IProducts) => {
-        this.products = [...response];
-      },
-      error() {
-        console.log('Ni de coña jeje');
-      },
-    });
-  }
+  @Input() products: IProducts = [];
 
   addToOrder(id: string, price: number) {
     const orderLine: IOrderLine = {

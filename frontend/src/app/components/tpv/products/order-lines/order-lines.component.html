@@ -1,6 +1,17 @@
-@for (line of orderLines; track $index) {
-  <div>
-    {{ line.product_id }} - {{ line.quantity }}
-    <button (click)="removeLine($index)">Eliminar</button>
-  </div>
-}
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Pedido mesa {{tableName}}</ion-card-title>
+    <ion-card-subtitle>Número de comensales</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      @for (line of orderLines; track $index) {
+        <ion-item>
+          <ion-label>{{line.product_id | findProductName:products}}</ion-label>
+          <ion-label>{{ line.quantity }}</ion-label>
+          <ion-button (click)="removeLine($index)">Eliminar</ion-button>
+        </ion-item>
+      }
+    </ion-list>
+  </ion-card-content>
+</ion-card>
