@@ -47,4 +47,9 @@ export class TableService extends BaseApiService {
       tap(() => this.refreshTables()),
     );
   }
+
+  getTableName(tableId: string): string {
+    const tables = this.tables$.getValue();
+    return tables.find(t => t.id === tableId)?.name || '';
+  }
 }
