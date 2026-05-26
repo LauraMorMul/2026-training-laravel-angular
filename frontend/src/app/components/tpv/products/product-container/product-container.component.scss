@@ -1,0 +1,15 @@
+.tpv-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.tpv-container__products {
+    flex: 3;
+    border: 2px solid red;
+}
+
+.tpv-container__order-lines {
+    flex: 1;
+    border: 1px solid orange;
+}

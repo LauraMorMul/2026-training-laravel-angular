@@ -1,2 +1,4 @@
-<app-product-list [products]="products"></app-product-list>
-<app-order-lines [products]="products" [tableName]="tableName"></app-order-lines>
+<div class="tpv-container">
+    <div class="tpv-container__products"><app-product-list [products]="products"></app-product-list></div>
+    <div class="tpv-container__order-lines"><app-order-lines [products]="products" [tableName]="tableName"></app-order-lines></div>
+</div>

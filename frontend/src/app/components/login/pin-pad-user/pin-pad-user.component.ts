@@ -74,7 +74,7 @@ export class PinPadUserComponent {
         this.localService.setUserToken(response.token);
         this.localService.setUserName(response.user.name);
         this.localService.setUserImg(response.user.imageSrc);
-        this.modalCtrl.dismiss({ success: true, role: response.user.role });
+        this.modalCtrl.dismiss({ success: true, role: response.user.role, tableId: this.tableId });
       },
       error: (err) => {
         toast.present();

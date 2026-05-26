@@ -4,6 +4,7 @@ import { IProducts } from 'src/app/models/product';
 import { OrderLineManagerService } from 'src/app/services/tpv/order-line-manager-service';
 import { IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonCardContent, IonList, IonItem, IonLabel, IonButton } from "@ionic/angular/standalone";
 import { FindProductNamePipe } from 'src/app/pipes/helper/find-product-name-pipe';
+import { OrderManagerService } from 'src/app/services/tpv/order-manager-service';
 
 @Component({
   selector: 'app-order-lines',
@@ -13,10 +14,12 @@ import { FindProductNamePipe } from 'src/app/pipes/helper/find-product-name-pipe
 })
 export class OrderLinesComponent implements OnInit {
   private orderLineManager = inject(OrderLineManagerService);
+  private orderManager = inject(OrderManagerService);
 
   orderLines: IOrderLines = [];
   @Input() products: IProducts = [];
   @Input() tableName: string = 'Ninguna';
+  total: number = 0;
 
   ngOnInit() {
     this.getOrderLines();

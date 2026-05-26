@@ -1,9 +1,7 @@
-<ion-card>
-  <ion-card-content>
-    @for (table of tables; track table.id) {
-      <div style="border: 1px solid pink;" (click)="openProducts(table.id)">
+@for (table of tables; track table.id) {
+  <ion-card (click)="openProducts(table.id)">
+    <ion-card-content>
         <p>{{ table.name }}</p>
-      </div>
-    }
-  </ion-card-content>
-</ion-card>
+    </ion-card-content>
+  </ion-card>
+}
