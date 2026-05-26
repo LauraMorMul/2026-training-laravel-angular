@@ -21,6 +21,7 @@ export class LoginModalComponent {
   }
 
   onPinSuccess(role: string) {
+    console.log(`Pin correcto, id de mesa ${this.tableId}`);
     this.modalCtrl.dismiss({ success: true, role, tableId: this.tableId });
   }
 

@@ -74,6 +74,7 @@ export class TablesComponent implements OnInit {
 
     const { data } = await modal.onDidDismiss();
     if (data?.success) {
+      console.log(`Modal cerrado, id mesa ${data.tableId}`);
       this.router.navigate([`/tpv/products/${data.tableId}`]);
     }
   }
