@@ -1,15 +1,17 @@
-.tpv-container {
-    display: flex;
-    height: 100%;
-    width: 100%;
+.tpv-layout__container {
+  display: flex;
+  gap: 1.5rem;
+  height: 100%;
 }
 
-.tpv-container__products {
-    flex: 3;
-    border: 2px solid red;
+.tpv-layout__products {
+  flex: 3;
+  border: 3px solid blue;
+
 }
 
-.tpv-container__order-lines {
-    flex: 1;
-    border: 1px solid orange;
+.tpv-layout__order-lines{
+  flex: 1;
+  min-width: 320px;
+  border: 3px solid hotpink;
 }
