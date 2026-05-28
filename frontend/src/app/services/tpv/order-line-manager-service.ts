@@ -11,14 +11,39 @@ export class OrderLineManagerService {
 
   addOrderLine(newLine: IOrderLine) {
     const current = this.linesSubject.value;
-    const existingIndex = current.findIndex(line => line.product_id === newLine.product_id);
+    const existingIndex = current.findIndex(
+      (line) => line.product_id === newLine.product_id,
+    );
 
     if (existingIndex !== -1) {
-      current[existingIndex].quantity += 1;
-      this.linesSubject.next([...current]);
+      this.updateQuantity(existingIndex, 1);
     } else {
       this.linesSubject.next([...current, { ...newLine, quantity: 1 }]);
     }
+  }
+
+  calcLinePrice(index: number) {
+    const current = this.linesSubject.value;
+    let quantity = current[index].quantity;
+    const unitPrice = current[index].price;
+    return quantity * unitPrice;
+  }
+
+  updateQuantity(index: number, delta: number) {
+    const current = this.linesSubject.value;
+    current[index].quantity += delta;
+    this.linesSubject.next([...current]);
+    if (current[index].quantity <= 0) {
+      this.removeOrderLine(index);
+    }
+  }
+
+  prepareLinesForBackend(): IOrderLines {
+    const current = this.linesSubject.value;
+    return current.map((line) => ({
+      ...line,
+      price: line.price * line.quantity,
+    }));
   }
 
   removeOrderLine(index: number) {
