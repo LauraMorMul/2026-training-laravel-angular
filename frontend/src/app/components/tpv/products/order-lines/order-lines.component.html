@@ -1,15 +1,28 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Pedido mesa {{tableName}}</ion-card-title>
+    <ion-card-title>Pedido mesa {{ tableName }}</ion-card-title>
     <ion-card-subtitle>Número de comensales</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
     <ion-list>
       @for (line of orderLines; track $index) {
         <ion-item>
-          <ion-label>{{line.product_id | findProductName:products}}</ion-label>
-          <ion-label>{{ line.quantity }}</ion-label>
-          <ion-button (click)="removeLine($index)">Eliminar</ion-button>
+          <ion-label>{{
+            line.product_id | findProductName: products
+          }}</ion-label>
+          <ion-label id="cantidad"
+            ><ion-button size="small" (click)="changeQuantity(-1, $index)"
+              >-</ion-button>
+            {{ line.quantity }}
+            <ion-button size="small" (click)="changeQuantity(1, $index)"
+              >+</ion-button
+          ></ion-label>
+          <ion-label>{{
+            orderLineManager.calcLinePrice($index)
+              | moneyFormatter
+              | currency: "EUR"
+          }}</ion-label>
+          <ion-button (click)="removeLine($index)"><ion-icon name="trash-outline"></ion-icon></ion-button>
         </ion-item>
       }
     </ion-list>
