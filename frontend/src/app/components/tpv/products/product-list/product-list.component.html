@@ -1,16 +1,31 @@
-<ion-card>
-  @for (product of products; track product.id) {
-    <ion-card (click)="addToOrder(product.id, product.price)">
-      <ion-card-content>
+<div class="product-list__container">
+  @if (families.length > 0) {
+    <div class="product-list__families-content">
+      <ion-button (click)="selectFamily('')">Todos</ion-button>
+      @for (family of families |filterByState:'true'; track $index;) {
+        <ion-button (click)="selectFamily(family.id)">{{ family.name }}</ion-button>
+      }
+    </div>
+  }
+  <div class="product-list__list">
+    @for (product of products |filterProductByFamily:selectedFamily; track product.id) {
+      <div
+        (click)="addToOrder(product.id, product.price)"
+        class="product-list__item"
+      >
         <ion-thumbnail aria-hidden="true">
           <img
             alt="{{ product.name }}"
             [src]="imageService.formatImageSrc(product.image_src)"
           />
         </ion-thumbnail>
-        <ion-label> {{product.name}} </ion-label>
-        <ion-label>{{ product.price | moneyFormatter | currency: "EUR"}}</ion-label>
-      </ion-card-content>
-    </ion-card>
-  }
-</ion-card>
+        <div class="product-list__item-data">
+          <ion-label id="product-name"> {{ product.name }} </ion-label>
+          <ion-label>{{
+            product.price | moneyFormatter | currency: "EUR"
+          }}</ion-label>
+        </div>
+      </div>
+    }
+  </div>
+</div>
