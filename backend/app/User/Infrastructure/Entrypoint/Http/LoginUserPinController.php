@@ -35,9 +35,9 @@ class LoginUserPinController
                 $restaurantId,
             );
         } catch (ErrorException) {
-            return new JsonResponse("Wrong credentials", 401);
+            return new JsonResponse('Wrong credentials', 401);
         } catch (Exception) {
-            return new JsonResponse("Something went wrong.", 500);
+            return new JsonResponse('Something went wrong.', 500);
         }
 
         return new JsonResponse($response->toArray(), 200);

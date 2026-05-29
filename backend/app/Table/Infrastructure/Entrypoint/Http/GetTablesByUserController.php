@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Table\Infrastructure\Entrypoint\Http;
+
 use App\Table\Application\GetTablesByRestaurant\GetTablesByRestaurant;
 use Illuminate\Http\JsonResponse;
 

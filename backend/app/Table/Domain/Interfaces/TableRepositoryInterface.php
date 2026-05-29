@@ -10,6 +10,8 @@ interface TableRepositoryInterface
 
     public function findById(string $id): ?Table;
 
+    public function findIdByUuid(string $uuid, int $restaurantId): ?int;
+
     public function getByRestaurant(string $restaurantID): ?array;
 
     public function deleteByID(string $id): void;

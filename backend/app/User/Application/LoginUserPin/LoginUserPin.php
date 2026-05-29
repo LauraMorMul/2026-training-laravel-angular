@@ -17,7 +17,7 @@ class LoginUserPin
     {
         $user = $this->userRepository->findByEmailAndRestaurant($email, $id);
         if ($user === null || $user->pin()->value() !== $pin) {
-            dd(!$user->pin()->value() === $pin);
+            dd(! $user->pin()->value() === $pin);
             throw new ErrorException('Error');
         }
 
