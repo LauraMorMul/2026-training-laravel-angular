@@ -44,6 +44,17 @@ class EloquentTableRepository implements TableRepositoryInterface
         );
     }
 
+    public function findIdByUuid(string $uuid, int $restaurantId): ?int
+    {
+        $model = $this->model->newQuery()->where('uuid', $uuid)->value('id');
+
+        if ($model === null) {
+            return null;
+        }
+
+        return $model;
+    }
+
     public function getByRestaurant(string $restaurantID): ?array
     {
 
