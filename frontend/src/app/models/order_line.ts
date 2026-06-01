@@ -5,7 +5,7 @@ export interface IOrderLine {
     user_id?: string,
     quantity: number,
     price: number,
-    tax_percentage?: number
+    percentage?: number
 }
 
 export type IOrderLines = IOrderLine[];

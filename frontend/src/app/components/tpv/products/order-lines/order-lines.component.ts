@@ -20,6 +20,7 @@ import { MoneyFormatterPipe } from 'src/app/pipes/money-formatter-pipe';
 import { CurrencyPipe } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { addOutline, removeOutline, trashOutline } from 'ionicons/icons';
+import { IOrder } from 'src/app/models/order';
 
 @Component({
   selector: 'app-order-lines',
@@ -82,5 +83,21 @@ export class OrderLinesComponent implements OnInit {
     this.orderLineManager.updateQuantity(this.tableId, index, amount);
   }
 
-  confirmOrder() {}
+  confirmOrder() {
+    const orderLines = this.orderLineManager.getLines(this.tableId);
+    const order: IOrder = {
+      table_id: this.tableId,
+      diners: this.diners,
+      orderLines: orderLines
+    }
+
+    this.orderManager.add(order).subscribe({
+          next: (response) => {
+      console.log('Pedido creado', response);
+    },
+    error: (err) => {
+      console.error('Error al crear pedido', err);
+    }
+    })
+  }
 }

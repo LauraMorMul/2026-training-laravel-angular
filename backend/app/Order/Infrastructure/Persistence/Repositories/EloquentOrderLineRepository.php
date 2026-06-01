@@ -61,6 +61,28 @@ class EloquentOrderLineRepository implements OrderLineRepositoryInterface
     }
 
     #[Override]
+    public function findByOrderAndProduct(string $orderUuid, string $productUuid, int $restaurantId)
+    {
+        $model = $this->model
+            ->where('restaurant_id', $restaurantId)
+            ->whereIn('order_id', function ($query) use ($orderUuid) {
+                $query->select('id')
+                    ->from('orders')
+                    ->where('uuid', $orderUuid)
+                    ->whereNull('deleted_at');
+            })
+            ->whereIn('product_id', function ($query) use ($productUuid) {
+                $query->select('id')
+                    ->from('products')
+                    ->where('uuid', $productUuid)
+                    ->whereNull('deleted_at');
+            })
+            ->first();
+
+        return $model;
+    }
+
+    #[Override]
     public function deleteById(string $id): void
     {
         $orderLineModel = $this->model->newQuery()->where('uuid', $id)->first();
