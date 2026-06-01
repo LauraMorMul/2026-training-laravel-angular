@@ -1,0 +1,8 @@
+<?php
+
+use App\Order\Infrastructure\Entrypoint\Http\PostOrderWithLinesController;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth:user')->group(function () {
+    Route::post('/order', PostOrderWithLinesController::class);
+});

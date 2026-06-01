@@ -21,14 +21,25 @@ class EloquentOrderRepository implements OrderRepositoryInterface
                 'status' => $order->status()->value(),
                 'table_id' => $order->tableId()->value(),
                 'opened_by_user_id' => $order->openedByUserId()->value(),
-                'closed_by_user_id' => $order->closedByUserId()->value(),
+                'closed_by_user_id' => $order->closedByUserId()?->value(),
                 'diners' => $order->diners()->value(),
                 'opened_at' => $order->openedAt()->value(),
-                'closed_at' => $order->closedAt()->value(),
+                'closed_at' => $order->closedAt()?->value(),
                 'created_at' => $order->createdAt()->value(),
                 'updated_at' => $order->updatedAt()->value(),
             ]
         );
+    }
+
+    public function findIdByUuid(string $uuid, int $restaurantId): ?int
+    {
+        $model = $this->model->newQuery()->where('uuid', $uuid)->value('id');
+
+        if ($model === null) {
+            return null;
+        }
+
+        return $model;
     }
 
     public function getByRestaurantId(string $restaurantId): array

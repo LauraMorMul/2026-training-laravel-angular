@@ -3,15 +3,21 @@
 namespace App\Order\Application\CreateOrder;
 
 use App\Order\Domain\Entity\Order;
+use App\Order\Domain\Entity\OrderLine;
 use App\Order\Domain\Interfaces\OrderLineRepositoryInterface;
 use App\Order\Domain\Interfaces\OrderRepositoryInterface;
 use App\Order\Domain\ValueObject\Diners;
+use App\Order\Domain\ValueObject\OrderID;
+use App\Order\Domain\ValueObject\ProductID;
 use App\Order\Domain\ValueObject\Status;
 use App\Order\Domain\ValueObject\TableID;
+use App\Product\Domain\Interfaces\ProductRepositoryInterface;
+use App\Shared\Domain\ValueObject\Price;
+use App\Shared\Domain\ValueObject\Quantity;
 use App\Shared\Domain\ValueObject\RestaurantID;
 use App\Shared\Domain\ValueObject\UserID;
 use App\Table\Domain\Interfaces\TableRepositoryInterface;
-use App\User\Domain\Interfaces\UserRepositoryInterface;
+use App\Tax\Domain\ValueObject\Percentage;
 
 class CreateOrder
 {
@@ -19,14 +25,12 @@ class CreateOrder
         private OrderRepositoryInterface $orderRepository,
         private OrderLineRepositoryInterface $orderLineRepository,
         private TableRepositoryInterface $tableRepository,
-        private UserRepositoryInterface $userRepository
+        private ProductRepositoryInterface $productRepository,
     ) {}
 
-    public function __invoke(int $restaurantId, string $userUuid, string $tableUuid, int $diners, array $orderLines)
+    public function __invoke(int $restaurantId, string $userId, string $tableUuid, int $diners, array $orderLines): void
     {
         $tableId = $this->tableRepository->findIdByUuid($tableUuid, $restaurantId);
-        $userId = $this->userRepository->findIdByUuid($userUuid, $restaurantId);
-        // primero guardo el pedido, luego busco el id del pedido en base al uuid, y luego le meto ese id a cada línea
         $restaurantIdVO = RestaurantID::create($restaurantId);
         $statusVO = Status::create('open');
         $tableIdVO = TableID::create($tableId);
@@ -35,5 +39,16 @@ class CreateOrder
         $order = Order::dddCreate($restaurantIdVO, $statusVO, $tableIdVO, $openedByVO, $dinersVO);
         $this->orderRepository->save($order);
 
+        $orderId = $this->orderRepository->findIdByUuid($order->id()->value(), $restaurantId);
+        $orderIdVo = OrderID::create($orderId);
+        foreach ($orderLines as $orderLineValue) {
+            $productId = $this->productRepository->findIdByUuid($orderLineValue['productId']);
+            $productVo = ProductID::create($productId);
+            $quantityVo = Quantity::create($orderLineValue['quantity']);
+            $priceVo = Price::create($orderLineValue['price']);
+            $percentageVo = Percentage::create($orderLineValue['percentage']);
+            $orderLine = OrderLine::dddCreate($restaurantIdVO, $orderIdVo, $productVo, $openedByVO, $quantityVo, $priceVo, $percentageVo);
+            $this->orderLineRepository->save($orderLine);
+        }
     }
 }

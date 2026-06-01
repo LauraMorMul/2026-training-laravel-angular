@@ -4,7 +4,6 @@ namespace App\Sale\Infrastructure\Persistence\Models;
 
 use App\Order\Infrastructure\Persistence\Models\EloquentOrder;
 use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
-use App\Sales_line\Infrastructure\Persistence\Models\EloquentSaleLine;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
 use Database\Factories\SaleFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;

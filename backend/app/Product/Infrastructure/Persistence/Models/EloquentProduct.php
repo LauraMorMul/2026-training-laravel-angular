@@ -3,9 +3,9 @@
 namespace App\Product\Infrastructure\Persistence\Models;
 
 use App\Family\Infrastructure\Persistence\Models\EloquentFamily;
-use App\Order_line\Infrastructure\Persistence\Models\EloquentOrderLine;
-use App\Restaurants\Infrastructure\Persistence\Models\EloquentRestaurant;
-use App\Taxes\Infrastructure\Persistence\Models\EloquentTax;
+use App\Order\Infrastructure\Persistence\Models\EloquentOrderLine;
+use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
+use App\Tax\Infrastructure\Persistence\Models\EloquentTax;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

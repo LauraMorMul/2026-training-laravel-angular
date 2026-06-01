@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use App\Family\Domain\Interfaces\FamilyRepositoryInterface;
 use App\Family\Infrastructure\Persistence\Repositories\EloquentFamilyRepository;
+use App\Order\Domain\Interfaces\OrderLineRepositoryInterface;
+use App\Order\Domain\Interfaces\OrderRepositoryInterface;
+use App\Order\Infrastructure\Persistence\Repositories\EloquentOrderLineRepository;
+use App\Order\Infrastructure\Persistence\Repositories\EloquentOrderRepository;
 use App\Product\Domain\Interfaces\ProductRepositoryInterface;
 use App\Product\Infrastructure\Persistence\Repositories\EloquentProductRepository;
 use App\Restaurant\Domain\Interfaces\RestaurantRepositoryInterface;
@@ -47,6 +51,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(InterfacesTokenManagerInterface::class, ServicesSanctumTokenManager::class);
         $this->app->bind(ImageManagerInterface::class, LaravelFileManager::class);
         $this->app->bind(TransactionManagerInterface::class, LaravelTransactionManager::class);
+        $this->app->bind(OrderRepositoryInterface::class, EloquentOrderRepository::class);
+        $this->app->bind(OrderLineRepositoryInterface::class, EloquentOrderLineRepository::class);
     }
 
     /**
