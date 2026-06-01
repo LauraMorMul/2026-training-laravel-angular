@@ -17,7 +17,7 @@ export class ProductContainerComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private tableService = inject(TableService);
 
-  private tableId = this.route.snapshot.paramMap.get('tableId');
+  public tableId = this.route.snapshot.paramMap.get('tableId');
   products: IProducts = [];
   tableName: string = '';
   diners: number = 0;
