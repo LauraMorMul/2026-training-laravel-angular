@@ -10,5 +10,7 @@ interface OrderLineRepositoryInterface
 
     public function getByOrder(string $orderUuid): array;
 
+    public function findByOrderAndProduct(string $orderId, string $productId, int $restaurantId);
+
     public function deleteById(string $id): void;
 }

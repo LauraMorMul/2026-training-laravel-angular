@@ -28,7 +28,7 @@ class CreateOrder
         private ProductRepositoryInterface $productRepository,
     ) {}
 
-    public function __invoke(int $restaurantId, string $userId, string $tableUuid, int $diners, array $orderLines): void
+    public function __invoke(int $restaurantId, string $userId, string $tableUuid, int $diners, array $orderLines): string
     {
         $tableId = $this->tableRepository->findIdByUuid($tableUuid, $restaurantId);
         $restaurantIdVO = RestaurantID::create($restaurantId);
@@ -42,7 +42,7 @@ class CreateOrder
         $orderId = $this->orderRepository->findIdByUuid($order->id()->value(), $restaurantId);
         $orderIdVo = OrderID::create($orderId);
         foreach ($orderLines as $orderLineValue) {
-            $productId = $this->productRepository->findIdByUuid($orderLineValue['productId']);
+            $productId = $this->productRepository->findIdByUuid($orderLineValue['product_id']);
             $productVo = ProductID::create($productId);
             $quantityVo = Quantity::create($orderLineValue['quantity']);
             $priceVo = Price::create($orderLineValue['price']);
@@ -50,5 +50,7 @@ class CreateOrder
             $orderLine = OrderLine::dddCreate($restaurantIdVO, $orderIdVo, $productVo, $openedByVO, $quantityVo, $priceVo, $percentageVo);
             $this->orderLineRepository->save($orderLine);
         }
+
+        return $order->id()->value();
     }
 }

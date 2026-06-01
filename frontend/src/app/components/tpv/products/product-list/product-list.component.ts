@@ -47,6 +47,7 @@ export class ProductListComponent implements OnInit {
       product_id: id,
       quantity: 1,
       price: price,
+      percentage: 10
     };
     this.orderLineManager.addOrderLine(this.tableId, orderLine);
   }
