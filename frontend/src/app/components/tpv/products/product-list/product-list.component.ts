@@ -39,8 +39,6 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFamilies();
-    console.log(this.families[0].toString());
-    this.selectedFamily = this.families[0].id;
   }
 
   addToOrder(id: string, price: number) {

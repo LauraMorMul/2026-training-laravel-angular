@@ -20,10 +20,11 @@ export class ProductContainerComponent implements OnInit {
   private tableId = this.route.snapshot.paramMap.get('tableId');
   products: IProducts = [];
   tableName: string = '';
+  diners: number = 0;
 
   ngOnInit() {
+    this.diners = history.state?.['diners'] || 0;
     this.getProducts();
-    console.log(this.tableId);
     this.tableService.getAll().subscribe(tables => {
       this.tableName = tables.find(t => t.id === this.tableId)?.name || '';
     });

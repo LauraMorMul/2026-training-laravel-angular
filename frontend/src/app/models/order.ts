@@ -1,3 +1,5 @@
+import { IOrderLines } from "./order_line";
+
 export interface IOrder {
     id: string,
     status: string,
@@ -6,5 +8,6 @@ export interface IOrder {
     closed_by_user_id: string,
     diners: number,
     opened_at: string,
-    closed_at: string
+    closed_at: string,
+    orderLines: Array<IOrderLines>
 }
