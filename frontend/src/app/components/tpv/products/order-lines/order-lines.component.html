@@ -1,7 +1,7 @@
 <ion-card>
   <ion-card-header>
     <ion-card-title>Pedido mesa {{ tableName }}</ion-card-title>
-    <ion-card-subtitle>Número de comensales</ion-card-subtitle>
+    <ion-card-subtitle>Número de comensales {{diners}}</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
     <ion-list>
@@ -26,5 +26,7 @@
         </ion-item>
       }
     </ion-list>
+    <br>
+    <ion-button (click)="confirmOrder()" [disabled]="orderLines.length === 0">Confirmar pedido</ion-button>
   </ion-card-content>
 </ion-card>

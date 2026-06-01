@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IOrder } from 'src/app/models/order';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +65,18 @@ export class LocalStorageService {
 
   getUserName(): string | null {
     return localStorage.getItem('user_name');
+  }
+
+  setOrder(order: IOrder): void {
+    localStorage.setItem(`order-${order.id}`, order.toString());
+  }
+
+  getOrder(orderId: string): string | null {
+    return localStorage.getItem(`order-${orderId}`);
+  }
+
+  removeOrder(orderId: string): void {
+    localStorage.removeItem(`order-${orderId}`);
   }
 
   getItem(key: string): string | null {

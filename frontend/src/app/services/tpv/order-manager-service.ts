@@ -10,8 +10,5 @@ export class OrderManagerService {
   public order$ = this.orderSubject.asObservable();
   private cantidad: number = 0;
 
-  calcTotal(cant: number) {
-    this.cantidad + cant;
-    return this.cantidad;
-  }
+  
 }

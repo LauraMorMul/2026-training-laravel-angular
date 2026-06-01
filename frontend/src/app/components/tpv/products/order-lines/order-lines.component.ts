@@ -23,6 +23,7 @@ export class OrderLinesComponent implements OnInit {
   orderLines: IOrderLines = [];
   @Input() products: IProducts = [];
   @Input() tableName: string = 'Ninguna';
+  @Input() diners: number = 0;
   total: number = 0;
 
   constructor() {
@@ -31,7 +32,6 @@ export class OrderLinesComponent implements OnInit {
 
   ngOnInit() {
     this.getOrderLines();
-    console.log(this.tableName);
   }
 
   getOrderLines() {
@@ -46,5 +46,9 @@ export class OrderLinesComponent implements OnInit {
 
   changeQuantity(amount: number, index: number) {
     this.orderLineManager.updateQuantity(index, amount);
+  }
+
+  confirmOrder() {
+
   }
 }

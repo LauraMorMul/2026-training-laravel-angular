@@ -10,6 +10,7 @@ import {
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { LoginModalComponent } from '../user/login-modal/login-modal.component';
+import { NumpadComponent } from '../numpad/numpad.component';
 
 @Component({
   selector: 'app-tables',
@@ -56,7 +57,8 @@ export class TablesComponent implements OnInit {
 
   openProducts(table: string) {
     if (this.localService.isThereUserToken()) {
-      this.router.navigate([`/tpv/products/${table}`]);
+      //this.router.navigate([`/tpv/products/${table}`]);
+      this.openDinersModal(table);
     } else {
       this.openLoginModal(table);
     }
@@ -74,8 +76,25 @@ export class TablesComponent implements OnInit {
 
     const { data } = await modal.onDidDismiss();
     if (data?.success) {
-      console.log(`Modal cerrado, id mesa ${data.tableId}`);
-      this.router.navigate([`/tpv/products/${data.tableId}`]);
+      this.openDinersModal(table);
+    }
+  }
+
+  async openDinersModal(table: string) {
+    const modal = await this.modalCtrl.create({
+      component: NumpadComponent,
+      componentProps: {
+        tableId: table,
+      },
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data?.success) {
+      this.router.navigate([`/tpv/products/${data.tableId}`], {
+        state: { diners: data.diners }
+      });
     }
   }
 }
