@@ -34,6 +34,7 @@ export class ProductListComponent implements OnInit {
   private familyService = inject(FamilyService);
   private orderLineManager = inject(OrderLineManagerService);
   @Input() products: IProducts = [];
+  @Input() tableId: string = 'Patata';
   families: IFamilies = [];
   selectedFamily: string = '';
 
@@ -47,8 +48,7 @@ export class ProductListComponent implements OnInit {
       quantity: 1,
       price: price,
     };
-
-    this.orderLineManager.addOrderLine(orderLine);
+    this.orderLineManager.addOrderLine(this.tableId, orderLine);
   }
 
   getFamilies() {
