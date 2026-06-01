@@ -4,7 +4,7 @@ namespace App\Order\Infrastructure\Persistence\Repositories;
 
 use App\Order\Domain\Entity\OrderLine;
 use App\Order\Domain\Interfaces\OrderLineRepositoryInterface;
-use App\Order_line\Infrastructure\Persistence\Models\EloquentOrderLine;
+use App\Order\Infrastructure\Persistence\Models\EloquentOrderLine;
 use Override;
 
 class EloquentOrderLineRepository implements OrderLineRepositoryInterface

@@ -4,10 +4,10 @@ namespace App\Restaurant\Infrastructure\Persistence\Models;
 
 use App\Family\Infrastructure\Persistence\Models\EloquentFamily;
 use App\Order\Infrastructure\Persistence\Models\EloquentOrder;
-use App\Order_line\Infrastructure\Persistence\Models\EloquentOrderLine;
+use App\Order\Infrastructure\Persistence\Models\EloquentOrderLine;
 use App\Product\Infrastructure\Persistence\Models\EloquentProduct;
 use App\Sale\Infrastructure\Persistence\Models\EloquentSale;
-use App\Sales_line\Infrastructure\Persistence\Models\EloquentSaleLine;
+use App\Sale\Infrastructure\Persistence\Models\EloquentSaleLine;
 use App\Table\Infrastructure\Persistence\Models\EloquentTable;
 use App\Tax\Infrastructure\Persistence\Models\EloquentTax;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;

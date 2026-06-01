@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Order_line\Infrastructure\Persistence\Models;
+namespace App\Order\Infrastructure\Persistence\Models;
 
-use App\Order\Infrastructure\Persistence\Models\EloquentOrder;
 use App\Product\Infrastructure\Persistence\Models\EloquentProduct;
 use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
-use App\Sales_line\Infrastructure\Persistence\Models\EloquentSaleLine;
+use App\Sale\Infrastructure\Persistence\Models\EloquentSaleLine;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
 use Database\Factories\OrderLineFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;

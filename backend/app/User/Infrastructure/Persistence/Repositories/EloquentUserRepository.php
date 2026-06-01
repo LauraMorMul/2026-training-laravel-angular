@@ -52,6 +52,17 @@ class EloquentUserRepository implements UserRepositoryInterface
         );
     }
 
+    public function findIdByUuid(string $uuid, int $restaurantId): ?int
+    {
+        $model = $this->model->newQuery()->where('uuid', $uuid)->value('id');
+
+        if ($model === null) {
+            return null;
+        }
+
+        return $model;
+    }
+
     public function findByEmail(string $email): ?User
     {
         $model = $this->model->newQuery()->where('email', $email)->first();

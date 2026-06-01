@@ -2,7 +2,6 @@
 
 namespace App\Order\Infrastructure\Persistence\Models;
 
-use App\Order_line\Infrastructure\Persistence\Models\EloquentOrderLine;
 use App\Restaurant\Infrastructure\Persistence\Models\EloquentRestaurant;
 use App\Sale\Infrastructure\Persistence\Models\EloquentSale;
 use App\User\Infrastructure\Persistence\Models\EloquentUser;
