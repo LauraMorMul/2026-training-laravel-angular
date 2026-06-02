@@ -8,7 +8,7 @@ interface OrderLineRepositoryInterface
 {
     public function save(OrderLine $orderLine): void;
 
-    public function getByOrder(string $orderUuid): array;
+    public function getByOrder(string $orderUuid, int $restaurantId): array;
 
     public function findByOrderAndProduct(string $orderId, string $productId, int $restaurantId);
 

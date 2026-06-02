@@ -12,6 +12,8 @@ interface ProductRepositoryInterface
 
     public function findIdByUuid(string $uuid): ?int;
 
+    public function findUuidById(int $id): ?string;
+
     public function getByRestaurant(string $restaurantID): ?array;
 
     public function getByTax(int $taxID): ?array;

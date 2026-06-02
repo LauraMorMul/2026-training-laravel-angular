@@ -24,6 +24,26 @@ class AddOrModifyOrderLines
 
     public function __invoke(int $restaurantId, string $orderUuid, array $orderLines, int $userId)
     {
+        $existingOrderLines = $this->orderLineRepository->getByOrder($orderUuid, $restaurantId);
+
+        // 2. Extraer los UUIDs de productos enviados
+        $sentProductUuids = array_column($orderLines, 'product_id');
+        // 3. Identificar líneas que deben eliminarse (existen en backend pero no en el envío)
+        $linesToDelete = [];
+        foreach ($existingOrderLines as $existingLine) {
+
+            $productUuid = $this->productRepository->findUuidById($existingLine->productId()->value());
+
+            // Comparar UUIDs (lo que envía el frontend vs lo que está en backend)
+            if (! in_array($productUuid, $sentProductUuids)) {
+                $linesToDelete[] = $existingLine;
+            }
+        }
+
+        // 4. Eliminar las líneas que ya no están en el pedido
+        foreach ($linesToDelete as $lineToDelete) {
+            $this->orderLineRepository->deleteById($lineToDelete->id()->value());
+        }
         foreach ($orderLines as $orderLineSent) {
             $foundOrderLine = $this->orderLineRepository->findByOrderAndProduct($orderUuid, $orderLineSent['product_id'], $restaurantId);
             if ($foundOrderLine !== null) {

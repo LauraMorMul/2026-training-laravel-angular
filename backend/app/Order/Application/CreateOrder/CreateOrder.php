@@ -28,7 +28,7 @@ class CreateOrder
         private ProductRepositoryInterface $productRepository,
     ) {}
 
-    public function __invoke(int $restaurantId, string $userId, string $tableUuid, int $diners, array $orderLines): string
+    public function __invoke(int $restaurantId, string $userId, string $tableUuid, int $diners, array $orderLines): CreateOrderResponse
     {
         $tableId = $this->tableRepository->findIdByUuid($tableUuid, $restaurantId);
         $restaurantIdVO = RestaurantID::create($restaurantId);
@@ -51,6 +51,6 @@ class CreateOrder
             $this->orderLineRepository->save($orderLine);
         }
 
-        return $order->id()->value();
+        return CreateOrderResponse::create($order, $tableUuid);
     }
 }
