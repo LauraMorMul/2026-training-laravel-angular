@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IOrder } from 'src/app/models/order';
+import { IOrderLines } from 'src/app/models/order_line';
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +40,7 @@ export class LocalStorageService {
     localStorage.setItem('restaurant_token', value);
   }
 
-  getRestaurantToken(): string | null{
+  getRestaurantToken(): string | null {
     return localStorage.getItem('restaurant_token');
   }
 
@@ -84,6 +85,19 @@ export class LocalStorageService {
 
   removeOrderByTable(tableId: string): void {
     localStorage.removeItem(`order-for-${tableId}`);
+  }
+
+  setOrderLines(tableId: string, lines: IOrderLines): void {
+    localStorage.setItem(`order-lines-${tableId}`, JSON.stringify(lines));
+  }
+
+  getOrderLines(tableId: string): IOrderLines | null {
+    const lines = localStorage.getItem(`order-lines-${tableId}`);
+    return lines ? JSON.parse(lines) : null;
+  }
+
+  removeOrderLines(tableId: string): void {
+    localStorage.removeItem(`order-lines-${tableId}`);
   }
 
   getItem(key: string): string | null {
