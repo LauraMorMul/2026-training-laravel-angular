@@ -33,10 +33,11 @@ class EloquentOrderLineRepository implements OrderLineRepositoryInterface
     }
 
     #[Override]
-    public function getByOrder(string $orderUuid): array
+    public function getByOrder(string $orderUuid, int $restaurantId): array
     {
         $models = $this->model->newQuery()
             ->whereHas('order', fn ($query) => $query->where('uuid', $orderUuid))
+            ->where('restaurant_id', $restaurantId)
             ->get();
 
         $orderLines = [];

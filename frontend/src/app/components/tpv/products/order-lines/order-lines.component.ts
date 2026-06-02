@@ -21,6 +21,7 @@ import { CurrencyPipe } from '@angular/common';
 import { addIcons } from 'ionicons';
 import { addOutline, removeOutline, trashOutline } from 'ionicons/icons';
 import { IOrder } from 'src/app/models/order';
+import { LocalStorageService } from 'src/app/services/storage/local-storage-service';
 
 @Component({
   selector: 'app-order-lines',
@@ -45,6 +46,7 @@ import { IOrder } from 'src/app/models/order';
 export class OrderLinesComponent implements OnInit {
   public orderLineManager = inject(OrderLineManagerService);
   private orderManager = inject(OrderManagerService);
+  private localService = inject(LocalStorageService);
 
   orderLines: IOrderLines = [];
   @Input() products: IProducts = [];
@@ -85,19 +87,38 @@ export class OrderLinesComponent implements OnInit {
 
   confirmOrder() {
     const orderLines = this.orderLineManager.getLines(this.tableId);
-    const order: IOrder = {
-      table_id: this.tableId,
-      diners: this.diners,
-      orderLines: orderLines
-    }
-
-    this.orderManager.add(order).subscribe({
+    let orderExists = this.localService.getOrderId(this.tableId);
+    if (orderExists) {
+      this.orderLineManager
+        .sendLinesToBackend(orderExists, orderLines)
+        .subscribe({
           next: (response) => {
-      console.log('Pedido creado', response);
-    },
-    error: (err) => {
-      console.error('Error al crear pedido', err);
+            console.log('Bien?');
+          },
+          error: (err) => {
+            console.error('Mal :(');
+          },
+        });
+    } else {
+      const order: IOrder = {
+        table_id: this.tableId,
+        diners: this.diners,
+        orderLines: orderLines,
+      };
+
+      this.orderManager.add(order).subscribe({
+        next: (response: any) => {
+          const newOrder: IOrder = {
+            id: response.id,
+            table_id: response.table_id,
+            diners: response.diners,
+          };
+          this.localService.setOrderByTable( this.tableId ,newOrder);
+        },
+        error: (err) => {
+          console.error('Error al crear pedido', err);
+        },
+      });
     }
-    })
   }
 }

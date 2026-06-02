@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IOrderLine, IOrderLines } from 'src/app/models/order_line';
+import { ApiResponse, BaseApiService } from '../api/base-api.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OrderLineManagerService {
+export class OrderLineManagerService extends BaseApiService{
   private linesMap = new Map<string, BehaviorSubject<IOrderLines>>();
 
   private getSubject(tableId: string): BehaviorSubject<IOrderLines> {
@@ -73,5 +74,9 @@ export class OrderLineManagerService {
 
   getLines(tableId: string): IOrderLines {
     return this.getSubject(tableId).value;
+  }
+
+  sendLinesToBackend(order_id: string, orderLines: IOrderLines): Observable<ApiResponse> {
+    return this.httpCall('/order_lines', {order_id, orderLines}, 'patch');
   }
 }

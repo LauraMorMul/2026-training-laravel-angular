@@ -66,6 +66,17 @@ class EloquentProductRepository implements ProductRepositoryInterface
         return $model;
     }
 
+    public function findUuidById(int $id): ?string
+    {
+        $model = $this->model->newQuery()->where('id', $id)->value('uuid');
+
+        if ($model === null) {
+            return null;
+        }
+
+        return $model;
+    }
+
     public function getByRestaurant(string $restaurantID): ?array
     {
         $models = $this->model->newQuery()->where('restaurant_id', $restaurantID)->get();

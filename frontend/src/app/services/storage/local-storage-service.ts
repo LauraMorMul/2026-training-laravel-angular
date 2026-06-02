@@ -67,16 +67,23 @@ export class LocalStorageService {
     return localStorage.getItem('user_name');
   }
 
-  setOrder(order: IOrder): void {
-    localStorage.setItem(`order-${order.id}`, order.toString());
+  setOrderByTable(tableId: string, order: IOrder): void {
+    localStorage.setItem(`order-for-${tableId}`, JSON.stringify(order));
   }
 
-  getOrder(orderId: string): string | null {
-    return localStorage.getItem(`order-${orderId}`);
+  getOrderByTable(tableId: string): IOrder | null {
+    const order = localStorage.getItem(`order-for-${tableId}`);
+    console.log('valor en localStorage:', order);
+    return order ? JSON.parse(order) : null;
   }
 
-  removeOrder(orderId: string): void {
-    localStorage.removeItem(`order-${orderId}`);
+  getOrderId(tableId: string): string | null {
+    const order = this.getOrderByTable(tableId);
+    return order?.id || null;
+  }
+
+  removeOrderByTable(tableId: string): void {
+    localStorage.removeItem(`order-for-${tableId}`);
   }
 
   getItem(key: string): string | null {
