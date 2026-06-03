@@ -2,17 +2,19 @@
   @if (families.length > 0) {
     <div class="product-list__families-content">
       <ion-button (click)="selectFamily('')">Todos</ion-button>
-      @for (family of families |filterByState:'true'; track $index;) {
-        <ion-button (click)="selectFamily(family.id)">{{ family.name }}</ion-button>
+      @for (family of families | filterByState: "true"; track $index) {
+        <ion-button (click)="selectFamily(family.id)">{{
+          family.name
+        }}</ion-button>
       }
     </div>
   }
   <div class="product-list__list">
-    @for (product of products |filterProductByFamily:selectedFamily; track product.id) {
-      <div
-        (click)="addToOrder(product.id, product.price)"
-        class="product-list__item"
-      >
+    @for (
+      product of products | filterProductByFamily: selectedFamily;
+      track product.id
+    ) {
+      <div (click)="addToOrder(product)" class="product-list__item">
         <ion-thumbnail aria-hidden="true">
           <img
             alt="{{ product.name }}"
