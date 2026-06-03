@@ -13,6 +13,7 @@ import {
   IonLabel,
   IonButton,
   IonIcon,
+  ModalController,
 } from '@ionic/angular/standalone';
 import { FindProductNamePipe } from 'src/app/pipes/helper/find-product-name-pipe';
 import { OrderManagerService } from 'src/app/services/tpv/order-manager-service';
@@ -25,6 +26,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage-serv
 import { ITable } from 'src/app/models/table';
 import { TableService } from 'src/app/services/HTTPRequests/table-service';
 import { Router } from '@angular/router';
+import { NumpadComponent } from '../../numpad/numpad.component';
 
 @Component({
   selector: 'app-order-lines',
@@ -52,6 +54,7 @@ export class OrderLinesComponent implements OnInit {
   private localService = inject(LocalStorageService);
   private tableService = inject(TableService);
   private router = inject(Router);
+  private modalCtrl = inject(ModalController);
 
   order: IOrder | null = null;
   orderLines: IOrderLines = [];
@@ -139,6 +142,29 @@ export class OrderLinesComponent implements OnInit {
         },
       });
     }
+  }
+
+  async modificarComensales() {
+    const modal = await this.modalCtrl.create({
+          component: NumpadComponent,
+          componentProps: {
+            tableId: this.table,
+          },
+        });
+    
+        await modal.present();
+    
+        const { data } = await modal.onDidDismiss();
+        if (data?.success) {
+          if(this.order) {
+            let updatedOrder : IOrder = {
+              table_id: this.tableId,
+              diners: data.diners
+            }
+            this.localService.setOrderByTable(this.tableId, updatedOrder);
+          }
+          this.diners = data.diners;
+        }
   }
 
   closeOrder() {
