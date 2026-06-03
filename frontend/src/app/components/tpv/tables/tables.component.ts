@@ -31,6 +31,15 @@ export class TablesComponent implements OnInit {
 
   ngOnInit() {
     this.getTables();
+    this.tables.forEach(element => {
+      console.log(element.__occupied)
+    });
+  }
+
+  ionViewDidEnter() {
+    this.tables.forEach(element => {
+      console.log(element.__occupied)
+    });
   }
 
   getTables() {

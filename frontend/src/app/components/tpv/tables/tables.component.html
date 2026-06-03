@@ -1,6 +1,11 @@
 @for (table of tables; track table.id) {
   <ion-card (click)="openProducts(table.id)">
     <ion-card-content>
+      @if (table.__occupied) {
+        <p>Ocupada</p>
+      } @else {
+        <p>Libre</p>
+      }
         <p>{{ table.name }}</p>
     </ion-card-content>
   </ion-card>

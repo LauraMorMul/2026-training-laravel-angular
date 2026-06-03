@@ -21,6 +21,11 @@ class EloquentOrder extends Model
 
     protected $table = 'orders';
 
+    protected $casts = [
+        'opened_at' => 'datetime',
+        'closed_at' => 'datetime',
+    ];
+
     protected static function newFactory(): Factory
     {
         return OrderFactory::new();

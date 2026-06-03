@@ -74,7 +74,6 @@ export class LocalStorageService {
 
   getOrderByTable(tableId: string): IOrder | null {
     const order = localStorage.getItem(`order-for-${tableId}`);
-    console.log('valor en localStorage:', order);
     return order ? JSON.parse(order) : null;
   }
 

@@ -24,6 +24,7 @@ class Order
         private ?DomainDateTime $closedAt,
         private DomainDateTime $createdAt,
         private DomainDateTime $updatedAt,
+        private ?array $orderLines = null,
     ) {}
 
     public static function dddCreate(RestaurantID $restaurantId, Status $status, TableID $tableId, UserID $openedByUserId, Diners $diners): self
@@ -41,7 +42,8 @@ class Order
             $now,
             null,
             $now,
-            $now
+            $now,
+            null,
         );
     }
 
@@ -57,6 +59,7 @@ class Order
         ?\DateTimeImmutable $closedAt,
         \DateTimeImmutable $createdAt,
         \DateTimeImmutable $updatedAt,
+        ?array $orderLines = null,
     ): self {
         return new self(
             Uuid::create($id),
@@ -69,7 +72,8 @@ class Order
             DomainDateTime::create($openedAt),
             $closedAt !== null ? DomainDateTime::create($closedAt) : null,
             DomainDateTime::create($createdAt),
-            DomainDateTime::create($updatedAt)
+            DomainDateTime::create($updatedAt),
+            $orderLines,
         );
     }
 
@@ -91,7 +95,26 @@ class Order
             $this->openedAt,
             $closedAt,
             $this->createdAt,
-            DomainDateTime::now()
+            DomainDateTime::now(),
+            $this->orderLines,
+        );
+    }
+
+    public function withOrderLines(array $orderLines): self
+    {
+        return new self(
+            $this->id,
+            $this->restaurantId,
+            $this->status,
+            $this->tableId,
+            $this->openedByUserId,
+            $this->closedByUserId,
+            $this->diners,
+            $this->openedAt,
+            $this->closedAt,
+            $this->createdAt,
+            $this->updatedAt,
+            $orderLines,
         );
     }
 
@@ -148,5 +171,15 @@ class Order
     public function updatedAt(): DomainDateTime
     {
         return $this->updatedAt;
+    }
+
+    public function orderLines(): ?array
+    {
+        return $this->orderLines;
+    }
+
+    public function getOrderLines(): ?array
+    {
+        return $this->orderLines();
     }
 }

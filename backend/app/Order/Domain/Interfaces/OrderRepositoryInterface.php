@@ -10,6 +10,8 @@ interface OrderRepositoryInterface
 
     public function getByRestaurantId(string $restaurantId): array;
 
+    public function findByTableUuidAndActive(string $tableUuid): ?Order;
+
     public function findIdByUuid(string $uuid, int $restaurantId): ?int;
 
     public function deleteById(string $id): void;

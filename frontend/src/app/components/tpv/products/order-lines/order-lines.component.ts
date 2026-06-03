@@ -22,6 +22,7 @@ import { addIcons } from 'ionicons';
 import { addOutline, removeOutline, trashOutline } from 'ionicons/icons';
 import { IOrder } from 'src/app/models/order';
 import { LocalStorageService } from 'src/app/services/storage/local-storage-service';
+import { ITable } from 'src/app/models/table';
 
 @Component({
   selector: 'app-order-lines',
@@ -50,10 +51,11 @@ export class OrderLinesComponent implements OnInit {
 
   orderLines: IOrderLines = [];
   @Input() products: IProducts = [];
-  @Input() tableName: string = 'Ninguna';
   @Input() diners: number = 0;
   @Input() tableId: string = '';
+  @Input() table: ITable | undefined = undefined;
   total: number = 0;
+  tableName: string | undefined= '';
 
   constructor() {
     addIcons({ trashOutline, removeOutline, addOutline });
@@ -63,6 +65,7 @@ export class OrderLinesComponent implements OnInit {
     this.orderLineManager.getLinesForTable(this.tableId).subscribe((lines) => {
       this.orderLines = lines;
       this.total = this.calculateTotal();
+      this.tableName = this.table?.name;
     });
   }
 
@@ -114,11 +117,18 @@ export class OrderLinesComponent implements OnInit {
             diners: response.diners,
           };
           this.localService.setOrderByTable( this.tableId ,newOrder);
+          this.table?.__occupied == true;
         },
         error: (err) => {
           console.error('Error al crear pedido', err);
         },
       });
     }
+  }
+
+  closeOrder() {
+    this.localService.removeOrderByTable(this.tableId);
+    this.localService.removeOrderLines(this.tableId);
+    this.orderLineManager.clear(this.tableId);
   }
 }
