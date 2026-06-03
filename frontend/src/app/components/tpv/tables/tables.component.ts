@@ -1,35 +1,38 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ITables } from 'src/app/models/table';
-import { TableService as TableRestService } from 'src/app/services/HTTPRequests/table-service';
-import { TableService as TableUserService } from 'src/app/services/HTTPRequests/tpv/table-service';
+import { TableService } from 'src/app/services/HTTPRequests/table-service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage-service';
-import {
-  IonCardContent,
-  IonCard,
-  ModalController,
-} from '@ionic/angular/standalone';
+import { IonCardContent, IonCard, ModalController, IonSegment, IonSegmentButton, IonLabel } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { LoginModalComponent } from '../user/login-modal/login-modal.component';
 import { NumpadComponent } from '../numpad/numpad.component';
+import { FilterByZonePipe } from 'src/app/pipes/table/filter-by-zone-pipe';
+import { ZoneService } from 'src/app/services/HTTPRequests/zone-service';
+import { IZones } from 'src/app/models/zone';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tables',
   templateUrl: './tables.component.html',
   styleUrls: ['./tables.component.scss'],
-  imports: [IonCardContent, IonCard],
+  imports: [IonCardContent, FilterByZonePipe, IonSegment, IonSegmentButton, IonLabel, FormsModule],
 })
 export class TablesComponent implements OnInit {
-  private tablesRestaurantService = inject(TableRestService);
+  private tablesService = inject(TableService);
+  private zoneService = inject(ZoneService);
   private localService = inject(LocalStorageService);
   private router = inject(Router);
   private modalCtrl = inject(ModalController);
 
   tables: ITables = [];
+  zones: IZones = [];
+  selectedZone: string = '';
 
   constructor() {}
 
   ngOnInit() {
     this.getTables();
+    this.getZones();
     this.tables.forEach((element) => {
       console.log(element.__occupied);
     });
@@ -43,12 +46,23 @@ export class TablesComponent implements OnInit {
   }
 
   getTables() {
-    this.tablesRestaurantService.getAll().subscribe({
+    this.tablesService.getAll().subscribe({
       next: (response: ITables) => {
         this.tables = response;
       },
       error(err) {
         console.log('Error fetching tables restaurante', err);
+      },
+    });
+  }
+
+  getZones() {
+    this.zoneService.getAll().subscribe({
+      next: (response: IZones) => {
+        this.zones = response;
+      },
+      error(err) {
+        console.log('Error fetching zones restaurante', err);
       },
     });
   }

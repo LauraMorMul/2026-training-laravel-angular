@@ -1,12 +1,30 @@
-@for (table of tables; track table.id) {
-  <ion-card (click)="openProducts(table.id)">
-    <ion-card-content>
-      @if (table.__occupied) {
-        <p>Ocupada</p>
-      } @else {
-        <p>Libre</p>
+<div class="table-list__container">
+  <div class="table-list__zone-filter">
+    <ion-segment [(ngModel)]="selectedZone" color="secondary">
+      <ion-segment-button [value]="''">
+        <ion-label>Todas</ion-label>
+      </ion-segment-button>
+      @for (zone of zones; track $index) {
+        <ion-segment-button [value]="zone.id">
+          <ion-label>{{ zone.name }}</ion-label>
+        </ion-segment-button>
       }
-        <p>{{ table.name }}</p>
-    </ion-card-content>
-  </ion-card>
-}
+    </ion-segment>
+  </div>
+
+  <div class="table-list__list">
+    @for (table of tables | filterByZone: selectedZone; track table.id) {
+      <div (click)="openProducts(table.id)" class="table-list__item" [class]="table.__occupied ? 'occupied' : 'free'">
+        <ion-card-content class="table-list__item-content">
+          @if (table.__occupied) {
+            <p>Ocupada</p>
+          } @else {
+            <p>Libre</p>
+          }
+          <p id="table-name">{{ table.name }}</p>
+          <p>@if (table.__occupied) {Ocupada} @else {Libre}</p>
+        </ion-card-content>
+      </div>
+    }
+  </div>
+</div>
