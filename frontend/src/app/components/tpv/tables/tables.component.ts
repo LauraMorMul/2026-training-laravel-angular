@@ -1,8 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ITables } from 'src/app/models/table';
+import { ITable, ITables } from 'src/app/models/table';
 import { TableService } from 'src/app/services/HTTPRequests/table-service';
 import { LocalStorageService } from 'src/app/services/storage/local-storage-service';
-import { IonCardContent, IonCard, ModalController, IonSegment, IonSegmentButton, IonLabel } from '@ionic/angular/standalone';
+import {
+  IonCardContent,
+  ModalController,
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
+} from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { LoginModalComponent } from '../user/login-modal/login-modal.component';
 import { NumpadComponent } from '../numpad/numpad.component';
@@ -15,7 +21,14 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-tables',
   templateUrl: './tables.component.html',
   styleUrls: ['./tables.component.scss'],
-  imports: [IonCardContent, FilterByZonePipe, IonSegment, IonSegmentButton, IonLabel, FormsModule],
+  imports: [
+    IonCardContent,
+    FilterByZonePipe,
+    IonSegment,
+    IonSegmentButton,
+    IonLabel,
+    FormsModule,
+  ],
 })
 export class TablesComponent implements OnInit {
   private tablesService = inject(TableService);
@@ -33,9 +46,6 @@ export class TablesComponent implements OnInit {
   ngOnInit() {
     this.getTables();
     this.getZones();
-    this.tables.forEach((element) => {
-      console.log(element.__occupied);
-    });
   }
 
   ionViewDidEnter() {
@@ -67,19 +77,23 @@ export class TablesComponent implements OnInit {
     });
   }
 
-  openProducts(table: string) {
+  openProducts(table: ITable) {
     if (this.localService.isThereUserToken()) {
-      this.openDinersModal(table);
+      if (this.localService.checkOrderByTable(table.id)) {
+        this.router.navigate([`/tpv/products/${table.id}`]);
+      } else {
+        this.openDinersModal(table.id);
+      }
     } else {
       this.openLoginModal(table);
     }
   }
 
-  async openLoginModal(table: string) {
+  async openLoginModal(table: ITable) {
     const modal = await this.modalCtrl.create({
       component: LoginModalComponent,
       componentProps: {
-        tableId: table,
+        tableId: table.id,
       },
     });
 
@@ -87,7 +101,11 @@ export class TablesComponent implements OnInit {
 
     const { data } = await modal.onDidDismiss();
     if (data?.success) {
-      this.openDinersModal(table);
+      if (this.localService.checkOrderByTable(table.id)) {
+        this.router.navigate([`/tpv/products/${table.id}`]);
+      } else {
+        this.openDinersModal(table.id);
+      }
     }
   }
 

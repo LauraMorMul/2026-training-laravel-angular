@@ -82,6 +82,11 @@ export class LocalStorageService {
     return order?.id || null;
   }
 
+  checkOrderByTable(tableId: string): boolean {
+    const order = this.getOrderByTable(tableId);
+    return order ? true : false;
+  }
+
   removeOrderByTable(tableId: string): void {
     localStorage.removeItem(`order-for-${tableId}`);
   }
