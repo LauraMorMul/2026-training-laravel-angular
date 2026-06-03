@@ -14,7 +14,7 @@
 
   <div class="table-list__list">
     @for (table of tables | filterByZone: selectedZone; track table.id) {
-      <div (click)="openProducts(table.id)" class="table-list__item" [class]="table.__occupied ? 'occupied' : 'free'">
+      <div (click)="openProducts(table)" class="table-list__item" [class]="table.__occupied ? 'occupied' : 'free'">
         <ion-card-content class="table-list__item-content">
           @if (table.__occupied) {
             <p>Ocupada</p>

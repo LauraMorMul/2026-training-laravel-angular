@@ -53,6 +53,7 @@ export class OrderLinesComponent implements OnInit {
   private tableService = inject(TableService);
   private router = inject(Router);
 
+  order: IOrder | null = null;
   orderLines: IOrderLines = [];
   @Input() products: IProducts = [];
   @Input() diners: number = 0;
@@ -66,6 +67,10 @@ export class OrderLinesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getOrder()
+    if(this.order) {
+      this.diners = this.order.diners;
+    }
     this.orderLineManager.getLinesForTable(this.tableId).subscribe((lines) => {
       this.orderLines = lines;
       this.total = this.calculateTotal();
@@ -78,6 +83,10 @@ export class OrderLinesComponent implements OnInit {
       (sum, line) => sum + line.price * line.quantity,
       0,
     );
+  }
+
+  getOrder() {
+    this.order = this.localService.getOrderByTable(this.tableId);
   }
 
   getOrderLines() {
