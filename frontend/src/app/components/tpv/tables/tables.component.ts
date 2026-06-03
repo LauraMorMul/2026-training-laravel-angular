@@ -19,8 +19,7 @@ import { NumpadComponent } from '../numpad/numpad.component';
   imports: [IonCardContent, IonCard],
 })
 export class TablesComponent implements OnInit {
-  private tablesRestaurantService = inject(TableUserService);
-  private tablesUserService = inject(TableRestService);
+  private tablesRestaurantService = inject(TableRestService);
   private localService = inject(LocalStorageService);
   private router = inject(Router);
   private modalCtrl = inject(ModalController);
@@ -31,42 +30,31 @@ export class TablesComponent implements OnInit {
 
   ngOnInit() {
     this.getTables();
-    this.tables.forEach(element => {
-      console.log(element.__occupied)
+    this.tables.forEach((element) => {
+      console.log(element.__occupied);
     });
   }
 
   ionViewDidEnter() {
-    this.tables.forEach(element => {
-      console.log(element.__occupied)
+    this.getTables();
+    this.tables.forEach((element) => {
+      console.log(element.__occupied);
     });
   }
 
   getTables() {
-    if (this.localService.isThereUserToken()) {
-      this.tablesUserService.getAll().subscribe({
-        next: (response: ITables) => {
-          this.tables = [...response];
-        },
-        error(err) {
-          console.log('Error fetching tables usuario', err);
-        },
-      });
-    } else {
-      this.tablesRestaurantService.getAll().subscribe({
-        next: (response: ITables) => {
-          this.tables = [...response];
-        },
-        error(err) {
-          console.log('Error fetching tables restaurante', err);
-        },
-      });
-    }
+    this.tablesRestaurantService.getAll().subscribe({
+      next: (response: ITables) => {
+        this.tables = response;
+      },
+      error(err) {
+        console.log('Error fetching tables restaurante', err);
+      },
+    });
   }
 
   openProducts(table: string) {
     if (this.localService.isThereUserToken()) {
-      //this.router.navigate([`/tpv/products/${table}`]);
       this.openDinersModal(table);
     } else {
       this.openLoginModal(table);
@@ -102,7 +90,7 @@ export class TablesComponent implements OnInit {
     const { data } = await modal.onDidDismiss();
     if (data?.success) {
       this.router.navigate([`/tpv/products/${data.tableId}`], {
-        state: { diners: data.diners }
+        state: { diners: data.diners },
       });
     }
   }
