@@ -1,10 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IProducts } from 'src/app/models/product';
-import {
-  IonThumbnail,
-  IonLabel,
-  IonButton,
-} from '@ionic/angular/standalone';
+import { IProduct, IProducts } from 'src/app/models/product';
+import { IonThumbnail, IonLabel, IonButton } from '@ionic/angular/standalone';
 import { ImageFormatter } from 'src/app/services/helper/image-formatter';
 import { CurrencyPipe } from '@angular/common';
 import { MoneyFormatterPipe } from 'src/app/pipes/money-formatter-pipe';
@@ -26,7 +22,7 @@ import { FilterProductByFamilyPipe } from 'src/app/pipes/product/filter-by-famil
     MoneyFormatterPipe,
     IonButton,
     FilterByStatePipe,
-    FilterProductByFamilyPipe
+    FilterProductByFamilyPipe,
   ],
 })
 export class ProductListComponent implements OnInit {
@@ -42,12 +38,12 @@ export class ProductListComponent implements OnInit {
     this.getFamilies();
   }
 
-  addToOrder(id: string, price: number) {
+  addToOrder(product: IProduct) {
     const orderLine: IOrderLine = {
-      product_id: id,
+      product_id: product.id,
       quantity: 1,
-      price: price,
-      percentage: 10
+      price: product.price,
+      percentage: product.tax.percentage,
     };
     this.orderLineManager.addOrderLine(this.tableId, orderLine);
   }
