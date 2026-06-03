@@ -23,6 +23,8 @@ import { addOutline, removeOutline, trashOutline } from 'ionicons/icons';
 import { IOrder } from 'src/app/models/order';
 import { LocalStorageService } from 'src/app/services/storage/local-storage-service';
 import { ITable } from 'src/app/models/table';
+import { TableService } from 'src/app/services/HTTPRequests/table-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-lines',
@@ -48,6 +50,8 @@ export class OrderLinesComponent implements OnInit {
   public orderLineManager = inject(OrderLineManagerService);
   private orderManager = inject(OrderManagerService);
   private localService = inject(LocalStorageService);
+  private tableService = inject(TableService);
+  private router = inject(Router);
 
   orderLines: IOrderLines = [];
   @Input() products: IProducts = [];
@@ -97,6 +101,7 @@ export class OrderLinesComponent implements OnInit {
         .subscribe({
           next: (response) => {
             console.log('Bien?');
+            this.router.navigate(['/tpv/tables']);
           },
           error: (err) => {
             console.error('Mal :(');
@@ -117,7 +122,8 @@ export class OrderLinesComponent implements OnInit {
             diners: response.diners,
           };
           this.localService.setOrderByTable( this.tableId ,newOrder);
-          this.table?.__occupied == true;
+          this.tableService.updateOccupied(this.tableId, true);
+          this.router.navigate(['/tpv/tables']);
         },
         error: (err) => {
           console.error('Error al crear pedido', err);
@@ -130,5 +136,7 @@ export class OrderLinesComponent implements OnInit {
     this.localService.removeOrderByTable(this.tableId);
     this.localService.removeOrderLines(this.tableId);
     this.orderLineManager.clear(this.tableId);
+    this.tableService.updateOccupied(this.tableId, false);
+    this.router.navigate(['/tpv/tables']);
   }
 }
