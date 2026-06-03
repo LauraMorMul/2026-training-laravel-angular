@@ -5,6 +5,7 @@ import { OrderLinesComponent } from "../order-lines/order-lines.component";
 import { ProductService } from 'src/app/services/HTTPRequests/product-service';
 import { IProducts } from 'src/app/models/product';
 import { TableService } from 'src/app/services/HTTPRequests/tpv/table-service';
+import { ITable } from 'src/app/models/table';
 
 @Component({
   selector: 'app-product-container',
@@ -21,12 +22,14 @@ export class ProductContainerComponent implements OnInit {
   products: IProducts = [];
   tableName: string = '';
   diners: number = 0;
+  table: ITable | undefined = undefined;
 
   ngOnInit() {
     this.diners = history.state?.['diners'] || 0;
     this.getProducts();
     this.tableService.getAll().subscribe(tables => {
       this.tableName = tables.find(t => t.id === this.tableId)?.name || '';
+      this.table = tables.find(t => t.id === this.tableId);
     });
   }
 

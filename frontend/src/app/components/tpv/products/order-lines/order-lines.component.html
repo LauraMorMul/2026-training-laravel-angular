@@ -31,6 +31,10 @@
       <ion-label>Precio total:</ion-label>
       <ion-label>{{total | moneyFormatter | currency:'EUR'}}</ion-label>
     </ion-item>
-    <ion-button (click)="confirmOrder()" [disabled]="orderLines.length === 0">Confirmar pedido</ion-button>
+    <div>
+      <ion-button (click)="confirmOrder()" [disabled]="orderLines.length === 0">Confirmar pedido</ion-button>
+      <ion-button (click)="closeOrder()" [disabled]="orderLines.length === 0">Cerrar pedido</ion-button>
+    </div>
+    
   </ion-card-content>
 </ion-card>

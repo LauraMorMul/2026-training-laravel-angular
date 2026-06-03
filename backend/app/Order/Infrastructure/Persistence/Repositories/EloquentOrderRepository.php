@@ -56,8 +56,8 @@ class EloquentOrderRepository implements OrderRepositoryInterface
                 $model->opened_by_user_id,
                 $model->closed_by_user_id,
                 $model->diners,
-                $model->opened_at,
-                $model->closed_at,
+                $model->opened_at->toDateTimeImmutable(),
+                $model->closed_at?->toDateTimeImmutable(),
                 $model->created_at->toDateTimeImmutable(),
                 $model->updated_at->toDateTimeImmutable(),
             );
@@ -65,6 +65,36 @@ class EloquentOrderRepository implements OrderRepositoryInterface
         }
 
         return $orders;
+    }
+
+    public function findByTableUuidAndActive(string $tableUuid): ?Order
+    {
+        $model = $this->model->newQuery()
+            ->whereIn('table_id', function ($query) use ($tableUuid) {
+                $query->from('tables')
+                    ->select('id')
+                    ->where('uuid', $tableUuid);
+            })
+            ->where('status', 'open')
+            ->first();
+
+        if ($model === null) {
+            return null;
+        }
+
+        return Order::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->status,
+            $model->table_id,
+            $model->opened_by_user_id,
+            $model->closed_by_user_id,
+            $model->diners,
+            $model->opened_at->toDateTimeImmutable(),
+            $model->closed_at?->toDateTimeImmutable(),
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
     }
 
     public function deleteById(string $id): void

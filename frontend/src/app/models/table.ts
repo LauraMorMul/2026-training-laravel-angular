@@ -6,7 +6,8 @@ export interface ITable {
     };
     name: string;
     created_at: string;
-    updated_at: string
+    updated_at: string;
+    __occupied?: boolean;
 };
 
 export type ITables = ITable[];
