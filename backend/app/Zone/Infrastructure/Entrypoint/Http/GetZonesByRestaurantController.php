@@ -13,7 +13,7 @@ class GetZonesByRestaurantController
 
     public function __invoke()
     {
-        $restaurantID = auth('user')->user()->restaurant_id;
+        $restaurantID = auth('restaurant')->user()->id;
         $response = ($this->getZonesByRestaurant)($restaurantID);
 
         if ($response == null) {

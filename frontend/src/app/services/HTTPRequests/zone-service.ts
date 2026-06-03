@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ApiResponse, BaseApiService } from '../api/base-api.service';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { IZones } from '../../../app/models/zone';
+import { LocalStorageService } from '../storage/local-storage-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ZoneService extends BaseApiService {
   private zones$ = new BehaviorSubject<IZones>([]);
+  private localService = inject(LocalStorageService);
 
   getAll(): Observable<IZones> {
     if (this.zones$.getValue().length === 0) {
@@ -18,12 +20,21 @@ export class ZoneService extends BaseApiService {
   }
 
   private loadZones(): void {
-    this.httpCall('/zones/restaurant', null, 'get').subscribe({
-      next: (response: ApiResponse) => {
-        const zones = response as unknown as IZones;
-        this.zones$.next(zones);
-      },
-    });
+    if (this.localService.isThereUserToken()) {
+      this.httpCall('/zones/user', null, 'get').subscribe({
+        next: (response: ApiResponse) => {
+          const zones = response as unknown as IZones;
+          this.zones$.next(zones);
+        },
+      });
+    } else {
+      this.httpCall('/zones/restaurant', null, 'get').subscribe({
+        next: (response: ApiResponse) => {
+          const zones = response as unknown as IZones;
+          this.zones$.next(zones);
+        },
+      });
+    }
   }
 
   refreshZones(): void {
