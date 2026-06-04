@@ -41,6 +41,7 @@ export class ProductListComponent implements OnInit {
   addToOrder(product: IProduct) {
     const orderLine: IOrderLine = {
       product_id: product.id,
+      product_name: product.name,
       quantity: 1,
       price: product.price,
       percentage: product.tax.percentage,

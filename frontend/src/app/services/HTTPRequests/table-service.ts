@@ -21,7 +21,6 @@ export class TableService extends BaseApiService {
 
   private loadTables(): void {
     if (this.localService.isThereUserToken()) {
-      console.log('hay user token?', this.localService.isThereUserToken());
       this.httpCall('/tables/user', null, 'get').subscribe({
         next: (response: ApiResponse) => {
           const tables = response as unknown as ITables;
@@ -48,11 +47,9 @@ export class TableService extends BaseApiService {
 
   updateOccupied(tableId: string, occupied: boolean): void {
     const current = this.tables$.getValue();
-    console.log('antes:', current);
     const updated = current.map((table) =>
       table.id === tableId ? { ...table, __occupied: occupied } : table,
     );
-    console.log('después:', updated);
     this.tables$.next(updated);
   }
 

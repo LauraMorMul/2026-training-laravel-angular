@@ -20,13 +20,16 @@ import { OrderManagerService } from 'src/app/services/tpv/order-manager-service'
 import { MoneyFormatterPipe } from 'src/app/pipes/money-formatter-pipe';
 import { CurrencyPipe } from '@angular/common';
 import { addIcons } from 'ionicons';
-import { addOutline, removeOutline, trashOutline } from 'ionicons/icons';
+import { addOutline, manOutline, removeOutline, trashOutline } from 'ionicons/icons';
 import { IOrder } from 'src/app/models/order';
 import { LocalStorageService } from 'src/app/services/storage/local-storage-service';
 import { ITable } from 'src/app/models/table';
 import { TableService } from 'src/app/services/HTTPRequests/table-service';
 import { Router } from '@angular/router';
 import { NumpadComponent } from '../../numpad/numpad.component';
+import { IRestaurant } from 'src/app/models/restaurant';
+import { TicketGeneratorService } from 'src/app/services/ticket/ticket-generator-service';
+import { TicketComponent } from '../../ticket/ticket.component';
 
 @Component({
   selector: 'app-order-lines',
@@ -55,7 +58,9 @@ export class OrderLinesComponent implements OnInit {
   private tableService = inject(TableService);
   private router = inject(Router);
   private modalCtrl = inject(ModalController);
+  private ticketService = inject(TicketGeneratorService);
 
+  restaurant: IRestaurant | null= null;
   order: IOrder | null = null;
   orderLines: IOrderLines = [];
   @Input() products: IProducts = [];
@@ -64,6 +69,7 @@ export class OrderLinesComponent implements OnInit {
   @Input() table: ITable | undefined = undefined;
   total: number = 0;
   tableName: string | undefined= '';
+  ticket: string | undefined = undefined;
 
   constructor() {
     addIcons({ trashOutline, removeOutline, addOutline });
@@ -79,6 +85,8 @@ export class OrderLinesComponent implements OnInit {
       this.total = this.calculateTotal();
       this.tableName = this.table?.name;
     });
+
+    this.restaurant = this.localService.getRestaurant();
   }
 
   calculateTotal(): number {
@@ -165,6 +173,17 @@ export class OrderLinesComponent implements OnInit {
           }
           this.diners = data.diners;
         }
+  }
+
+  async imprimirTicket(tipo: string) {
+    
+    this.ticket = this.ticketService.generarTicket(this.order!, this.orderLines, this.total, this.table?.name!, tipo);
+    const modal = await this.modalCtrl.create({
+      component: TicketComponent,
+      componentProps: { ticket: this.ticket}
+    });
+
+    await modal.present();
   }
 
   closeOrder() {

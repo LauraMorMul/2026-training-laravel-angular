@@ -6,6 +6,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage-serv
 import { AuthService } from 'src/app/services/auth/auth-service';
 import { Router } from '@angular/router';
 import { AdminSelectorComponent } from "src/app/components/login/admin-selector/admin-selector.component";
+import { IRestaurant } from 'src/app/models/restaurant';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginPage implements OnInit {
   private loadingController = inject(LoadingController);
   private toastController = inject(ToastController);
 
-  restaurantName = 'Laura';
+  restaurantName: string | null = null;
 
   formulario = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -51,7 +52,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.restaurantName = this.localService.getRestName() ?? 'Restaurante';
+    this.restaurantName = this.localService.getRestaurant()?.name ?? 'Restaurante';
   }
 
   async login() {

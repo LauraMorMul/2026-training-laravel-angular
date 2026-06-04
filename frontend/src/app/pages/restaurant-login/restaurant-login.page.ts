@@ -64,7 +64,7 @@ export class RestaurantLoginPage implements OnInit{
           next: (response: any) => {
             loading.remove();
             this.localService.setRestaurantToken(response.token);
-            this.localService.setRestName(response.restaurant.name);
+            this.localService.setRestaurant(response.restaurant);
             this.router.navigate(['/login']);
           },
           error: (err) => {
