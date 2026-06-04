@@ -12,9 +12,6 @@ final readonly class LoginRestaurantResponse
         private string $legalName,
         private string $taxID,
         private string $email,
-        private string $password,
-        private string $createdAt,
-        private string $updatedAt,
         private string $token,
     ) {}
 
@@ -26,9 +23,6 @@ final readonly class LoginRestaurantResponse
             legalName: $restaurant->legalName()->value(),
             taxID: $restaurant->taxID()->value(),
             email: $restaurant->email()->value(),
-            password: $restaurant->passwordHash()->value(),
-            createdAt: $restaurant->createdAt()->format(\DateTimeInterface::ATOM),
-            updatedAt: $restaurant->updatedAt()->format(\DateTimeInterface::ATOM),
             token: $token,
         );
     }
@@ -41,10 +35,8 @@ final readonly class LoginRestaurantResponse
                 'id' => $this->id,
                 'name' => $this->name,
                 'legal_name' => $this->legalName,
-                'tax_ID' => $this->taxID,
+                'tax_id' => $this->taxID,
                 'email' => $this->email,
-                'created_at' => $this->createdAt,
-                'updated_at' => $this->updatedAt,
             ],
         ];
     }

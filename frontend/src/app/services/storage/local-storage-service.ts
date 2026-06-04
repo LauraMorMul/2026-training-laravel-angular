@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IOrder } from 'src/app/models/order';
 import { IOrderLines } from 'src/app/models/order_line';
+import { IRestaurant } from 'src/app/models/restaurant';
 
 @Injectable({
   providedIn: 'root',
@@ -52,12 +53,13 @@ export class LocalStorageService {
     localStorage.removeItem('restaurant_token');
   }
 
-  setRestName(value: string): void {
-    localStorage.setItem('restaurant_name', value);
+  setRestaurant(restaurant: IRestaurant): void {
+    localStorage.setItem('restaurant', JSON.stringify(restaurant));
   }
 
-  getRestName(): string | null {
-    return localStorage.getItem('restaurant_name');
+  getRestaurant(): IRestaurant | null {
+    const restaurant = localStorage.getItem('restaurant');
+    return restaurant ? JSON.parse(restaurant) : null;
   }
 
   setUserName(value: string): void {
