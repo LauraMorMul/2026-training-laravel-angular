@@ -8,12 +8,34 @@ ion-content {
     height: 100%;
 }
 
+ion-toolbar {
+    height: 50px;
+    border: none;
+    background-color: var(--ion-color-secondary);
+}
+
+.toolbar-background {
+    --border-style: none;
+    --border-color: none;
+    --background: none;
+}
+
 .side-menu__wrapper {
     background-color: var(--ion-color-secondary);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    width: 50px;
+    min-width: 75px;
     min-width: fit-content;
+}
+
+.header-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba(var(--ion-color-secondary-rgb), 0.25);
+    height: 75px;
+    width: 100%;
 }

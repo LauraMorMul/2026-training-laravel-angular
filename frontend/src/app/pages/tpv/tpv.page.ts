@@ -16,6 +16,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/storage/local-storage-service';
 import { AuthService } from 'src/app/services/auth/auth-service';
 import { ImageFormatter } from 'src/app/services/helper/image-formatter';
+import { IRestaurant } from 'src/app/models/restaurant';
 
 @Component({
   selector: 'app-tpv',
@@ -43,11 +44,13 @@ export class TpvPage implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   public imageService = inject(ImageFormatter);
+  restaurant: IRestaurant | null = null; 
   userName: string | null = null;
   userImg: string | null = null;
 
   ngOnInit() {
     this.localService.removeUserToken();
+    this.restaurant = this.localService.getRestaurant();
     this.userName = this.localService.getUserName();
     this.userImg = this.localService.getUserImg();
     if (this.userImg === null) {
