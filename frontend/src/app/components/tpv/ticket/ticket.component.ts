@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { IonButton, IonCard } from "@ionic/angular/standalone";
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { IonButton, IonCard, ModalController } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-ticket',
@@ -7,12 +8,14 @@ import { IonButton, IonCard } from "@ionic/angular/standalone";
   styleUrls: ['./ticket.component.scss'],
   imports: [IonButton, IonCard],
 })
-export class TicketComponent  implements OnInit {
+export class TicketComponent {
+  private router = inject(Router);
+  private modalCrtl = inject(ModalController);
 
   ticket: string = '';
 
-  constructor() { }
-
-  ngOnInit() {}
-
+  printAndLeave() {
+    this.router.navigate(['/tpv/tables']);
+    this.modalCrtl.dismiss();
+  }
 }
