@@ -12,6 +12,8 @@ interface UserRepositoryInterface
 
     public function findIdByUuid(string $uuid, int $restaurantId): ?int;
 
+    public function findByInternalId(string $id): ?User;
+
     public function findByEmailAndRestaurant(string $email, int $id): ?User;
 
     public function findByEmail(string $email): ?User;

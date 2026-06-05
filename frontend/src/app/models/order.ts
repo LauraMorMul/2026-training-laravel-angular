@@ -9,5 +9,8 @@ export interface IOrder {
     diners: number,
     opened_at?: string,
     closed_at?: string,
-    orderLines?: IOrderLines
+    orderLines?: IOrderLines,
+
+
+    user_closes_name?: string,
 }

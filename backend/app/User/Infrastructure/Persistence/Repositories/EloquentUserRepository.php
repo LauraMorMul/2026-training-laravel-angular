@@ -52,6 +52,28 @@ class EloquentUserRepository implements UserRepositoryInterface
         );
     }
 
+    public function findByInternalId(string $id): ?User
+    {
+        $model = $this->model->newQuery()->where('id', $id)->first();
+
+        if ($model === null) {
+            return null;
+        }
+
+        return User::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->role,
+            $model->image_src,
+            $model->name,
+            $model->email,
+            $model->password,
+            $model->pin,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+    }
+
     public function findIdByUuid(string $uuid, int $restaurantId): ?int
     {
         $model = $this->model->newQuery()->where('uuid', $uuid)->value('id');

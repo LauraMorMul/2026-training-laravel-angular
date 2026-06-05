@@ -61,6 +61,35 @@ class EloquentOrderLineRepository implements OrderLineRepositoryInterface
         return $orderLines;
     }
 
+    public function findIdByUuid(string $uuid, int $restaurantId): ?int
+    {
+        $model = $this->model->newQuery()->where('uuid', $uuid)->value('id');
+
+        if ($model === null) {
+            return null;
+        }
+
+        return $model;
+    }
+
+    public function findByUuid(string $uuid, int $restaurantId): ?OrderLine
+    {
+        $model = $this->model->newQuery()->where('uuid', $uuid)->next();
+
+        return OrderLine::fromPersistence(
+            $model->uuid,
+            $model->restaurant_id,
+            $model->order_id,
+            $model->product_id,
+            $model->user_id,
+            $model->quantity,
+            $model->price,
+            $model->tax_percentage,
+            $model->created_at->toDateTimeImmutable(),
+            $model->updated_at->toDateTimeImmutable(),
+        );
+    }
+
     #[Override]
     public function findByOrderAndProduct(string $orderUuid, string $productUuid, int $restaurantId)
     {
